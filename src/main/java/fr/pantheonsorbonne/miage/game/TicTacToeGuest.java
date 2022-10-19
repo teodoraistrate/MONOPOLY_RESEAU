@@ -5,12 +5,13 @@ import fr.pantheonsorbonne.miage.model.Game;
 import fr.pantheonsorbonne.miage.model.GameCommand;
 
 import java.util.Collection;
+import java.util.Random;
 
 public class TicTacToeGuest {
     public static void main(String[] args) throws Exception, FullBoardException {
         PlayerFacadePorcelain facade = PlayerFacadePorcelain.getFacade();
         facade.waitReady();
-        facade.createNewPlayer("Player2");
+        facade.createNewPlayer("Nicolas-" + new Random().nextInt());
         Collection<Game> availableChifoumiGames;
 
         Game currentGame = facade.autoJoinGame("tictactoe");
