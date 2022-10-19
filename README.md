@@ -7,4 +7,4 @@ camel.component.jms.connection-factory.user=
 camel.component.jms.connection-factory.password=
 ```
 
-and set the properties provided in class.
+and set the properties provided in class.g
