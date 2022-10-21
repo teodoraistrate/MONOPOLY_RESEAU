@@ -16,15 +16,20 @@
  */
 package fr.pantheonsorbonne.miage.game;
 
-import fr.pantheonsorbonne.miage.PlayerFacadeImpl;
-import fr.pantheonsorbonne.miage.PlayerFacadePorcelain;
+
+import fr.pantheonsorbonne.miage.Facade;
+import fr.pantheonsorbonne.miage.HostFacade;
+import fr.pantheonsorbonne.miage.PlayerFacade;
+import fr.pantheonsorbonne.miage.game.tictactoe.FullBoardException;
+import fr.pantheonsorbonne.miage.game.tictactoe.TicTacToe;
+import fr.pantheonsorbonne.miage.game.tictactoe.TicTacToeImpl;
 import fr.pantheonsorbonne.miage.model.Game;
 import fr.pantheonsorbonne.miage.model.GameCommand;
 
 import java.util.Random;
 
 /**
- * Main class that boot the Camel application
+ * This is an example for the host in the tictactoe game
  */
 public final class TicTacToeHost {
 
@@ -32,48 +37,77 @@ public final class TicTacToeHost {
     }
 
     public static void main(String[] args) throws Exception, FullBoardException {
-        PlayerFacadePorcelain facade = PlayerFacadeImpl.getSingleton();
-        facade.waitReady();
+        //get the player facade, to interract with other player
+        PlayerFacade playerFacade = (PlayerFacade) Facade.getFacade();
+        //get the host facade, to manage the game
+        HostFacade hostFacade = (HostFacade) Facade.getFacade();
+        //wait until we are ready to use the host facade
+        hostFacade.waitReady();
+        //set our player name
+        playerFacade.createNewPlayer("Nicolas" + new Random().nextInt());
 
-        facade.createNewPlayer("Nicolas" + new Random().nextInt());
-
-        tictactoeloop:
+        //play the game until the program quits
         while (true) {
-            Game game = facade.createNewGame("tictactoe");
-            facade.waitForPlayerCount(2);
-
-            TicTacToe board = new TicTacToe(6);
-            char myMark = 'X';
-            facade.sendGameCommand(game, new GameCommand("youare", "O"));
-            while (true) {
-                if (board.getWinner() == myMark) {
-                    facade.sendGameCommand(game, new GameCommand("gameover", "defeat"));
-                    facade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
-                    System.out.println("victory!\n" + board);
-                    continue tictactoeloop;
-                } else if (board.getWinner() == 'O') {
-                    facade.sendGameCommand(game, new GameCommand("gameover", "victory"));
-                    facade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
-                    System.out.println("defeat!\n" + board);
-                    continue tictactoeloop;
-                } else if (board.isFull()) {
-                    facade.sendGameCommand(game, new GameCommand("gameover", "tie"));
-                    facade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
-                    System.out.println("tie!\n" + board);
-                    continue tictactoeloop;
-                }
-
-                board.addRand(myMark);
-                facade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
-                GameCommand command = facade.receiveGameCommand(game);
-                if (!command.name().equals("board")) {
-                    throw new RuntimeException("should be a board command now");
-                }
-
-                board = new TicTacToe(command.body());
-            }
+            //creata a new game
+            Game game = hostFacade.createNewGame("tictactoe");
+            //wait for another player to join
+            hostFacade.waitForPlayerCount(2);
+            //play the game using the player facade
+            playTheGame(playerFacade, game);
 
         }
+    }
+
+    private static void playTheGame(PlayerFacade playerFacade, Game game) throws FullBoardException {
+        //create a new board
+        TicTacToe board = new TicTacToeImpl(6);
+        //I'll be X, the other player will be O
+        char myMark = 'X';
+        //send its mark to the other player
+        playerFacade.sendGameCommand(game, new GameCommand("youare", "O"));
+
+        // loop until the game is other
+        while (true) {
+
+            //check if the game is over
+            if (handleGameOver(playerFacade, game, board, myMark))
+                break;
+
+            //if the game is not over, use my mark on the board
+            board.addRand(myMark);
+
+            //send the board to the other player
+            playerFacade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
+
+            //get the other player's move and retreive the board
+            GameCommand command = playerFacade.receiveGameCommand(game);
+            board = new TicTacToeImpl(command.body());
+        }
+    }
+
+    private static boolean handleGameOver(PlayerFacade playerFacade, Game game, TicTacToe board, char myMark) {
+        //check if the game is over
+        if (board.getWinner() == myMark) {
+            //we've won :-)
+            playerFacade.sendGameCommand(game, new GameCommand("gameover", "defeat"));
+            playerFacade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
+            System.out.println("victory!\n" + board);
+            return true;
+        } else if (board.getWinner() == 'O') {
+            //we've lost :-(
+            playerFacade.sendGameCommand(game, new GameCommand("gameover", "victory"));
+            playerFacade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
+            System.out.println("defeat!\n" + board);
+            return true;
+        } else if (board.isFull()) {
+            //it's a tie :-/
+            playerFacade.sendGameCommand(game, new GameCommand("gameover", "tie"));
+            playerFacade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
+            System.out.println("tie!\n" + board);
+            return true;
+        }
+        //the game is not over
+        return false;
     }
 
 }

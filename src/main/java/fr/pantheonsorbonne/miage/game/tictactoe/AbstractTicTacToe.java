@@ -1,14 +1,21 @@
-package fr.pantheonsorbonne.miage.game;
+package fr.pantheonsorbonne.miage.game.tictactoe;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
-public class TicTacToe {
-    private static final Random rand = new Random();
-    private char[][] board;
+/**
+ * This class represents a tictactoe board
+ */
+public abstract class AbstractTicTacToe implements TicTacToe {
 
-    public TicTacToe(int size) {
+    protected char[][] board;
+
+    /**
+     * create a new blank tictactoe board with a size (board will be size x size)
+     *
+     * @param size size of the board
+     */
+    public AbstractTicTacToe(int size) {
         board = new char[size][];
         for (int i = 0; i < board.length; i++) {
             board[i] = new char[size];
@@ -18,7 +25,12 @@ public class TicTacToe {
         }
     }
 
-    public TicTacToe(String flat) {
+    /**
+     * load the board from the flat string version
+     *
+     * @param flat
+     */
+    public AbstractTicTacToe(String flat) {
         var len = (int) Math.sqrt(flat.length());
         board = new char[len][];
         for (int i = 0; i < len; i++) {
@@ -29,25 +41,8 @@ public class TicTacToe {
         }
     }
 
-    public void addRand(char c) throws FullBoardException {
 
-        boolean empty = false;
-        if (isFull()) {
-            throw new FullBoardException();
-        }
-        for (; ; ) {
-            int x = rand.nextInt(board.length);
-            int y = rand.nextInt(board.length);
-            if (board[x][y] == '.') {
-                board[x][y] = c;
-                break;
-            }
-
-        }
-
-
-    }
-
+    @Override
     public boolean isFull() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
@@ -59,6 +54,7 @@ public class TicTacToe {
         return true;
     }
 
+    @Override
     public String toFlatString() {
         return this.toString().replaceAll("\n", "");
     }
@@ -75,6 +71,7 @@ public class TicTacToe {
         return sb.substring(0, sb.length() - 1);
     }
 
+    @Override
     public char nextPlayer() {
         Map<Character, Integer> counts = new HashMap<>(Map.of('X', 0, 'O', 0));
         for (int i = 0; i < board.length; i++) {
@@ -94,6 +91,7 @@ public class TicTacToe {
         return minEntry.getKey();
     }
 
+    @Override
     public char getWinner() {
 
         for (char[] line : board) {
