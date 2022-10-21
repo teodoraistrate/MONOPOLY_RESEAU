@@ -37,7 +37,7 @@ public final class TicTacToeHost {
     }
 
     public static void main(String[] args) throws Exception, FullBoardException {
-        //get the player facade, to interract with other player
+        //get the player facade, to interact with other player
         PlayerFacade playerFacade = (PlayerFacade) Facade.getFacade();
         //get the host facade, to manage the game
         HostFacade hostFacade = (HostFacade) Facade.getFacade();
@@ -51,7 +51,7 @@ public final class TicTacToeHost {
             //creata a new game
             Game game = hostFacade.createNewGame("tictactoe");
             //wait for another player to join
-            hostFacade.waitForPlayerCount(2);
+            hostFacade.waitForExtraPlayerCount(2);
             //play the game using the player facade
             playTheGame(playerFacade, game);
 
@@ -64,7 +64,7 @@ public final class TicTacToeHost {
         //I'll be X, the other player will be O
         char myMark = 'X';
         //send its mark to the other player
-        playerFacade.sendGameCommand(game, new GameCommand("youare", "O"));
+        playerFacade.sendGameCommandToAll(game, new GameCommand("youare", "O"));
 
         // loop until the game is other
         while (true) {
@@ -77,7 +77,7 @@ public final class TicTacToeHost {
             board.addRand(myMark);
 
             //send the board to the other player
-            playerFacade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
+            playerFacade.sendGameCommandToAll(game, new GameCommand("board", board.toFlatString()));
 
             //get the other player's move and retreive the board
             GameCommand command = playerFacade.receiveGameCommand(game);
@@ -89,20 +89,20 @@ public final class TicTacToeHost {
         //check if the game is over
         if (board.getWinner() == myMark) {
             //we've won :-)
-            playerFacade.sendGameCommand(game, new GameCommand("gameover", "defeat"));
-            playerFacade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
+            playerFacade.sendGameCommandToAll(game, new GameCommand("gameover", "defeat"));
+            playerFacade.sendGameCommandToAll(game, new GameCommand("board", board.toFlatString()));
             System.out.println("victory!\n" + board);
             return true;
         } else if (board.getWinner() == 'O') {
             //we've lost :-(
-            playerFacade.sendGameCommand(game, new GameCommand("gameover", "victory"));
-            playerFacade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
+            playerFacade.sendGameCommandToAll(game, new GameCommand("gameover", "victory"));
+            playerFacade.sendGameCommandToAll(game, new GameCommand("board", board.toFlatString()));
             System.out.println("defeat!\n" + board);
             return true;
         } else if (board.isFull()) {
             //it's a tie :-/
-            playerFacade.sendGameCommand(game, new GameCommand("gameover", "tie"));
-            playerFacade.sendGameCommand(game, new GameCommand("board", board.toFlatString()));
+            playerFacade.sendGameCommandToAll(game, new GameCommand("gameover", "tie"));
+            playerFacade.sendGameCommandToAll(game, new GameCommand("board", board.toFlatString()));
             System.out.println("tie!\n" + board);
             return true;
         }

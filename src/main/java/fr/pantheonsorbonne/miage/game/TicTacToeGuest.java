@@ -2,7 +2,6 @@ package fr.pantheonsorbonne.miage.game;
 
 import fr.pantheonsorbonne.miage.Facade;
 import fr.pantheonsorbonne.miage.PlayerFacade;
-import fr.pantheonsorbonne.miage.game.tictactoe.AbstractTicTacToe;
 import fr.pantheonsorbonne.miage.game.tictactoe.FullBoardException;
 import fr.pantheonsorbonne.miage.game.tictactoe.TicTacToe;
 import fr.pantheonsorbonne.miage.game.tictactoe.TicTacToeImpl;
@@ -84,7 +83,7 @@ public class TicTacToeGuest {
         TicTacToe board;
         board = new TicTacToeImpl(commandLoop.body());
         board.addRand(myMark);
-        facade.sendGameCommand(currentGame, new GameCommand("board", board.toFlatString()));
+        facade.sendGameCommandToAll(currentGame, new GameCommand("board", board.toFlatString()));
     }
 
 }
