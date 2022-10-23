@@ -4,7 +4,7 @@ Le jeu se joue à deux joueurs et comporte un maitre du jeu joueur.
 
 ## Mise en place
 
-Le maitre du jeu est tout le temps X alors que son adversaire est O.
+Le maitre du jeu est tout le temps X alors que son adversaire est O. Le Maitre du jeu choisit la taille de la grille.
 
 ## Déroulé de la partie
 
@@ -14,11 +14,11 @@ Le maitre du jeu vérifie si la partie est terminée. Si c'est le cas, il en inf
 
 ## Fin de la partie
 
-La partie est terminée lorsqu'aucun des joueurs ne peut plus cocher de case (égalie ou tie) ou lorsqu'une ligne, colonne ou verticale contient les marques d'un seul joueur, qui est déclaré vainqueur.
+La partie est terminée lorsqu'aucun des joueurs ne peut plus cocher de cases (égalité ou tie) ou lorsqu'une ligne, colonne ou verticale contient les marques d'un seul joueur, qui est déclaré vainqueur.
 
 ### Détail des classes principales
 
-* TicTacToeHost classe executable représentant le maitre du jeu
+* TicTacToeHost classe exécutable représentant le maitre du jeu
 * TicTacToeGuest classe exécutable représentant l'adversaire du maitre du jeu
 * TicTacToeStandAlone jeu local.
 
