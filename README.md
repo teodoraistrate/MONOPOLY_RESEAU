@@ -16,7 +16,7 @@ Le maitre du jeu vérifie si la partie est terminée. Si c'est le cas, il en inf
 
 La partie est terminée lorsqu'aucun des joueurs ne peut plus cocher de cases (égalité ou tie) ou lorsqu'une ligne, colonne ou verticale contient les marques d'un seul joueur, qui est déclaré vainqueur.
 
-### Détail des classes principales
+# Détail des classes principales
 
 * TicTacToeHost classe exécutable représentant le maitre du jeu
 * TicTacToeGuest classe exécutable représentant l'adversaire du maitre du jeu
