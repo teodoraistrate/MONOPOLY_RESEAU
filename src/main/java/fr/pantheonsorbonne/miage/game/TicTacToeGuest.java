@@ -19,9 +19,11 @@ public class TicTacToeGuest {
         PlayerFacade facade = Facade.getFacade();
         facade.waitReady();
         //set our palyer name
-        facade.createNewPlayer("Nicolas-" + new Random().nextInt());
+        final String playerName="Nicolas-" + new Random().nextInt();
+        facade.createNewPlayer(playerName);
+        System.out.println("I am: "+ playerName);
         //wait until we are able to join a new game
-        Game currentGame = facade.autoJoinGame("tictactoe");
+        Game currentGame = facade.autoJoinGame("tictactoe2");
 
         //get our mark
         GameCommand command = facade.receiveGameCommand(currentGame);
@@ -82,6 +84,7 @@ public class TicTacToeGuest {
     private static void handleNewBoard(PlayerFacade facade, Game currentGame, char myMark, GameCommand commandLoop) throws FullBoardException {
         TicTacToe board;
         board = new TicTacToeImpl(commandLoop.body());
+        System.out.println("---------------------\n"+board);
         board.addRand(myMark);
         facade.sendGameCommandToAll(currentGame, new GameCommand("board", board.toFlatString()));
     }

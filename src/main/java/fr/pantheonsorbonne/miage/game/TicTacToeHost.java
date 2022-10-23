@@ -49,7 +49,7 @@ public final class TicTacToeHost {
         //play the game until the program quits
         while (true) {
             //creata a new game
-            Game game = hostFacade.createNewGame("tictactoe");
+            Game game = hostFacade.createNewGame("tictactoe2");
             //wait for another player to join
             hostFacade.waitForExtraPlayerCount(2);
             //play the game using the player facade
@@ -75,7 +75,7 @@ public final class TicTacToeHost {
 
             //if the game is not over, use my mark on the board
             board.addRand(myMark);
-
+            System.out.println("-----------------------\n"+board);
             //send the board to the other player
             playerFacade.sendGameCommandToAll(game, new GameCommand("board", board.toFlatString()));
 
