@@ -14,6 +14,10 @@ public abstract class CarteRecevoir extends Carte {
     @Override
     public void appliquerEffet(Joueur joueur) {
         joueur.ajouterArgent(this.montantARecevoir());
+        if (this instanceof CarteRecevoirJoueurs) {
+            CarteRecevoirJoueurs carteRecevoir = (CarteRecevoirJoueurs) this;
+            carteRecevoir.joueursDonnentArgent();
+        }
     }
     
 }
