@@ -1,7 +1,7 @@
 package fr.pantheonsorbonne.miage.game.monopoly.plateau;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.List;
 import java.awt.Color;
 
@@ -27,12 +27,12 @@ public final class Plateau {
     private static List<Case> initialiserPlateau() {
         List <Case> cases = new ArrayList<>();
         cases.add(new Start("Case départ"));
-        cases.add(new Terrain("Boulevard de BelleVille",60, Color.BROWN, new int[] { 2, 4, 10, 30, 90, 160 }, 50 ));
+        cases.add(new Terrain("Boulevard de BelleVille",60, Color.BLACK, new int[] { 2, 4, 10, 30, 90, 160 }, 50 ));
         cases.add(new CaisseDeCommunaute("Caisse de Communauté"));
-        cases.add(new Terrain("Rue LeCourbe",60, Color.BROWN,  new int[] { 4, 8, 20, 60, 180, 320 }, 50));
+        cases.add(new Terrain("Rue LeCourbe",60, Color.BLACK,  new int[] { 4, 8, 20, 60, 180, 320 }, 50));
         cases.add(new Taxes ("Impôts sur le Revenu", 200));
         cases.add(new Gare ("Gare de Montparnasse", 200));
-        cases.add(new Terrain("Rue LeCourbe",60, Color.BROWN,  new int[] { 4, 8, 20, 60, 180, 320 }, 50));
+        cases.add(new Terrain("Rue LeCourbe",60, Color.BLACK,  new int[] { 4, 8, 20, 60, 180, 320 }, 50));
         cases.add(new Taxes("Impôts sur le Revenu", 200));
         cases.add(new Gare("Gare de Montparnasse", 200));
         cases.add(new Terrain("Rue de Vaugirard", 100, Color.CYAN, new int[] { 6, 12, 30, 90, 270, 400 }, 50));
