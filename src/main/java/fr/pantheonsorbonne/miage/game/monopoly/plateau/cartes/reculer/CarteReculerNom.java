@@ -4,7 +4,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 
-public class CarteReculerNom extends CarteReculer {
+public class CarteReculerNom extends CarteReculerTest {
 
     private String nomCase;
 

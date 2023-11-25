@@ -2,22 +2,22 @@ package fr.pantheonsorbonne.miage.testPlateau;
 
 import org.junit.jupiter.api.Test;
 
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.DejaAcheteException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CannotSellExceptionTest {
+public class DejaAcheteExceptionTest {
 
     @Test
     public void testConstructorAndGetMessage() {
         String message = "Test exception message";
-        CannotSellException exception = new CannotSellException(message);
+        DejaAcheteException exception = new DejaAcheteException(message);
         assertEquals(message, exception.getMessage());
     }
 
     @Test
     public void testDefaultConstructor() {
-        CannotSellException exception = new CannotSellException(null);
+        DejaAcheteException exception = new DejaAcheteException(null);
         assertNull(exception.getMessage());
     }
 

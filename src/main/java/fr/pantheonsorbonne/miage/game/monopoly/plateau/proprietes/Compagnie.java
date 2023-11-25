@@ -15,4 +15,3 @@ public class Compagnie extends Propriete {
     
 }
 
-/* Créer une méthode getNombreCompagniesJoueur pour la classe test CompagnieTest */

@@ -1,6 +1,6 @@
 package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.reculer;
 
-public class CarteReculerNombre extends CarteReculer {
+public class CarteReculerNombre extends CarteReculerTest {
 
     private int nombreCases;
 
