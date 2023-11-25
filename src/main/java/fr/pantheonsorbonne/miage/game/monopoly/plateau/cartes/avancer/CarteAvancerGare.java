@@ -4,7 +4,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 
 public class CarteAvancerGare extends CarteAvancer {
 
-    protected CarteAvancerGare(String description) {
+    public CarteAvancerGare(String description) {
         super(description);
     }
 
