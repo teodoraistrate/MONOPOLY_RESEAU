@@ -13,7 +13,7 @@ public final class Plateau {
     private static final List<Case> plateauJeu = initialiserPlateau();
     public static final int DIMENSION_PLATEAU = 40;
 
-    private Plateau() { 
+    public Plateau() { 
     }
 
     public static Case getCaseParId(int id) {

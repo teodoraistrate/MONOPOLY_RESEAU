@@ -136,7 +136,7 @@ public class Joueur {
         this.ajouterPropriete(propriete);
     }
 
-    public void racheterProprieteHypothequee(Propriete propriete) throws PasAssezArgentException, DejaAchete {
+    public void racheterProprieteHypothequee(Propriete propriete) throws PasAssezArgentException, DejaAcheteException {
         double prix = 1.1 * propriete.getPrixRevente(); //prixRevente + 10%
         if (porteMonnaie < prix) throw new PasAssezArgentException ("Vous ne pouvez pas racheter cette propriete!");
         if (!propriete.estHypotheque()) throw new DejaAcheteException("La propriété n'est pas hypothéquée!");
