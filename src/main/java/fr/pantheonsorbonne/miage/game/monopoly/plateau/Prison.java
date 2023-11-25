@@ -7,10 +7,18 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 
 public class Prison extends Case {
 
+    private static Prison instance = null;
     private HashMap<Joueur,Integer> nombreToursPrison = new HashMap<>();
 
     public Prison(String name) {
         super(name);
+    }
+
+    public static Prison getInstance(String nom) {
+        if (instance == null) {
+            instance = new Prison(nom);
+        }
+        return instance;
     }
 
     public void mettreJoueurEnPrison(Joueur joueur) {

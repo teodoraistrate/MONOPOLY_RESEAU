@@ -10,14 +10,22 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Gare;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public final class Plateau {
+    private static Plateau instance = null;
     private static final List<Case> plateauJeu = initialiserPlateau();
     public static final int DIMENSION_PLATEAU = 40;
 
-    public Plateau() { 
+    private Plateau() { 
     }
 
     public static Case getCaseParId(int id) {
         return plateauJeu.get(id);
+    }
+
+    public static Plateau getInstance() {
+        if (instance == null) {
+            instance = new Plateau();
+        }
+        return instance;
     }
 
     public static List<Case> getPlateau() {
