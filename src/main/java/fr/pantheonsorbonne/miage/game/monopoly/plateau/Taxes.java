@@ -4,7 +4,7 @@ public class Taxes extends Case {
 
     private int montantAPayer;
 
-    protected Taxes(String name, int montantAPayer) {
+    public Taxes(String name, int montantAPayer) {
         super(name);
         this.montantAPayer = montantAPayer;
     }

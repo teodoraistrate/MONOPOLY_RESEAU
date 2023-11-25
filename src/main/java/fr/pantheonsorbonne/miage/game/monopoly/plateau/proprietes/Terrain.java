@@ -46,6 +46,8 @@ public class Terrain extends Propriete {
 
     // autres methodes
 
+    //créer méthode acheterHotel et acheter maison avec exception dejaAchetéeException
+
     public void vendreHotel() throws CannotSellException {
         if (!this.estHotel())
             throw new CannotSellException("Vous n'avez pas d'hotel sur ce terrain!");
