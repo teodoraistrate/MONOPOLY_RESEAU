@@ -1,18 +1,16 @@
 package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
-import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.Carte;
 
-public class CarteAvancerGare extends Carte {
+public class CarteAvancerGare extends CarteAvancer {
 
     protected CarteAvancerGare(String description) {
         super(description);
     }
 
     @Override
-    public void appliquerEffet(Joueur joueur) throws PasAssezArgentException {
-        
+    public int getNouvellePosition(Joueur joueur) {
+        return joueur.getPositionPlateau()/10*10+5;
     }
     
 }

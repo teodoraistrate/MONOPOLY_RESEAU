@@ -3,7 +3,6 @@ package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.Carte;
 
 public class CarteAvancerCaseNormale extends CarteAvancer {
 
@@ -15,8 +14,14 @@ public class CarteAvancerCaseNormale extends CarteAvancer {
     }
 
     @Override
-    public int getNouvellePosition() {
-        List<Case> = 
+    public int getNouvellePosition(Joueur joueur) {
+    try {
+        Plateau plateau = new Plateau();
+        return plateau.getCaseParNom(nomCase); 
+    } catch (NomPasValideException e) {
+        e.printStackTrace();
+        return -1; 
     }
+}
 
 }

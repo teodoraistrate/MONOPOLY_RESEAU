@@ -10,12 +10,12 @@ public abstract class CarteAvancer extends Carte {
         super(description);
     }
 
-    public abstract int getNouvellePosition();
+    public abstract int getNouvellePosition(Joueur joueur);
 
     @Override
     public void appliquerEffet(Joueur joueur) throws PasAssezArgentException {
-        int nouvellePosition = this.getNouvellePosition();
+        int nouvellePosition = this.getNouvellePosition(joueur);
         joueur.deplacerNombreCases(nouvellePosition, true);
     }
-    
+
 }
