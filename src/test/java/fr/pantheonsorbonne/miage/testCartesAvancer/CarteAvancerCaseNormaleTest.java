@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.miage.CartesTest;
+package fr.pantheonsorbonne.miage.testCartesAvancer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -25,7 +25,7 @@ public class GareTest {
     @Test
     public void testGetLoyerWithOneGare() {
         Gare gare = new Gare("Gare de Test", 200);
-        gare.setNombreGaresJoueur(1);
+        gare.compterNombreGaresProprietaire();
 
         int loyer = gare.getLoyer();
         assertEquals(25, loyer);
@@ -34,7 +34,7 @@ public class GareTest {
     @Test
     public void testGetLoyerWithMultipleGares() {
         Gare gare = new Gare("Gare de Test", 200);
-        gare.getNombreGaresJoueur(3);
+        gare.compterNombreGaresProprietaire();
         int loyer = gare.getLoyer();
         assertEquals(75, loyer);
     }

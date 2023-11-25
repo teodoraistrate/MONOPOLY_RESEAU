@@ -1,9 +1,7 @@
 
-package fr.pantheonsorbonne.miage.CartesTest;
+package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.CarteAvancerGare;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
