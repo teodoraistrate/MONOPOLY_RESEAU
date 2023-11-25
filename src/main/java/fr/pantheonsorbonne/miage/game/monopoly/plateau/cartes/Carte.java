@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 
 public abstract class Carte {
     protected String description;
@@ -10,5 +11,5 @@ public abstract class Carte {
         this.description = description;
     }
 
-    public abstract void appliquerEffet(Joueur joueur) throws PasAssezArgentException;
+    public abstract void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException;
 }
