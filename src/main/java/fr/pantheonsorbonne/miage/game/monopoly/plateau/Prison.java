@@ -29,8 +29,23 @@ public class Prison extends Case {
         nombreToursPrison.put(joueur, nombreToursPrison.get(joueur)+1);
     }
 
+    public void sortirPrison(Joueur joueur) {
+        this.nombreToursPrison.remove(joueur);
+    }
+
     public void sortirPrisonDoubleDe(Joueur joueur) {
         DeDouble de = new DeDouble();
+        if (de.memeValeur()) {
+            this.sortirPrison(joueur);
+        }
     }
+
+    public void sortirPrisonNbTours(Joueur joueur) {
+        if(this.nombreToursPrison.get(joueur) == 3) {
+            this.sortirPrison(joueur);
+        }
+    }
+
+    // ajouter méthode pour qu'il puisse payer pour sortir
     
 }
