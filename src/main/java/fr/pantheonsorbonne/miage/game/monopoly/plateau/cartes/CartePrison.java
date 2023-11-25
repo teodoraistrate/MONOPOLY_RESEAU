@@ -7,7 +7,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 
 public class CartePrison extends Carte{
 
-    protected CartePrison(String description) {
+    public CartePrison(String description) {
         super(description);
     }
 

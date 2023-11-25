@@ -6,8 +6,11 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 
 public class CartePayerOuChance extends Carte {
 
-    protected CartePayerOuChance(String description) {
+    private int montant;
+
+    public CartePayerOuChance(String description, int montant) {
         super(description);
+        this.montant = montant;
     }
 
     @Override

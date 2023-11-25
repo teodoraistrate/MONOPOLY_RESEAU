@@ -2,8 +2,6 @@ package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
 import java.util.List;
 
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.DejaAcheteException;
@@ -108,15 +106,6 @@ public class Joueur {
                 this.positionPlateau -= nombreCases;
             }
         }
-    }
-
-    // l'effet de chaque case
-
-    public void appliquerEffetCase(Joueur joueur) {
-        Plateau plateau = new Plateau();
-        List <Case> cases = plateau.getPlateau();
-        Case case = cases.get(joueur);
-        
     }
 
     // concernant les proprietes

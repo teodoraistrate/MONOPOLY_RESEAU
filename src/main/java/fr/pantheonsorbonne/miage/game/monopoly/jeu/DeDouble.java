@@ -1,5 +1,6 @@
 package fr.pantheonsorbonne.miage.game.monopoly.jeu;
 
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 
 public class DeDouble {
     private int valeurDe;
@@ -53,7 +54,7 @@ public class DeDouble {
         }
         // Si le joueur a obtenu des dés doubles pendant trois lancers consécutifs
         if (nbLancersDoublesConsecutifs == 3 && memeValeur()) {
-            Prison.conditionPourAllerEnPrison(null, nbLancersDoublesConsecutifs, memeValeur, memeValeur, memeValeur);; // Le joueur va en prison
+            Prison.conditionPourAllerEnPrison(null, nbLancersDoublesConsecutifs, memeValeur, memeValeur, memeValeur); // Le joueur va en prison
         }
     }
    

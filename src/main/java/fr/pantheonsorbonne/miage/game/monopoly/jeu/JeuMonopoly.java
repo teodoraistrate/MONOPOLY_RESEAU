@@ -1,7 +1,9 @@
 package fr.pantheonsorbonne.miage.game.monopoly.jeu;
 
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePrison;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.CarteAvancerCaseNormale;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.CarteAvancerGare;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.payer.CartePayerDependant;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.payer.CartePayerFixe;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.recevoir.CarteRecevoirFixe;

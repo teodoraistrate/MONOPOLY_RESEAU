@@ -4,7 +4,7 @@ public class CarteRecevoirJoueurs extends CarteRecevoir {
 
     private int montant;
 
-    protected CarteRecevoirJoueurs(String description, int montant) {
+    public CarteRecevoirJoueurs(String description, int montant) {
         super(description);
         this.montant = montant;
     }
