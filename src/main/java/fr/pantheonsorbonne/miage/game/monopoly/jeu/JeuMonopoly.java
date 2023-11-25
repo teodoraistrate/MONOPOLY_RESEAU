@@ -1,14 +1,6 @@
-package jeu;
-import carte.avancer.CarteAvancerCaseNormale;
-import carte.avancer.CarteAvancerGare;
-import carte.CartePayerOuChance;
-import carte.CartePrison;
-import carte.payer.CartePayerFixe;
-import carte.payer.CartePayerDependant;
-import carte.recevoir.CarteRecevoirFixe;
-import carte.recevoir.CarteRecevoirJoueurs;
-import carte.reculer.CarteReculerNom;
-import carte.reculer.CarteReculerNombre;
+package fr.pantheonsorbonne.miage.game.monopoly.jeu;
+
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.CarteAvancerCaseNormale;
 
 public class JeuMonopoly {
     public static void main (String [] args) {
