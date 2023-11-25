@@ -1,4 +1,4 @@
-pack
+package fr.pantheonsorbonne.miage.game.monopoly.jeu;
 
 
 public class DeDouble {

@@ -4,7 +4,7 @@ public class CarteRecevoirFixe extends CarteRecevoir {
 
     private int montant;
 
-    protected CarteRecevoirFixe(String description, int montant) {
+    public CarteRecevoirFixe(String description, int montant) {
         super(description);
         this.montant = montant;
     }
