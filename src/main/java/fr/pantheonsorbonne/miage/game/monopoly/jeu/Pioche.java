@@ -1,9 +1,11 @@
-package jeu;
+package fr.pantheonsorbonne.miage.game.monopoly.jeu;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import carte.Carte;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.Carte;
+
 
 public class Pioche {
     private List<Carte> cartes;
@@ -29,10 +31,6 @@ public class Pioche {
     public void melangerPioche() {
         Collections.shuffle(cartes);
     }
-
-    // public int getNombreCartes() {
-    //     return cartes.size();
-    // }
 
 
 }

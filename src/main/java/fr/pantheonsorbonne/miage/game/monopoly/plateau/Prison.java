@@ -8,7 +8,7 @@ public class Prison extends Case {
 
     private HashMap<Joueur,Integer> nombreToursPrison = new HashMap<>();
 
-    protected Prison(String name) {
+    public Prison(String name) {
         super(name);
     }
 
@@ -21,7 +21,7 @@ public class Prison extends Case {
     }
 
     public void sortirPrisonDoubleDe(Joueur joueur, DeDouble de) {
-        
+
     }
     
 }
