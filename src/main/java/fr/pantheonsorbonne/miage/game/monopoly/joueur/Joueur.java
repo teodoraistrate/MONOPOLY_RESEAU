@@ -113,7 +113,9 @@ public class Joueur {
     // l'effet de chaque case
 
     public void appliquerEffetCase(int indexCase) {
-        Case case = Plateau.getCaseParId(indexCase);
+        Plateau plateau = new Plateau();
+        List <Case> cases = plateau.getPlateau();
+        Case case = cases.get(indexCase);
         
     }
 
