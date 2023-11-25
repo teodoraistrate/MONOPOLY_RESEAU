@@ -1,6 +1,6 @@
 package fr.pantheonsorbonne.miage.game.monopoly.plateau;
 
-public class Case {
+public abstract class Case {
     private static int nombreCases = 0;
     private int idCase;
     private String name;

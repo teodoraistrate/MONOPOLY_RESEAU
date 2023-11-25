@@ -2,6 +2,8 @@ package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
 import java.util.List;
 
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.DejaAcheteException;
@@ -82,6 +84,7 @@ public class Joueur {
 
     // se déplacer
 
+    // boolean avancer parce que c'est aussi possible de reculer
     public void deplacerSurPlateau(int nouvellePosition, boolean avancer) {
         if (nouvellePosition < this.positionPlateau && avancer) {
             this.getStartingBonus();
@@ -97,6 +100,7 @@ public class Joueur {
             this.positionPlateau = (this.positionPlateau + nombreCases)%40;
         }
         else {
+            // s'il recule il ne va pas recevoir le bonus quand il passe par la Case Start
             if (this.positionPlateau < nombreCases) {
                 this.positionPlateau = 40 + this.positionPlateau - nombreCases;
             }
@@ -104,6 +108,13 @@ public class Joueur {
                 this.positionPlateau -= nombreCases;
             }
         }
+    }
+
+    // l'effet de chaque case
+
+    public void appliquerEffetCase(int indexCase) {
+        Case case = Plateau.getCaseParId(indexCase);
+        
     }
 
     // concernant les proprietes
