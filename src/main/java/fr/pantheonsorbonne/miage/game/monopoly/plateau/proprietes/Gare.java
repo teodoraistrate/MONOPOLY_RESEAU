@@ -1,5 +1,7 @@
 package fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes;
 
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+
 public class Gare extends Propriete {
 
     private int nombreGaresJoueur = 0;
@@ -11,6 +13,15 @@ public class Gare extends Propriete {
     // getteurs
     public int getNombreGaresJoueur() {
         return nombreGaresJoueur;
+    }
+
+    public void compterNombreGaresProprietaire() {
+        Joueur proprietaire = this.getProprietaire();
+        for (Propriete propriete : proprietaire.getProperties()) {
+            if (propriete instanceof Gare) {
+                nombreGaresJoueur++;
+            }
+        }
     }
 
     @Override
