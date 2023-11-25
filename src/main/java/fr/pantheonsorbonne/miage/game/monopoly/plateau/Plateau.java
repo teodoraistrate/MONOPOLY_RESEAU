@@ -13,7 +13,7 @@ public final class Plateau {
     private static final List<Case> plateauJeu = initialiserPlateau();
     public static final int DIMENSION_PLATEAU = 40;
 
-    public Plateau() { 
+    private Plateau() { 
     }
 
     public static Case getCaseParId(int id) {
@@ -35,10 +35,10 @@ public final class Plateau {
         cases.add(new Terrain("Rue LeCourbe",60, Color.BROWN,  new int[] { 4, 8, 20, 60, 180, 320 }, 50));
         cases.add(new Taxes("Impôts sur le Revenu", 200));
         cases.add(new Gare("Gare de Montparnasse", 200));
-        cases.add(new Terrain("Rue de Vaugirard", 100, Color.LIGHT_BLUE, new int[] { 6, 12, 30, 90, 270, 400 }, 50));
+        cases.add(new Terrain("Rue de Vaugirard", 100, Color.CYAN, new int[] { 6, 12, 30, 90, 270, 400 }, 50));
         cases.add(new Chance("Chance"));
-        cases.add(new Terrain("Rue de Courcelles", 100, Color.LIGHT_BLUE, new int[] { 2, 12, 30, 90, 270, 400 }, 50));
-        cases.add(new Terrain("Avenue de la République", 120, Color.LIGHT_BLUE, new int[] { 8, 16, 40, 100, 300, 450}, 50));
+        cases.add(new Terrain("Rue de Courcelles", 100, Color.CYAN, new int[] { 2, 12, 30, 90, 270, 400 }, 50));
+        cases.add(new Terrain("Avenue de la République", 120, Color.CYAN, new int[] { 8, 16, 40, 100, 300, 450}, 50));
         cases.add(new Prison("Jail, simple visite"));
         cases.add(new Terrain("Boulevard de la Vilette", 140, Color.PINK, new int[] { 10, 20, 50, 150, 450, 625 }, 100));
         cases.add(new Compagnie("Compagnie de distribution d'électricité",150));
