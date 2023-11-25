@@ -13,11 +13,15 @@ public class Prison extends Case {
     }
 
     public void mettreJoueurEnPrison(Joueur joueur) {
-        this.nombreToursPrison.put(joueur, 0);
+        nombreToursPrison.put(joueur, 0);
     }
 
     public void augmenterNombreTours(Joueur joueur) {
-        this.nombreToursPrison.get(joueur).
+        nombreToursPrison.put(joueur, nombreToursPrison.get(joueur)+1);
+    }
+
+    public void sortirPrisonDoubleDe(Joueur joueur, DeDouble de) {
+        
     }
     
 }
