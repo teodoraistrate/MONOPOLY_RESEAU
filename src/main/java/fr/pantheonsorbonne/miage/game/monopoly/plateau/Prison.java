@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.miage.game.monopoly.plateau;
 
 import java.util.HashMap;
 
+import fr.pantheonsorbonne.miage.game.monopoly.jeu.DeDouble;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 
 public class Prison extends Case {
@@ -20,8 +21,8 @@ public class Prison extends Case {
         nombreToursPrison.put(joueur, nombreToursPrison.get(joueur)+1);
     }
 
-    public void sortirPrisonDoubleDe(Joueur joueur, DeDouble de) {
-
+    public void sortirPrisonDoubleDe(Joueur joueur) {
+        DeDouble de = new DeDouble();
     }
     
 }
