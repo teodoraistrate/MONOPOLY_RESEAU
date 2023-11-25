@@ -1,9 +1,13 @@
 package fr.pantheonsorbonne.miage.game.monopoly.jeu;
 
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePrison;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.CarteAvancerCaseNormale;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.payer.CartePayerDependant;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.payer.CartePayerFixe;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.recevoir.CarteRecevoirFixe;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.recevoir.CarteRecevoirJoueurs;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.reculer.CarteReculerNom;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.reculer.CarteReculerNombre;
 
 public class JeuMonopoly {
     public static void main (String [] args) {
