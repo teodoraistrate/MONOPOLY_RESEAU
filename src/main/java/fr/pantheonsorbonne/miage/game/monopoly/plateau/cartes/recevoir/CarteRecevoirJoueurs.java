@@ -9,13 +9,13 @@ public class CarteRecevoirJoueurs extends CarteRecevoir {
         this.montant = montant;
     }
 
-    @Override
-    protected int montantARecevoir() {
-        throw new UnsupportedOperationException("Unimplemented method 'montantARecevoir'");
-    }
-
     public void joueursDonnentArgent() {
         // à implémenter : prendre la liste des joueurs et faire qu'ils paient le montant
+    }
+
+    @Override
+    protected int montantARecevoir() {
+        return montant;
     }
     
 }

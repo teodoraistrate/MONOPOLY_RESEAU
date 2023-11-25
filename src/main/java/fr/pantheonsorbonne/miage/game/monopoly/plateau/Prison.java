@@ -7,10 +7,18 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 
 public class Prison extends Case {
 
+    private static Prison instance = null;
     private HashMap<Joueur,Integer> nombreToursPrison = new HashMap<>();
 
     public Prison(String name) {
         super(name);
+    }
+
+    public static Prison getInstance(String nom) {
+        if (instance == null) {
+            instance = new Prison(nom);
+        }
+        return instance;
     }
 
     public void mettreJoueurEnPrison(Joueur joueur) {
@@ -21,8 +29,23 @@ public class Prison extends Case {
         nombreToursPrison.put(joueur, nombreToursPrison.get(joueur)+1);
     }
 
+    public void sortirPrison(Joueur joueur) {
+        this.nombreToursPrison.remove(joueur);
+    }
+
     public void sortirPrisonDoubleDe(Joueur joueur) {
         DeDouble de = new DeDouble();
+        if (de.memeValeur()) {
+            this.sortirPrison(joueur);
+        }
     }
+
+    public void sortirPrisonNbTours(Joueur joueur) {
+        if(this.nombreToursPrison.get(joueur) == 3) {
+            this.sortirPrison(joueur);
+        }
+    }
+
+    // ajouter méthode pour qu'il puisse payer pour sortir
     
 }

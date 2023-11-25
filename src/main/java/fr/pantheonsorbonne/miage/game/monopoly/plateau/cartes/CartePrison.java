@@ -1,10 +1,9 @@
-package fr.pantheonsorbonne.miage.game.monopoly.jeu;
+package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.Carte;
 
 public class CartePrison extends Carte{
 
@@ -14,8 +13,8 @@ public class CartePrison extends Carte{
 
     @Override
     public void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException {
-        Prison prison = new Prison("");
-        
+        Prison prison = Prison.getInstance("Prison");
+        prison.mettreJoueurEnPrison(joueur);
     }
 
 }

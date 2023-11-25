@@ -16,7 +16,7 @@ public class CarteAvancerCaseNormale extends CarteAvancer {
     @Override
     public int getNouvellePosition(Joueur joueur) {
     try {
-        Plateau plateau = new Plateau();
+        Plateau plateau = Plateau.getInstance();
         return plateau.getCaseParNom(nomCase); 
     } catch (NomPasValideException e) {
         e.printStackTrace();

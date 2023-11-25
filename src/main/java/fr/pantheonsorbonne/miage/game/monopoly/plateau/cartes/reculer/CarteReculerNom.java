@@ -16,7 +16,7 @@ public class CarteReculerNom extends CarteReculer {
     @Override
     public int getNouvellePosition(Joueur joueur) throws NomPasValideException{
         try {
-            Plateau plateau = new Plateau();
+            Plateau plateau = Plateau.getInstance();
             return plateau.getCaseParNom(nomCase);
         } catch (NomPasValideException e) {
             e.printStackTrace();
