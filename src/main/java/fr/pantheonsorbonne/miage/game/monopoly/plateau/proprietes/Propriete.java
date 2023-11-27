@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 
 public abstract class Propriete extends Case {
@@ -63,6 +64,19 @@ public abstract class Propriete extends Case {
     // AJOUTER MÉTHODE PAYERARGENT POUR QU'ON CALCULE AUSSI LE MONTANT A PAYER
     public void leverHypotheque() {
         this.estHypotheque = false;
+    }
+
+
+
+
+    // méthode pour appliquer l'effet quand le joueur tombe sur cette case
+
+    public void appliquerEffetCase(Joueur joueur) throws PasAssezArgentException {
+        try {
+            joueur.payerLoyer(this);
+        } catch (PasAssezArgentException e) {
+            e.printStackTrace();
+        }
     }
     
 

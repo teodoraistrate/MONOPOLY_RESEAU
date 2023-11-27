@@ -1,7 +1,6 @@
 package fr.pantheonsorbonne.miage.game.monopoly.plateau;
 
 import java.util.ArrayList;
-//import java.util.Arrays;
 import java.util.List;
 import java.awt.Color;
 

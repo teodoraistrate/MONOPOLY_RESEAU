@@ -47,5 +47,10 @@ public class Prison extends Case {
     }
 
     // ajouter méthode pour qu'il puisse payer pour sortir
+
+    public void appliquerEffetCase(Joueur joueur) {
+        // rien ne se passe, c'est une simple visite
+        // un info logger
+    }
     
 }

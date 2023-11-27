@@ -10,8 +10,6 @@ public class Compagnie extends Propriete {
     public int getLoyer() {
         return 75;
     }
-
-
     
 }
 
