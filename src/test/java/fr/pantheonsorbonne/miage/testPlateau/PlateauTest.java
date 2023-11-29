@@ -4,10 +4,10 @@ import java.awt.Color;
 
 import org.junit.jupiter.api.Test;
 
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

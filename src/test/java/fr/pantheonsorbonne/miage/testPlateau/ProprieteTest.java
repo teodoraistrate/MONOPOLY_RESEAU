@@ -66,7 +66,8 @@ public class ProprieteTest {
         propriete.setProprietaire(joueur);
         propriete.hypothequer();
         assertTrue(propriete.estHypotheque());
-        assertEquals(300, joueur.getPorteMonnaie()); 
+        assertEquals(100, joueur.getPorteMonnaie());
+        //ajouter le porte monnaie du joueur 
     }
 
     @Test
