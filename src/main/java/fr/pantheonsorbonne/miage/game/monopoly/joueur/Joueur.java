@@ -125,6 +125,7 @@ public class Joueur {
         if (this.getPorteMonnaie() < propriete.getPrice()) throw new PasAssezArgentException("Vous ne pouvez pas acheter ce terrain!");
         this.payer(propriete.getPrice());
         this.ajouterPropriete(propriete);
+        propriete.setProprietaire(this);
     }
 
     public void racheterProprieteHypothequee(Propriete propriete) throws PasAssezArgentException, DejaAcheteException {
