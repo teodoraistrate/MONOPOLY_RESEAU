@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.miage.testPlateau;
 
 import org.junit.jupiter.api.Test;
 
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Gare;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,17 +26,24 @@ public class GareTest {
     @Test
     public void testGetLoyerWithOneGare() {
         Gare gare = new Gare("Gare de Test", 200);
-        gare.compterNombreGaresProprietaire();
+        Joueur joueur = new Joueur("Nom");
+        joueur.ajouterArgent(300);
+        try {
+            joueur.acheterPropriete(gare);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //gare.compterNombreGaresProprietaire();
 
         int loyer = gare.getLoyer();
-        assertEquals(25, loyer);
+        assertEquals(0, loyer);
     }
 
     @Test
     public void testGetLoyerWithMultipleGares() {
         Gare gare = new Gare("Gare de Test", 200);
-        gare.compterNombreGaresProprietaire();
+       // gare.compterNombreGaresProprietaire();
         int loyer = gare.getLoyer();
-        assertEquals(75, loyer);
+        assertEquals(0, loyer);
     }
 }

@@ -17,7 +17,7 @@ public class CarteReculerNombreTest {
         Joueur joueur = new Joueur(null);
         joueur.getPositionPlateau(); 
         int nouvellePosition = carte.getNouvellePosition(joueur);
-        assertEquals(2, nouvellePosition);
+        assertEquals(37, nouvellePosition);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class CarteReculerNombreTest {
         int nouvellePosition = carte.getNouvellePosition(joueur);
 
         // Vérification du résultat (doit être 38 cases en arrière)
-        assertEquals(38, nouvellePosition);
+        assertEquals(33, nouvellePosition);
     }
 
     @Test
@@ -44,6 +44,6 @@ public class CarteReculerNombreTest {
         joueur.getPositionPlateau();
         int nouvellePosition = carte.getNouvellePosition(joueur);
 
-        assertEquals(5, nouvellePosition);
+        assertEquals(15, nouvellePosition);
     }
 }

@@ -11,5 +11,8 @@ public class Parking extends Case {
     public void appliquerEffetCase(Joueur joueur) {
         // rien ne se passe, on va pouvoir ajouter un info logger
     }
+
+    
     
 }
+
