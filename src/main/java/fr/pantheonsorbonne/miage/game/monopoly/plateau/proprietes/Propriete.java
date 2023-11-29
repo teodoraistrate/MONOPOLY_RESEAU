@@ -71,7 +71,7 @@ public abstract class Propriete extends Case {
 
     // méthode pour appliquer l'effet quand le joueur tombe sur cette case
 
-    public void appliquerEffetCase(Joueur joueur) throws PasAssezArgentException {
+    public void appliquerEffetCase(Joueur joueur) {
         try {
             joueur.payerLoyer(this);
         } catch (PasAssezArgentException e) {
