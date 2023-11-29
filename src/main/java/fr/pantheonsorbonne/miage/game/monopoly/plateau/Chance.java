@@ -49,6 +49,10 @@ public class Chance extends Case {
         }
     }
 
+    public static Pioche getCartesChances() {
+        return piocheChance;
+    }
+
 
 }
 

@@ -9,6 +9,7 @@ public class Prison extends Case {
 
     private static Prison instance = null;
     private HashMap<Joueur,Integer> nombreToursPrison = new HashMap<>();
+    public static final int MONTANT_SORTIR = 50;
 
     public Prison(String name) {
         super(name);
@@ -43,6 +44,15 @@ public class Prison extends Case {
     public void sortirPrisonNbTours(Joueur joueur) {
         if(this.nombreToursPrison.get(joueur) == 3) {
             this.sortirPrison(joueur);
+        }
+    }
+
+    public void sortirPrisonPayer(Joueur joueur) {
+        try {
+            joueur.payer(MONTANT_SORTIR);
+            this.sortirPrison(joueur);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

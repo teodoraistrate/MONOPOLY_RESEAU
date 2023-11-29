@@ -7,7 +7,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.DejaAcheteException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 
-public class Joueur {
+public abstract class Joueur {
     private String name;
     private double porteMonnaie;
     private int positionPlateau = 0;
@@ -148,5 +148,13 @@ public class Joueur {
     }
 
     // déclarer perte
+
+    // choix à faire
+
+    public abstract boolean choixAcheterPropriete(Propriete propriete);
+
+    public abstract boolean choixPayerOuChance();
+
+    public abstract boolean choixSortirPrison();
 
 }

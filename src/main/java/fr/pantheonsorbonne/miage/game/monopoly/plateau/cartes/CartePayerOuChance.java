@@ -6,17 +6,24 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 
 public class CartePayerOuChance extends Carte {
 
-    private int montant;
+    private static int montant;
 
     public CartePayerOuChance(String description, int montant) {
         super(description);
         this.montant = montant;
     }
 
+    public static int getMontantAPayer() {
+        return montant;
+    }
+
     @Override
     public void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'appliquerEffet'");
+        if (joueur.choixPayerOuChance()) {
+            
+        } else {
+            joueur.payer(montant);
+        }
     }
 
     
