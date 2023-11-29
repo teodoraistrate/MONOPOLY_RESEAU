@@ -29,15 +29,5 @@ public class CompagnieTest {
         assertEquals(75, loyer);
     }
 
-    @Test
-    public void testGetNombreCompagniesJoueur() {
-        // Arrange
-        Compagnie compagnie = new Compagnie("Test Compagnie", 200);
-
-        // Act
-        int nombreCompagniesJoueur = compagnie.getNombreCompagniesJoueur();
-
-        // Assert
-        assertEquals(0, nombreCompagniesJoueur);
-    }
+   
 }

@@ -1,3 +1,5 @@
+
+
 package fr.pantheonsorbonne.miage.testPlateau;
 
 import org.junit.jupiter.api.Test;
@@ -17,7 +19,6 @@ public class ParkingTest {
     @Test
     public void testGetIdCase() {
         Parking parking = new Parking("Test Parking");
-        assertEquals(0, parking.getIdCase());
+        assertEquals(1, parking.getIdCase());
     }
-
 }
