@@ -40,7 +40,8 @@ public class DeDouble {
         memeValeur = de1 == de2;
     }
 
-
+/* 
+// faut faire la méthode pour mettre le joueur en prison s'il a la même valeur 3 fois
     public void memeValeurDes() {
         int nbLancersDoublesConsecutifs = 0; // Compteur de dés doubles consécutifs
         for (int i = 0; i < 3; i++) {
@@ -57,13 +58,7 @@ public class DeDouble {
             Prison.conditionPourAllerEnPrison(null, nbLancersDoublesConsecutifs, memeValeur, memeValeur, memeValeur); // Le joueur va en prison
         }
     }
-   
-    /* 
-    public void avancerJoueur(Joueur joueur) {
-        //position du joueur en fonction du résultat des dés
-        joueur.avancer(resultatDe);
-    };*/
-    //on sait pas quoi faire avec 
+*/   
 }
 
 
