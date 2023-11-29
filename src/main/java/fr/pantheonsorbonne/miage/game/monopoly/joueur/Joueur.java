@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
 import java.util.List;
 
+import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.DejaAcheteException;
@@ -148,6 +149,8 @@ public abstract class Joueur {
     }
 
     // déclarer perte
+
+    public static List<Joueur> listeJoueurs = JeuLocal.getListeJoueurs();
 
     // choix à faire
 
