@@ -67,13 +67,13 @@ public abstract class Propriete extends Case {
     }
 
 
-
-
     // méthode pour appliquer l'effet quand le joueur tombe sur cette case
 
     public void appliquerEffetCase(Joueur joueur) {
         try {
-            joueur.payerLoyer(this);
+            if (this.getProprietaire()!=null) {
+                joueur.payerLoyer(this);
+            }
         } catch (PasAssezArgentException e) {
             e.printStackTrace();
         }

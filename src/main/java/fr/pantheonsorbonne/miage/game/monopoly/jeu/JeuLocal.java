@@ -12,8 +12,15 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 public class JeuLocal {
 
     public static final Plateau plateau = Plateau.getInstance();
-    Prison prison = Prison.getInstance("Prison");
     static List<Joueur> listeJoueurs = new ArrayList<>();
+
+    public static List<Joueur> getListeJoueurs() {
+        return listeJoueurs;
+    }
+
+    public static void removeJoueur(Joueur joueur) {
+        listeJoueurs.remove(Joueur joueur);
+    }
 
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
@@ -24,13 +31,36 @@ public class JeuLocal {
     
     public static void main(String[] args) {
 
+        Prison prison = Prison.getInstance("Prison");
+
         int nombreTours = 0;
 
         initialiserListeJoueurs();
 
         // le jeu s'arrête quand il reste un seul joueur
         while (listeJoueurs.size()>1) {
-            
+            for (Joueur joueur : listeJoueurs) {
+                boolean lancerDes = true; 
+                // on a ajouté cette variable pour qu'un joueur puisse lancer les dés plusieurs fois si c'est la même valeur
+                int nombreFoisMemeValeur = 0;
+                // le but de cette variable est de mettre le joueur en prison s'il a la même valeur 3 fois
+                while(lancerDes) {
+                    DeDouble des = new DeDouble();
+                    des.lancerDes();
+                    if (!des.memeValeur()) {
+                        lancerDes = false; // si les deux dés n'ont pas la même valeur alors il ne peut lancer les dés qu'une seule fois
+                    }
+                    else {
+                        nombreFoisMemeValeur++;
+                    }
+                    if (nombreFoisMemeValeur == 3) {
+                        prison.mettreJoueurEnPrison(joueur);
+                    }
+                    joueur.deplacerNombreCases(des.resultatDe(), true);
+                    
+                }
+            }
+            nombreTours++;
         }
 
     }
