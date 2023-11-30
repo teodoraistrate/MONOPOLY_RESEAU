@@ -185,10 +185,9 @@ public class PrisonTest {
         assertTrue(prison.getListeNbTours().containsKey(joueur));
 
         prison.augmenterNombreTours(joueur);
-        assertTrue(prison.getListeNbTours().containsKey(joueur));
-
-        prison.sortirPrisonNbTours(joueur); // réinitialisation ici
         assertFalse(prison.getListeNbTours().containsKey(joueur));
+
+
     }
 
     @Test
