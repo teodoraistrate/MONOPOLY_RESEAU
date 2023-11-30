@@ -163,4 +163,7 @@ public abstract class Joueur {
 
     public abstract boolean choixSortirPrison();
 
+    public void setPosition(int positionInitiale) {
+    }
+
 }
