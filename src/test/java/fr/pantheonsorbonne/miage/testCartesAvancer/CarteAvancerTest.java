@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.miage.testCartesAvancer;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.CarteAvancer;
 
@@ -27,7 +28,7 @@ public class CarteAvancerTest {
 
     @Test
     public void testAppliquerEffet() {
-        Joueur joueur = new Joueur(null);
+        Joueur joueur = new JoueurS1(null);
         CarteAvancer carte = new TestCarteAvancer("Description", 5);
         try {
             carte.appliquerEffet(joueur);

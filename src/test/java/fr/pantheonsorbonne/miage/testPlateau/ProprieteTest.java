@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.miage.testPlateau;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
@@ -17,7 +18,7 @@ public class ProprieteTest {
     @BeforeEach
     public void setUp() {
         propriete = new Terrain("Test Propriete", 200, null, new int[]{10, 20, 30, 40, 50, 60}, 100);
-        joueur = new Joueur("Test Joueur");
+        joueur = new JoueurS1("Test Joueur");
     }
 
     @Test

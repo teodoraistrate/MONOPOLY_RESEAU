@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.miage.testCartesReculer;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.reculer.CarteReculerNombre;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ public class CarteReculerNombreTest {
         int nombreCases = 3;
         CarteReculerNombre carte = new CarteReculerNombre("Description", nombreCases);
 
-        Joueur joueur = new Joueur(null);
+        Joueur joueur = new JoueurS1(null);
         joueur.getPositionPlateau(); 
         int nouvellePosition = carte.getNouvellePosition(joueur);
         assertEquals(37, nouvellePosition);
@@ -25,7 +26,7 @@ public class CarteReculerNombreTest {
         int nombreCases = 7;
         CarteReculerNombre carte = new CarteReculerNombre("Description", nombreCases);
 
-        Joueur joueur = new Joueur(null);
+        Joueur joueur = new JoueurS1(null);
         joueur.getPositionPlateau();
 
         // Exécution du test
@@ -40,7 +41,7 @@ public class CarteReculerNombreTest {
         int nombreCases = 25;
         CarteReculerNombre carte = new CarteReculerNombre("Description", nombreCases);
 
-        Joueur joueur = new Joueur(null);
+        Joueur joueur = new JoueurS1(null);
         joueur.getPositionPlateau();
         int nouvellePosition = carte.getNouvellePosition(joueur);
 
