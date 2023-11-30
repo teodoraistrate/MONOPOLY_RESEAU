@@ -51,13 +51,8 @@ public class Prison extends Case {
             this.sortirPrison(joueur);
         }
     }
-/* 
-    public void sortirPrisonNbTours(Joueur joueur) {
-        if(this.nombreToursPrison.get(joueur) == 3) {
-            this.sortirPrison(joueur);
-        }
-    }
-*/
+
+    
     public void sortirPrisonPayer(Joueur joueur) {
         try {
             joueur.payer(MONTANT_SORTIR);
