@@ -2,25 +2,21 @@ package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.testCarte
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.recevoir.CarteRecevoir;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.recevoir.CarteRecevoirFixe;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CarteRecevoirTest {
+public class CarteRecevoirFixeTest {
 
     @Test
     public void testAppliquerEffet() {
-        Joueur joueurTest = new JoueurS1("Nono");
-        CarteRecevoir carteTest = new CarteRecevoir("Description de test") {
-            @Override
-            protected int montantARecevoir() {
-                return 200; 
-            }
-        };
+        Joueur joueurTest = new JoueurS1("Pepe");
+        CarteRecevoirFixe carteTest = new CarteRecevoirFixe("Recevez un montant fixe", 150);
         int argentInitial = 500;
         joueurTest.ajouterArgent(argentInitial);
         carteTest.appliquerEffet(joueurTest);
-        assertEquals(argentInitial + 200, joueurTest.getPorteMonnaie());
+
+        assertEquals(argentInitial + 150, joueurTest.getPorteMonnaie());
     }
 }
