@@ -1,6 +1,9 @@
 package fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes;
 
 import java.awt.Color;
+import java.util.List;
+
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 
 public class Terrain extends Propriete {
 
@@ -19,6 +22,10 @@ public class Terrain extends Propriete {
 
     // getteurs
 
+    public int getPrixMaison() {
+        return prixMaison;
+    }
+
     public int[] getTableauLoyer() {
         return tableauLoyer;
     }
@@ -29,9 +36,28 @@ public class Terrain extends Propriete {
 
     @Override
     public int getLoyer() {
-        if (this.estHotel())
-            return tableauLoyer[5];
-        return tableauLoyer[this.getNombreMaisons()];
+        if (this.tousTerrainsMemeCouleur(this.getColor())) {
+            if (this.estHotel())
+                return tableauLoyer[5];
+            else if (this.getNombreMaisons()>1) {
+                return tableauLoyer[this.getNombreMaisons()];
+            } else {
+                return tableauLoyer[0]*2;
+            }
+        }
+        return tableauLoyer[0];
+    }
+
+    public boolean tousTerrainsMemeCouleur(Color couleur) {
+        boolean resultat = true;
+        Plateau plateau = Plateau.getInstance();
+        List<Terrain> listeT = plateau.getTerrainsMemeCouleur(couleur);
+        for (Terrain t : listeT) {
+            if(t.getProprietaire() != this.getProprietaire()) {
+                resultat = false;
+            }
+        }
+        return resultat;
     }
 
     public Color getColor() {
