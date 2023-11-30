@@ -32,6 +32,10 @@ public class Pioche {
         Collections.shuffle(cartes);
     }
 
+    public List<Carte> getPioche(){
+        return cartes;
+    }
+
 
 }
 
