@@ -5,6 +5,8 @@ import java.util.List;
 import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotBuildException;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.DejaAcheteException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 
