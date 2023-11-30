@@ -22,6 +22,10 @@ public class Prison extends Case {
         return instance;
     }
 
+    public int getNombreToursPrison(Joueur joueur) {
+        return nombreToursPrison.get(joueur);
+    }
+
     public void mettreJoueurEnPrison(Joueur joueur) {
         nombreToursPrison.put(joueur, 0);
     }
