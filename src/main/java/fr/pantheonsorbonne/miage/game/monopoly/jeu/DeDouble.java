@@ -4,7 +4,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 
 public class DeDouble {
     private int valeurDe;
-    private static final int VALEUR_MAX = 12;
+    public static final int VALEUR_MAX = 12;
     protected int resultatDe;
     private boolean memeValeur;
 
