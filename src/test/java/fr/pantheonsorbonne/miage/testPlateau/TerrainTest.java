@@ -10,6 +10,8 @@ import java.awt.Color;
 
 import org.junit.jupiter.api.Test;
 
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotBuildException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
@@ -67,7 +69,7 @@ public class TerrainTest {
     }
 
      @Test
-    public void testVendreHotel() throws CannotSellException {
+    public void testVendreHotel() throws CannotSellException, CannotBuildException, PasAssezArgentException {
         int[] tableauLoyer = {100, 200, 300, 400, 500, 600};
         int prixMaison = 100;
         Color color = Color.BLUE;
