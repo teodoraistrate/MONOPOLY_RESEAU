@@ -63,4 +63,6 @@ public class Prison extends Case {
         // un info logger
     }
     
+
+    //ajouter méthode pour compter le nombre de tour en prison 
 }
