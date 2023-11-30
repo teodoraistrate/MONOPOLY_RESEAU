@@ -89,8 +89,8 @@ public final class Plateau {
     }
 
     public List<Terrain> getTerrainsMemeCouleur(Color couleur) {
-        List<Terrain> listeT = new ArrayList();
-        for (Case c : this.getPlateau()) {
+        List<Terrain> listeT = new ArrayList<>();
+        for (Case c : Plateau.getPlateau()) {
             if (c instanceof Terrain) {
                 Terrain t = (Terrain) c;
                 if (couleur.equals(t.getColor())) {
