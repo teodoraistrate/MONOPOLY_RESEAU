@@ -18,9 +18,9 @@ public class JeuLocal {
         return listeJoueurs;
     }
 
-    /*public static void removeJoueur(Joueur joueur) {
-        listeJoueurs.remove(Joueur joueur);
-    }*/
+    public static void removeJoueur(Joueur joueur) {
+        listeJoueurs.remove(joueur);
+    }
 
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");

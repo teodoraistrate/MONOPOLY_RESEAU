@@ -19,11 +19,11 @@ public class CarteRecevoirJoueurs extends CarteRecevoir {
     int nombreJoueurs = listeJoueurs.size();
 
     public void joueursDonnentArgent(Joueur joueur) throws PasAssezArgentException {
-        // à implémenter : prendre la liste des joueurs et faire qu'ils paient le montant
         for (Joueur j : listeJoueurs) {
             if (!j.equals(joueur)) {
                 if (j.getPorteMonnaie() < montant) {
-                    throw new PasAssezArgentException(j.getName()+" n'a pas assez d'argent pour payer!");
+                    j.declarerPerte();
+                    throw new PasAssezArgentException(j.getName()+" n'a pas assez d'argent pour payer donc il a perdu!");
                 }
                 j.payer(montant);
             }
