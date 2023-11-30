@@ -22,6 +22,10 @@ public class Terrain extends Propriete {
 
     // getteurs
 
+    public int getPrixMaison() {
+        return prixMaison;
+    }
+
     public int[] getTableauLoyer() {
         return tableauLoyer;
     }
