@@ -15,7 +15,7 @@ public class Chance extends Case {
 
     private static Pioche piocheChance = new Pioche();
 
-    protected Chance(String name) {
+    public Chance(String name) {
         super(name);
     }
 
@@ -56,4 +56,3 @@ public class Chance extends Case {
 
 }
 
-/* kedbhuvbducvehbz */
