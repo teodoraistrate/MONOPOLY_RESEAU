@@ -7,7 +7,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 
 public class Prison extends Case {
 
-    private static Prison instance = null;
+    private static Prison instance = new Prison("Prison");
     private HashMap<Joueur,Integer> nombreToursPrison = new HashMap<>();
     public static final int MONTANT_SORTIR = 50;
 

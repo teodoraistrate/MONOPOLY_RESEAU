@@ -1,3 +1,5 @@
+package fr.pantheonsorbonne.miage.testPlateau;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -32,7 +34,7 @@ public class TerrainTest {
     }
 
     @Test
-    public void testCalculLoyerSansHotel() {
+    public void testCalculLoyerSansHotel() throws CannotSellException {
         int[] tableauLoyer = {100, 200, 300, 400, 500, 600};
         int prixMaison = 100;
         Color color = Color.BLUE;
@@ -49,7 +51,7 @@ public class TerrainTest {
     }
 
     @Test
-    public void testCalculLoyerAvecHotel() {
+    public void testCalculLoyerAvecHotel() throws CannotSellException {
         int[] tableauLoyer = {100, 200, 300, 400, 500, 600};
         int prixMaison = 100;
         Color color = Color.BLUE;

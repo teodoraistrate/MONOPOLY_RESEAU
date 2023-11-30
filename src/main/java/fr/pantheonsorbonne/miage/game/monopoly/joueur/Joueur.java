@@ -9,6 +9,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.DejaAcheteExce
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 
 public abstract class Joueur {
+    public static final int SOLDE_INITIAL = 0;
     private String name;
     private double porteMonnaie;
     private int positionPlateau = 0;
