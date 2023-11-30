@@ -74,6 +74,14 @@ public class Terrain extends Propriete {
 
     //créer méthode acheterHotel et acheter maison avec exception dejaAchetéeException
 
+    public void acheterMaison() throws CannotBuildException {
+        if (!this.tousTerrainsMemeCouleur(this.getColor())) {
+            throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur "+this.getColor()+" donc vous ne pouvez pas construire la maison!");
+        } else {
+            
+        }
+    }
+
     public void vendreHotel() throws CannotSellException {
         if (!this.estHotel())
             throw new CannotSellException("Vous n'avez pas d'hotel sur ce terrain!");
