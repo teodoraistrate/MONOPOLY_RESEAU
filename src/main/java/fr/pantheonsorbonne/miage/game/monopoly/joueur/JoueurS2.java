@@ -1,6 +1,9 @@
 package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
+
+import java.util.List;
+
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 
 public class JoueurS2 extends Joueur {
@@ -29,6 +32,25 @@ public class JoueurS2 extends Joueur {
     public boolean choixSortirPrison() {
         if(this.getPorteMonnaie()>5*Prison.MONTANT_SORTIR) return true;
         return false;
+    }
+
+    
+    @Override
+    public int choixNombreMaisonsAVendre() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'choixNombreMaisonsAVendre'");
+    }
+
+    @Override
+    public int choixNombreHotelsAVendre() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'choixNombreHotelsAVendre'");
+    }
+
+    @Override
+    public List<Propriete> choixProprietesAHypothequer() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'choixProprietesAHypothequer'");
     }
 
 
