@@ -26,6 +26,10 @@ public class Prison extends Case {
         return nombreToursPrison.get(joueur);
     }
 
+    public HashMap<Joueur,Integer> getListeNbTours() {
+        return nombreToursPrison;
+    }
+
     public void mettreJoueurEnPrison(Joueur joueur) {
         nombreToursPrison.put(joueur, 0);
     }
