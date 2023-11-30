@@ -9,6 +9,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotBuildExc
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.DejaAcheteException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public abstract class Joueur {
     public static final int SOLDE_INITIAL = 0;
@@ -167,7 +168,16 @@ public abstract class Joueur {
 
     public abstract boolean choixSortirPrison();
 
+    public abstract int choixNombreMaisonsAVendre();
+
+    public abstract int choixNombreHotelsAVendre();
+
+    public abstract List<Propriete> choixProprietesAHypothequer();
+
+
     public void setPosition(int positionInitiale) {
     }
+
+
 
 }
