@@ -65,7 +65,7 @@ public abstract class Joueur {
 
         if (porteMonnaie < propriete.getLoyer()) {
             this.transfererProprietes(propriete.getProprietaire());
-            // méthode déclarer perte
+            this.declarerPerte();
             throw new PasAssezArgentException ("Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
         }
         if (!propriete.estSquatte()) {
@@ -79,7 +79,7 @@ public abstract class Joueur {
     public void payerTaxes(Taxes taxe) throws PasAssezArgentException{
         if (porteMonnaie < taxe.getMontantAPayer()) {
             this.removeAllProprietes();
-            // méthode déclarer perte
+            this.declarerPerte();
             throw new PasAssezArgentException ("Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
         }
     }
@@ -152,6 +152,10 @@ public abstract class Joueur {
     }
 
     // déclarer perte
+
+    public void declarerPerte() {
+        System.out.println(this.getName() + " a perdu!");
+    }
 
     public static List<Joueur> listeJoueurs = JeuLocal.getListeJoueurs();
 

@@ -15,8 +15,8 @@ public abstract class CartePayer extends Carte {
     @Override
     public void appliquerEffet(Joueur joueur) throws PasAssezArgentException{
         if (joueur.getPorteMonnaie()<this.getMontantAPayer(joueur)) {
+            joueur.declarerPerte();
             throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour payer, donc vous avez perdu!");
-            // méthode déclarer perte
         }
         joueur.payer(this.getMontantAPayer(joueur));
     }
