@@ -98,19 +98,29 @@ public class Terrain extends Propriete {
                 throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur "+this.getColor()+", donc vous ne pouvez pas construire la maison!");
             } else {
                 Map<Terrain,Integer> listeNombreMaisons = this.getListeNombreMaisons();
-                int minimumNbMaisons = 4;
+
+                // voir si on a déjà le nb maximum de maisons
+                boolean toutesMaisonsPossibles = true; // true si le maximum (4) est déjà atteint
+                for (Terrain t : listeNombreMaisons.keySet()) {
+                    if ((t.getNombreMaisons()==0 && !t.estHotel()) || t.getNombreMaisons() == 1 || t.getNombreMaisons() == 2 || t.getNombreMaisons() == 3 ) {
+                        toutesMaisonsPossibles = false;
+                    }
+                }
+                if (toutesMaisonsPossibles) {
+                    throw new CannotBuildException("Vous avez construit toutes les maisons possibles!");
+                }
+
+                // chercher le nb minimum de maisons pour voir où on peut en construire une autre
+                int minimumNbMaisons = 5;
+                Terrain terrainChoisi = null;
                 for (Terrain t : listeNombreMaisons.keySet()) {
                     if (t.getNombreMaisons() < minimumNbMaisons) {
                         minimumNbMaisons = t.getNombreMaisons();
+                        terrainChoisi = t;
                     }
                 }
-                for (Terrain tr : listeNombreMaisons.keySet()) {
-                    if (listeNombreMaisons.get(tr) == minimumNbMaisons) {
-                        tr.getProprietaire().payer(tr.getPrixMaison());
-                        tr.augmenterNbMaisons();
-                        break; // il ne va acheter qu'une maison
-                    }
-                }
+                terrainChoisi.getProprietaire().payer(terrainChoisi.getPrixMaison());
+                terrainChoisi.augmenterNbMaisons();
             }
         }
     }
@@ -135,6 +145,9 @@ public class Terrain extends Propriete {
     }
 
     public void vendreHotel() throws CannotSellException {
+        if (!this.tousTerrainsMemeCouleur(color)) {
+            throw new CannotSellException("Vous n'avez même pas tous les terrains de cette couleur! ");
+        }
         if (!this.estHotel())
             throw new CannotSellException("Vous n'avez pas d'hotel sur ce terrain!");
         this.estHotel = false;
@@ -143,10 +156,25 @@ public class Terrain extends Propriete {
     }
 
     public void vendreMaison() throws CannotSellException {
-        if (this.getNombreMaisons() == 0)
+        if (!this.tousTerrainsMemeCouleur(color)) {
+            throw new CannotSellException("Vous n'avez même pas tous les terrains de cette couleur! ");
+        }
+        Map<Terrain,Integer> listeNombreMaisons = this.getListeNombreMaisons();
+
+        // chercher le nb maximum de maisons pour voir ce qu'on peut vendre
+        int maximumNbMaisons = -1;
+        Terrain terrainChoisi = null;
+        for (Terrain t : listeNombreMaisons.keySet()) {
+            if (t.getNombreMaisons()>maximumNbMaisons) {
+                maximumNbMaisons = t.getNombreMaisons();
+                terrainChoisi = t;
+            }
+        }
+        if (terrainChoisi.getNombreMaisons() == 0) {
             throw new CannotSellException("Vous n'avez pas de maison sur ce terrain!");
-        this.getProprietaire().ajouterArgent(prixMaison / 2);
-        this.nombreMaisons--;
+        }
+        terrainChoisi.getProprietaire().ajouterArgent(prixMaison / 2);
+        terrainChoisi.nombreMaisons--;
     }
 
 }
