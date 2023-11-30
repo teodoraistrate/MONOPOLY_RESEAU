@@ -88,4 +88,17 @@ public final class Plateau {
         throw new NomPasValideException("Le nom de la case n'est pas valide!");
     }
 
+    public List<Terrain> getTerrainsMemeCouleur(Color couleur) {
+        List<Terrain> listeT = new ArrayList();
+        for (Case c : this.getPlateau()) {
+            if (c instanceof Terrain) {
+                Terrain t = (Terrain) c;
+                if (couleur.equals(t.getColor())) {
+                    listeT.add(t);
+                }
+            }
+        }
+        return listeT;
+    }
+
 }
