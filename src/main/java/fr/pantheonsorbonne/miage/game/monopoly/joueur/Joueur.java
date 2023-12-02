@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
@@ -54,15 +55,18 @@ public abstract class Joueur {
 
     public void ajouterArgent(int montant) {
         porteMonnaie += montant;
+        System.out.println(this.getName() + " a reçu " + montant);
     }
 
     public void payer(double montant) throws PasAssezArgentException {
         if (porteMonnaie < montant) throw new PasAssezArgentException ("Vous n'avez pas assez d'argent pour cette action!");
         porteMonnaie -= montant;
+        System.out.println(this.getName() + " a payé " + montant);
     }
 
     public void getStartingBonus() {
         this.ajouterArgent(Start.RECEIVE_MONEY);
+        System.out.println(this.getName() + " a reçu son Bonus de 200!");
     }
 
     public void payerLoyer(Propriete propriete) throws PasAssezArgentException {
@@ -74,6 +78,7 @@ public abstract class Joueur {
         }
         if (propriete instanceof Terrain && !((Terrain)propriete).estSquatte()) {
             this.payer(propriete.getLoyer());
+            System.out.println(this.getName() + " a payé le loyer pour " + propriete.getName());
             if (!propriete.estHypotheque()) {
                 propriete.getProprietaire().ajouterArgent(propriete.getLoyer());
             }
@@ -86,9 +91,15 @@ public abstract class Joueur {
             this.declarerPerte();
             throw new PasAssezArgentException ("Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
         }
+        else {
+            this.payer(taxe.getMontantAPayer());
+            System.out.println(this.getName() + " a payé les taxes " + taxe.getName());
+        }
     }
 
     // se déplacer
+
+    Plateau plateau = Plateau.getInstance();
 
     // boolean avancer parce que c'est aussi possible de reculer
     public void deplacerSurPlateau(int nouvellePosition, boolean avancer) {
@@ -96,6 +107,7 @@ public abstract class Joueur {
             this.getStartingBonus();
         }
         this.positionPlateau = nouvellePosition;
+        System.out.println(this.getName() + " est allé à " + plateau.getCaseParId(nouvellePosition).getName());
     }
 
     public void deplacerNombreCases(int nombreCases, boolean avancer) {
@@ -114,6 +126,7 @@ public abstract class Joueur {
                 this.positionPlateau -= nombreCases;
             }
         }
+        System.out.println(this.getName() + " est allé à " + plateau.getCaseParId(this.positionPlateau).getName());
     }
 
     // concernant les proprietes
@@ -121,12 +134,14 @@ public abstract class Joueur {
     public void ajouterPropriete(Propriete propriete) {
         this.properties.add(propriete);
         propriete.setProprietaire(this);
+        System.out.println(this.getName() + " est maintenant le proprietaire de " + propriete.getName());
     }
 
     public void transfererProprietes (Joueur gagnant) {
         for (Propriete proprieteATransferer : this.getProperties()) {
             gagnant.ajouterPropriete(proprieteATransferer);
         }
+        System.out.println("Toutes les proprietes de " + this.getName() + " ont été transférées à " + gagnant.getName());
     }
 
     public void acheterPropriete(Propriete propriete) throws PasAssezArgentException{
@@ -134,6 +149,7 @@ public abstract class Joueur {
         this.payer(propriete.getPrice());
         this.ajouterPropriete(propriete);
         propriete.setProprietaire(this);
+        System.out.println(this.getName() + " a acheté la propriété " + propriete.getName());
     }
 
     public void racheterProprieteHypothequee(Propriete propriete) throws PasAssezArgentException, DejaAcheteException {
@@ -142,17 +158,20 @@ public abstract class Joueur {
         if (!propriete.estHypotheque()) throw new DejaAcheteException("La propriété n'est pas hypothéquée!");
         this.payer(prix);
         propriete.leverHypotheque();
+        System.out.println("La propriété " + propriete.getName() + " de " + this.getName() + " n'est pus hypothéquée!");
     }
 
     public void removePropriete(Propriete propriete) {
         this.properties.remove(propriete);
         propriete.setProprietaire(null);
+        System.out.println(this.getName() + "n'est plus le proprietaire de " + propriete.getName());
     }
 
     public void removeAllProprietes() {
         for (Propriete propriete : this.getProperties()) {
             this.removePropriete(propriete);
         }
+        System.out.println(this.getName() + " n'a plus de propriétés!");
     }
 
     // déclarer perte
