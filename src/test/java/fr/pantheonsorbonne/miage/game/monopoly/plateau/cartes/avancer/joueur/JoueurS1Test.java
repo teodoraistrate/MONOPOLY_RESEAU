@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.joueur;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Compagnie;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
@@ -13,8 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JoueurS1Test {
 
+    
+
     @Test
     public void testChoixAcheterPropriete() {
+
+        Plateau p = Plateau.getInstance();
         JoueurS1 joueur = new JoueurS1("TestJoueur");
         Propriete proprieteChere = new Compagnie("Propriete Chère", 1000);
         Propriete proprieteAbordable = new Compagnie("Propriete Abordable", 200);

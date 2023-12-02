@@ -20,7 +20,7 @@ public class Terrain extends Propriete {
     private boolean estSquatte;
     private int nombreToursInitialSquatteur;
     private boolean estPrisonAdditionnelle = false;
-    private int loyerPrison = tableauLoyer[0]/10 +1;
+    //private int loyerPrison = tableauLoyer[0]/10 +1;
 
     public Terrain(String name, int price, Color color, int[] tableauLoyer, int prixMaison) {
         super(name, price);
@@ -46,11 +46,11 @@ public class Terrain extends Propriete {
     public int getNombreMaisons() {
         return nombreMaisons;
     }
-
+/* 
     public int getLoyerPrison() {
         return loyerPrison;
     }
-
+*/
     public void augmenterNbMaisons() {
         this.nombreMaisons++;
     }
@@ -72,8 +72,8 @@ public class Terrain extends Propriete {
 
     public boolean tousTerrainsMemeCouleur(Color couleur) {
         boolean resultat = true;
-        Plateau plateau = Plateau.getInstance();
-        List<Terrain> listeT = plateau.getTerrainsMemeCouleur(couleur);
+        Plateau p = Plateau.getInstance();
+        List<Terrain> listeT = p.getTerrainsMemeCouleur(couleur);
         for (Terrain t : listeT) {
             if(t.getProprietaire() != this.getProprietaire()) {
                 resultat = false;
