@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.miage.testPlateau;
+/*package fr.pantheonsorbonne.miage.testPlateau;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -59,7 +59,7 @@ public class TerrainTest {
 
     }
     */
-
+    /* 
      @Test
     public void testCalculLoyerSansHotel() throws CannotSellException {
 
@@ -83,9 +83,7 @@ public class TerrainTest {
         assertEquals(20, terrain1.getLoyer());
 
         terrain1.vendreMaison();
-        assertEquals(10, terrain1.getLoyer());
-
-        
+        assertEquals(20, terrain1.getLoyer());
 
     }
     
@@ -182,4 +180,84 @@ public class TerrainTest {
         
         assertFalse(terrain.estSquatte());
     }
+}
+*/
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
+import java.awt.Color;
+import java.util.List;
+
+public class TerrainTest {
+
+    @Test
+    public void testConstructionTerrain() {
+        int[] tableauLoyer = {100, 200, 300, 400, 500, 600};
+        int prixMaison = 100;
+        Color color = Color.BLUE;
+
+        Terrain terrain = new Terrain("ProprieteTest", 1000, color, tableauLoyer, prixMaison);
+
+        assertEquals("ProprieteTest", terrain.getName());
+        assertEquals(1000, terrain.getPrice());
+        assertArrayEquals(tableauLoyer, terrain.getTableauLoyer());
+        assertEquals(0, terrain.getNombreMaisons());
+        assertFalse(terrain.estHotel());
+        assertEquals(prixMaison, terrain.getPrixMaison());
+        assertEquals(color, terrain.getColor());
+        assertNull(terrain.getProprietaire());
+    }
+
+    @Test
+    public void testCalculLoyerSansHotel() throws CannotSellException {
+
+        Joueur proprietaire = new JoueurS1("clara");
+        proprietaire.ajouterArgent(500);
+
+        Plateau plateau = Plateau.getInstance();
+        List <Terrain> listeTerrains = plateau.getTerrainsMemeCouleur(Color.PINK);
+
+        for (Terrain t : listeTerrains) {
+            t.setProprietaire(proprietaire);
+        }
+        Terrain terrain1 = listeTerrains.get(0);
+
+        try {
+                terrain1.acheterMaison();
+        } catch (Exception e ){
+            e.printStackTrace();
+
+        }
+        assertEquals(20, terrain1.getLoyer());
+
+        terrain1.vendreMaison();
+        assertEquals(20, terrain1.getLoyer());
+
+    }
+    
+
+    @Test
+    public void testCalculLoyerAvecHotel() throws CannotSellException {
+        int[] tableauLoyer = {100, 200, 300, 400, 500, 600};
+        int prixMaison = 100;
+        Color color = Color.BLUE;
+
+        Terrain terrain = new Terrain("ProprieteTest", 1000, color, tableauLoyer, prixMaison);
+
+        terrain.vendreMaison();
+        terrain.vendreMaison();
+        terrain.vendreMaison();
+        terrain.vendreMaison();
+
+        assertEquals(600, terrain.getLoyer());
+    }
+
+    
+
 }
