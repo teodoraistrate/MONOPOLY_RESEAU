@@ -31,6 +31,8 @@ public final class Plateau {
         return plateauJeu;
     }
 
+    //TODO: ajouter énum pour les couleurs 
+
     private static List<Case> initialiserPlateau() {
         List <Case> cases = new ArrayList<>();
         cases.add(new Start("Case départ"));
