@@ -22,6 +22,7 @@ public class JoueurS1Test {
         joueur = new JoueurS1("TestJoueur");
     }
 
+    
     @Test
     public void testChoixAcheterPropriete() {
         JoueurS1 joueur = new JoueurS1("TestJoueur");
