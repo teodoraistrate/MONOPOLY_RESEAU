@@ -180,7 +180,9 @@ public abstract class Joueur {
         System.out.println(this.getName() + " a perdu!");
     }
 
-    public static List<Joueur> listeJoueurs = JeuLocal.getListeJoueurs();
+
+    public JeuLocal jeu = JeuLocal.getInstance();
+    public List<Joueur> listeJoueurs = jeu.getListeJoueurs();
 
     // choix à faire
 

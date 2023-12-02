@@ -16,7 +16,17 @@ public class JeuLocal {
     public static final Plateau plateau = Plateau.getInstance(); //erreur aussi maybe
     static List<Joueur> listeJoueurs = new ArrayList<>();
 
-    public static List<Joueur> getListeJoueurs() {
+    private static JeuLocal instance = new JeuLocal(); // Création de l'instance unique
+
+    private JeuLocal() {
+        // Initialisation de l'instance unique
+    }
+
+    public static JeuLocal getInstance() {
+        return instance;
+    }
+
+    public List<Joueur> getListeJoueurs() {
         return listeJoueurs;
     }
 
@@ -33,11 +43,11 @@ public class JeuLocal {
     
     public static void main(String[] args) {
 
+        initialiserListeJoueurs();
+
         Prison prison = Prison.getInstance("Prison");
 
         int nombreTours = 0;
-
-        initialiserListeJoueurs();
 
         // le jeu s'arrête quand il reste un seul joueur
         while (listeJoueurs.size()>1) {
