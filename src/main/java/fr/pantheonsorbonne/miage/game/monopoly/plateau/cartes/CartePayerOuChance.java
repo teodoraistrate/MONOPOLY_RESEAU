@@ -19,7 +19,7 @@ public class CartePayerOuChance extends Carte {
 
     @Override
     public void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException {
-        if (joueur.choixPayerOuChance()) {
+        if (joueur.choixPayerOuChance(this)) {
             // methode tirer carte Chance
         } else {
             joueur.payer(montant);

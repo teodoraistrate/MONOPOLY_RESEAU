@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.joueur;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Compagnie;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +16,8 @@ public class JoueurS1Test {
     @Test
     public void testChoixAcheterPropriete() {
         JoueurS1 joueur = new JoueurS1("TestJoueur");
-        Propriete proprieteChere = new Propriete("Propriete Chère", 1000);
-        Propriete proprieteAbordable = new Propriete("Propriete Abordable", 200);
+        Propriete proprieteChere = new Compagnie("Propriete Chère", 1000);
+        Propriete proprieteAbordable = new Compagnie("Propriete Abordable", 200);
 
         assertTrue(joueur.choixAcheterPropriete(proprieteAbordable));
         assertFalse(joueur.choixAcheterPropriete(proprieteChere));
@@ -30,12 +31,12 @@ public class JoueurS1Test {
         int montantSauv = c.getMontantAPayer();
 
         // Le joueur a suffisamment d'argent pour payer
-        joueur.ajouterArgent(600);
-        assertFalse(joueur.choixPayerOuChance());
+        joueur.ajouterArgent(300);
+        assertFalse(joueur.choixPayerOuChance(c));
 
         // Le joueur n'a pas assez d'argent pour payer
-        joueur.ajouterArgent(400);
-        assertTrue(joueur.choixPayerOuChance());
+        joueur.ajouterArgent(150);
+        assertTrue(joueur.choixPayerOuChance(c));
     }
 
     @Test
@@ -56,10 +57,10 @@ public class JoueurS1Test {
         JoueurS1 joueur = new JoueurS1("TestJoueur");
 
         // Création de propriétés avec des prix variés
-        Propriete p1 = new Propriete("Prop1", 100);
-        Propriete p2 = new Propriete("Prop2", 200);
-        Propriete p3 = new Propriete("Prop3", 300);
-        Propriete p4 = new Propriete("Prop4", 400);
+        Propriete p1 = new Compagnie("Comp", 100);
+        Propriete p2 = new Compagnie("Comp", 200);
+        Propriete p3 = new Compagnie("Comp", 300);
+        Propriete p4 = new Compagnie("Comp", 400);
 
         // Le joueur a moins de 500 d'argent, donc il devrait choisir les trois premières propriétés
         joueur.ajouterArgent(400);
