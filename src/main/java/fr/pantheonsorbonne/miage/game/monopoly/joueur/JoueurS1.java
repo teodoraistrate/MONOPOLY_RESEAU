@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
@@ -87,12 +88,11 @@ public class JoueurS1 extends Joueur {
         if (this.getPorteMonnaie() < 500) {
             for (Propriete p : this.getProperties()) {
                 if (p instanceof Terrain) {
-                    int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
-                    if (nombreMaisonsP > 0) {
+                    if (((Terrain)p).estHotel()) {
                         choixHotelsAVendre.add((Terrain)p);
-                        if (this.getPorteMonnaie() > 500) {
-                            break;
-                        }
+                    }
+                    if (this.getPorteMonnaie() > 500) {
+                        break;
                     }
                 }
             }
@@ -103,14 +103,25 @@ public class JoueurS1 extends Joueur {
 
     @Override
     public boolean payerOuAttendre() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'payerOuAttendre'");
+        return false;
+        // il ne  va pas payer ET risquer d'aller en prison
     }
 
     @Override
-    public boolean transformerProprieteEnPrison() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'transformerProprieteEnPrison'");
+    public boolean transformerProprieteEnPrison(Terrain terrain) {
+        Plateau plateau = Plateau.getInstance();
+        if (terrain.tousTerrainsMemeCouleur(terrain.getColor())) return false;
+        else {
+            List<Terrain> listeT = plateau.getTerrainsMemeCouleur(terrain.getColor());
+            for (Terrain t : listeT) {
+                if (t.getProprietaire() != terrain.getProprietaire() && t.getProprietaire() != null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+        // il ne veut transformer son terrain en prison que s'il y a un autre joueur qui a un des terrains de la meme couleur
+        // sinon il va espérer qu'il va pouvoir acquerir tous les terrains de cette couleur
     }
 
     

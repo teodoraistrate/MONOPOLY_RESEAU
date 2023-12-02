@@ -178,7 +178,7 @@ public abstract class Joueur {
 
     public abstract boolean payerOuAttendre();
 
-    public abstract boolean transformerProprieteEnPrison();
+    public abstract boolean transformerProprieteEnPrison(Terrain t);
 
 
     public void setPosition(int positionInitiale) {
