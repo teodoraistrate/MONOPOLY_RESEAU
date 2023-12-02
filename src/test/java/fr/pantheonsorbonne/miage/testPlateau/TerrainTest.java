@@ -182,6 +182,7 @@ public class TerrainTest {
     }
 }
 */
+package fr.pantheonsorbonne.miage.testPlateau;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -191,6 +192,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
+
 import java.awt.Color;
 import java.util.List;
 
@@ -216,31 +218,29 @@ public class TerrainTest {
 
     @Test
     public void testCalculLoyerSansHotel() throws CannotSellException {
-
         Joueur proprietaire = new JoueurS1("clara");
         proprietaire.ajouterArgent(500);
 
         Plateau plateau = Plateau.getInstance();
-        List <Terrain> listeTerrains = plateau.getTerrainsMemeCouleur(Color.PINK);
+        List<Terrain> listeTerrains = plateau.getTerrainsMemeCouleur(Color.PINK);
 
         for (Terrain t : listeTerrains) {
             t.setProprietaire(proprietaire);
         }
+
         Terrain terrain1 = listeTerrains.get(0);
 
         try {
-                terrain1.acheterMaison();
-        } catch (Exception e ){
+            terrain1.acheterMaison();
+        } catch (Exception e) {
             e.printStackTrace();
-
         }
+
         assertEquals(20, terrain1.getLoyer());
 
         terrain1.vendreMaison();
         assertEquals(20, terrain1.getLoyer());
-
     }
-    
 
     @Test
     public void testCalculLoyerAvecHotel() throws CannotSellException {
@@ -255,9 +255,13 @@ public class TerrainTest {
         terrain.vendreMaison();
         terrain.vendreMaison();
 
+        // Assurez-vous que le terrain n'a plus de maisons
+        assertEquals(0, terrain.getNombreMaisons());
+
+        // Le loyer devrait être celui de l'hôtel, même si techniquement il s'agit de vendre des maisons
         assertEquals(600, terrain.getLoyer());
     }
 
-    
 
 }
+

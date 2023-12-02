@@ -13,7 +13,7 @@ public class CartePayerOuChance extends Carte {
         this.montant = montant;
     }
 
-    public static int getMontantAPayer() {
+    public int getMontantAPayer() {
         return montant;
     }
 
