@@ -1,23 +1,36 @@
+
 package fr.pantheonsorbonne.miage.testPlateau;
-
-import org.junit.jupiter.api.Test;
-
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.AllerEnPrison;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AllerEnPrisonTest {
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-    @Test
-    public void testGetName() {
-        AllerEnPrison allerEnPrison = new AllerEnPrison("Test AllerEnPrison");
-        assertEquals("Test AllerEnPrison", allerEnPrison.getName());
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.AllerEnPrison;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
+
+class AllerEnPrisonTest {
+
+    private Plateau plateau;
+    private JoueurS1 joueur;
+
+    @BeforeEach
+    public void setUp() {
+        plateau = Plateau.getInstance();
+        joueur = new JoueurS1("nv joueur");
     }
 
     @Test
-    public void testGetIdCase() {
-        AllerEnPrison allerEnPrison = new AllerEnPrison("Test AllerEnPrison");
-        assertEquals(0, allerEnPrison.getIdCase());
+    void testAppliquerEffetCase() {
+        Joueur joueur = new JoueurS1("sarah");
+        AllerEnPrison allerEnPrison = new AllerEnPrison("Aller en prison");
+        Prison prison = Prison.getInstance("Prison");
+        assertDoesNotThrow(() -> allerEnPrison.appliquerEffetCase(joueur));
+        assertFalse(joueur.estEnPrison());
+
     }
 
 }

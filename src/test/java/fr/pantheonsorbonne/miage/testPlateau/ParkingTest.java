@@ -1,48 +1,34 @@
-
-/* 
 package fr.pantheonsorbonne.miage.testPlateau;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Parking;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 
-import static org.junit.jupiter.api.Assertions.*;
+class ParkingTest {
 
-public class ParkingTest {
+    private Plateau plateau;
+    private JoueurS1 joueur;
 
-    @Test
-    public void testGetName() {
-        Parking parking = new Parking("Test Parking");
-        assertEquals("Test Parking", parking.getName());
+    @BeforeEach
+    public void setUp() {
+        plateau = Plateau.getInstance();
+        joueur = new JoueurS1("mickeal jackson");
     }
 
     @Test
-    public void testGetIdCase() {
-        Parking parking = new Parking("Test Parking");
-        assertEquals(1, parking.getIdCase());
-    }
-}
-*/
+    void testAppliquerEffetCase() {
+        joueur = new JoueurS1("mickeal jackson");
+        Parking parking = new Parking("Parking Test");
+        assertDoesNotThrow(() -> parking.appliquerEffetCase(joueur));
+        assertEquals(0, joueur.getPorteMonnaie());
+        assertEquals("mickeal jackson", joueur.getName());
 
-package fr.pantheonsorbonne.miage.testPlateau;
-
-import org.junit.jupiter.api.Test;
-
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.Parking;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-public class ParkingTest {
-
-    @Test
-    public void testGetName() {
-        Parking parking = new Parking("Test Parking");
-        assertEquals("Test Parking", parking.getName());
     }
 
-    @Test
-    public void testGetIdCase() {
-        Parking parking = new Parking("Test Parking");
-        assertEquals(0, parking.getIdCase());  // L'ID doit être initialisé à 0 par défaut
-    }
 }
