@@ -45,6 +45,11 @@ public class JeuLocal {
 
         initialiserListeJoueurs();
 
+        for (Joueur j : listeJoueurs) {
+            j.ajouterArgent(1500);
+            System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
+        }
+
         Prison prison = Prison.getInstance("Prison");
 
         int nombreTours = 0;
@@ -86,6 +91,11 @@ public class JeuLocal {
                     }
                 }
             }
+            for (Joueur j : listeJoueurs) {
+                System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
+            }
+            System.out.println();
+            System.out.println();
             nombreTours++;
         }
 
