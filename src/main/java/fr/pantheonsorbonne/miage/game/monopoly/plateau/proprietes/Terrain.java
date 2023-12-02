@@ -19,6 +19,8 @@ public class Terrain extends Propriete {
     private Color color;
     private boolean estSquatte;
     private int nombreToursInitialSquatteur;
+    private boolean estPrisonAdditionnelle = false;
+    private int loyerPrison = tableauLoyer[0]/10 +1;
 
     public Terrain(String name, int price, Color color, int[] tableauLoyer, int prixMaison) {
         super(name, price);
@@ -45,9 +47,14 @@ public class Terrain extends Propriete {
         return nombreMaisons;
     }
 
+    public int getLoyerPrison() {
+        return loyerPrison;
+    }
+
     public void augmenterNbMaisons() {
         this.nombreMaisons++;
     }
+
 
     @Override
     public int getLoyer() {
@@ -96,6 +103,10 @@ public class Terrain extends Propriete {
 
     public boolean estSquatte() {
         return estSquatte;
+    }
+
+    public boolean estPrisonAdditionnelle() {
+        return estPrisonAdditionnelle;
     }
 
     // autres methodes

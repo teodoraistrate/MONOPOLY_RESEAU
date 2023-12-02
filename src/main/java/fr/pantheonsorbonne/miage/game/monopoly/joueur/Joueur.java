@@ -7,6 +7,7 @@ import java.util.Map;
 import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotBuildException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.DejaAcheteException;
@@ -166,19 +167,19 @@ public abstract class Joueur {
 
     public abstract boolean choixAcheterPropriete(Propriete propriete);
 
-    public abstract boolean choixPayerOuChance();
+    public abstract boolean choixPayerOuChance(CartePayerOuChance c);
 
     public abstract boolean choixSortirPrison();
 
-    public abstract Map<Propriete, Integer> choixNombreMaisonsAVendre();
+    public abstract Map<Terrain, Integer> choixNombreMaisonsAVendre();
 
-    public abstract List<Propriete> choixHotelsAVendre();
+    public abstract List<Terrain> choixHotelsAVendre();
 
     public abstract List<Propriete> choixProprietesAHypothequer();
 
     public abstract boolean payerOuAttendre();
 
-    public abstract boolean transformerProprieteEnPrison();
+    public abstract boolean transformerProprieteEnPrison(Terrain t);
 
 
     public void setPosition(int positionInitiale) {
