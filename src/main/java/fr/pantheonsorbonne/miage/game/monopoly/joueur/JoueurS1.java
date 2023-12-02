@@ -1,12 +1,14 @@
 package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public class JoueurS1 extends Joueur {
 
@@ -44,6 +46,8 @@ public class JoueurS1 extends Joueur {
 
         List<Propriete> choixProprietesAHypothequer = new ArrayList();
         int nombrePrHypotheques = 0;
+
+        // à faire : calculer le loyer maximal et remplacer 500 par 3*loyerMax
         if (this.getPorteMonnaie() < 500) {
             for (Propriete p : this.getProperties()) {
                 if (nombrePrHypotheques < 3) {
@@ -58,15 +62,43 @@ public class JoueurS1 extends Joueur {
     }
 
     @Override
-    public Map<Propriete, Integer> choixNombreMaisonsAVendre() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'choixNombreMaisonsAVendre'");
+    public Map<Terrain, Integer> choixNombreMaisonsAVendre() {
+        Map <Terrain, Integer> choixNombreMaisonsAVendre = new HashMap<>();
+        if (this.getPorteMonnaie() < 500) {
+            for (Propriete p : this.getProperties()) {
+                if (p instanceof Terrain) {
+                    int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
+                    if (nombreMaisonsP > 0) {
+                        choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);
+                        if (this.getPorteMonnaie() > 500) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return choixNombreMaisonsAVendre;
     }
 
     @Override
-    public List<Propriete> choixHotelsAVendre() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'choixHotelsAVendre'");
+    public List<Terrain> choixHotelsAVendre() {
+        List <Terrain> choixHotelsAVendre = new ArrayList<>();
+        if (this.getPorteMonnaie() < 500) {
+            for (Propriete p : this.getProperties()) {
+                if (p instanceof Terrain) {
+                    int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
+                    if (nombreMaisonsP > 0) {
+                        choixHotelsAVendre.add((Terrain)p);
+                        if (this.getPorteMonnaie() > 500) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return choixHotelsAVendre;
     }
 
     @Override

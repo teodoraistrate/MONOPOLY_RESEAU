@@ -170,9 +170,9 @@ public abstract class Joueur {
 
     public abstract boolean choixSortirPrison();
 
-    public abstract Map<Propriete, Integer> choixNombreMaisonsAVendre();
+    public abstract Map<Terrain, Integer> choixNombreMaisonsAVendre();
 
-    public abstract List<Propriete> choixHotelsAVendre();
+    public abstract List<Terrain> choixHotelsAVendre();
 
     public abstract List<Propriete> choixProprietesAHypothequer();
 

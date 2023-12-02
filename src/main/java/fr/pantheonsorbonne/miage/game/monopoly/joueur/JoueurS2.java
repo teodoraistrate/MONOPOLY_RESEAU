@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 import java.util.List;
 import java.util.Map;
@@ -42,13 +43,13 @@ public class JoueurS2 extends Joueur {
     }
 
     @Override
-    public Map<Propriete, Integer> choixNombreMaisonsAVendre() {
+    public Map<Terrain, Integer> choixNombreMaisonsAVendre() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'choixNombreMaisonsAVendre'");
     }
 
     @Override
-    public List<Propriete> choixHotelsAVendre() {
+    public List<Terrain> choixHotelsAVendre() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'choixHotelsAVendre'");
     }
