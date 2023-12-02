@@ -13,12 +13,12 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public class JoueurS1 extends Joueur {
 
-    // Joueur qui achète tout le temps
 
     public JoueurS1(String name) {
         super(name);
     }
 
+    // Joueur qui achète tout le temps
     public boolean choixAcheterPropriete(Propriete propriete) {
         if (this.getPorteMonnaie()<propriete.getPrice()) {
             return false;
