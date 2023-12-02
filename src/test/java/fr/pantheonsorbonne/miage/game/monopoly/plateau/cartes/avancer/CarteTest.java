@@ -5,6 +5,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.Carte;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,14 +28,15 @@ public class CarteTest {
 
     @Test
     public void testAppliquerEffet() {
-        Joueur joueur = new JoueurS1("PlayerTest Caroline");
+        Joueur joueurTestTest = new JoueurS1("gege"); 
         Carte carte = new Carte("Test Carte") {
             @Override
             public void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException {
             }
         };
-        assertDoesNotThrow(() -> carte.appliquerEffet(joueur));
-
+        assertDoesNotThrow(() -> carte.appliquerEffet(joueurTestTest));
     }
+
+    
 
 }

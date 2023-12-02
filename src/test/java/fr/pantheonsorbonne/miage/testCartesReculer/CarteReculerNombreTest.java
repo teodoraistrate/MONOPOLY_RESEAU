@@ -15,7 +15,7 @@ public class CarteReculerNombreTest {
         int nombreCases = 3;
         CarteReculerNombre carte = new CarteReculerNombre("Description", nombreCases);
 
-        Joueur joueur = new JoueurS1(null);
+        Joueur joueur = new JoueurS1("paola");
         joueur.getPositionPlateau(); 
         int nouvellePosition = carte.getNouvellePosition(joueur);
         assertEquals(37, nouvellePosition);

@@ -11,7 +11,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 
 public class JeuLocal {
 
-    public static final Plateau plateau = Plateau.getInstance();
+    public static final Plateau plateau = Plateau.getInstance(); //erreur aussi maybe
     static List<Joueur> listeJoueurs = new ArrayList<>();
 
     public static List<Joueur> getListeJoueurs() {

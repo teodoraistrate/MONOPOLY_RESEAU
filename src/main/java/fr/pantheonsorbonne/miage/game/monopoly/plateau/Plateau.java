@@ -10,7 +10,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public final class Plateau {
     private static Plateau instance = null;
-    private static final List<Case> plateauJeu = initialiserPlateau();
+    private static final List<Case> plateauJeu = initialiserPlateau(); 
     public static final int DIMENSION_PLATEAU = 40;
 
     private Plateau() { 
@@ -102,5 +102,7 @@ public final class Plateau {
         }
         return listeT;
     }
+
+    
 
 }

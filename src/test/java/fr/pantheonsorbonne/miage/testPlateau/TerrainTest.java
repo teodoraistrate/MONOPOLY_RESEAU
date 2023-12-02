@@ -6,11 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.awt.Color;
-
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotBuildException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
@@ -35,22 +38,57 @@ public class TerrainTest {
         assertNull(terrain.getProprietaire());
     }
 
+    /* 
     @Test
     public void testCalculLoyerSansHotel() throws CannotSellException {
+
         int[] tableauLoyer = {100, 200, 300, 400, 500, 600};
         int prixMaison = 100;
         Color color = Color.BLUE;
 
         Terrain terrain = new Terrain("ProprieteTest", 1000, color, tableauLoyer, prixMaison);
 
-        assertEquals(100, terrain.getLoyer());
+        assertEquals(200, terrain.getLoyer());
 
         terrain.vendreMaison();
         assertEquals(200, terrain.getLoyer());
 
         terrain.vendreMaison();
         assertEquals(300, terrain.getLoyer());
+
+
     }
+    */
+
+     @Test
+    public void testCalculLoyerSansHotel() throws CannotSellException {
+
+        Joueur proprietaire = new JoueurS1("clara");
+        proprietaire.ajouterArgent(500);
+
+        Plateau plateau = Plateau.getInstance();
+        List <Terrain> listeTerrains = plateau.getTerrainsMemeCouleur(Color.PINK);
+
+        for (Terrain t : listeTerrains) {
+            t.setProprietaire(proprietaire);
+        }
+        Terrain terrain1 = listeTerrains.get(0);
+
+        try {
+                terrain1.acheterMaison();
+        } catch (Exception e ){
+            e.printStackTrace();
+
+        }
+        assertEquals(20, terrain1.getLoyer());
+
+        terrain1.vendreMaison();
+        assertEquals(10, terrain1.getLoyer());
+
+        
+
+    }
+    
 
     @Test
     public void testCalculLoyerAvecHotel() throws CannotSellException {

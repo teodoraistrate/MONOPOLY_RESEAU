@@ -1,10 +1,9 @@
-package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.testCartePayer;
 
+package fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.avancer.testCartePayer;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.payer.CartePayer;
-
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +15,7 @@ public class CartePayerTest {
         CartePayer carteTest = new CartePayer("Description de test") {
             @Override
             public int getMontantAPayer(Joueur joueur) {
-                return 100; 
+                return 100;
             }
         };
         int argentInitial = 200;
