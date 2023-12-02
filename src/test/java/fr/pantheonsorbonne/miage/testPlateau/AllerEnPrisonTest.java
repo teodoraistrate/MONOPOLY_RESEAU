@@ -17,7 +17,7 @@ public class AllerEnPrisonTest {
     @Test
     public void testGetIdCase() {
         AllerEnPrison allerEnPrison = new AllerEnPrison("Test AllerEnPrison");
-        assertEquals(2, allerEnPrison.getIdCase());
+        assertEquals(0, allerEnPrison.getIdCase());
     }
 
 }

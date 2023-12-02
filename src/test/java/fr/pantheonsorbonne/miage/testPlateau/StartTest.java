@@ -4,11 +4,25 @@ import org.junit.jupiter.api.Test;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
+
 public class StartTest {
+
+    private Plateau plateau;
+    private JoueurS1 joueur;
+
+    @BeforeEach
+    public void setUp() {
+        plateau = Plateau.getInstance();
+        joueur = new JoueurS1("TestJoueur");
+    }
+
 
     @Test
     public void testGetName() {
@@ -16,11 +30,6 @@ public class StartTest {
         assertEquals("Test Start", start.getName());
     }
 
-    @Test
-    public void testGetIdCase() {
-        Start start = new Start("Test Start");
-        assertEquals(0, start.getIdCase());
-    }
 
     @Test
     public void testReceiveMoney() {

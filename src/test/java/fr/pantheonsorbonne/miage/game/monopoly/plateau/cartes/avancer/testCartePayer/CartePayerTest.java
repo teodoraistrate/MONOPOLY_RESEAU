@@ -21,7 +21,6 @@ public class CartePayerTest {
         joueur = new JoueurS1("TestJoueur");
     }
 
-z
 
     @Test
     public void testAppliquerEffet() {
