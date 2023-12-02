@@ -20,7 +20,7 @@ public class Terrain extends Propriete {
     private boolean estSquatte;
     private int nombreToursInitialSquatteur;
     private boolean estPrisonAdditionnelle = false;
-    //private int loyerPrison = tableauLoyer[0]/10 +1;
+    // private int loyerPrison = tableauLoyer[0]/10 +1;
 
     public Terrain(String name, int price, Color color, int[] tableauLoyer, int prixMaison) {
         super(name, price);
@@ -46,25 +46,25 @@ public class Terrain extends Propriete {
     public int getNombreMaisons() {
         return nombreMaisons;
     }
-/* 
-    public int getLoyerPrison() {
-        return loyerPrison;
-    }
-*/
+
+    /*
+     * public int getLoyerPrison() {
+     * return loyerPrison;
+     * }
+     */
     public void augmenterNbMaisons() {
         this.nombreMaisons++;
     }
-
 
     @Override
     public int getLoyer() {
         if (this.tousTerrainsMemeCouleur(this.getColor())) {
             if (this.estHotel())
                 return tableauLoyer[5];
-            else if (this.getNombreMaisons()>1) {
+            else if (this.getNombreMaisons() > 1) {
                 return tableauLoyer[this.getNombreMaisons()];
             } else {
-                return tableauLoyer[0]*2;
+                return tableauLoyer[0] * 2;
             }
         }
         return tableauLoyer[0];
@@ -75,15 +75,15 @@ public class Terrain extends Propriete {
         Plateau p = Plateau.getInstance();
         List<Terrain> listeT = p.getTerrainsMemeCouleur(couleur);
         for (Terrain t : listeT) {
-            if(t.getProprietaire() != this.getProprietaire()) {
+            if (t.getProprietaire() != this.getProprietaire()) {
                 resultat = false;
             }
         }
         return resultat;
     }
 
-    public Map<Terrain,Integer> getListeNombreMaisons() {
-        Map<Terrain,Integer> listeNombreMaisons = new HashMap<>();
+    public Map<Terrain, Integer> getListeNombreMaisons() {
+        Map<Terrain, Integer> listeNombreMaisons = new HashMap<>();
         List<Terrain> terrains = plateau.getTerrainsMemeCouleur(this.getColor());
         for (Terrain t : terrains) {
             listeNombreMaisons.put(t, t.getNombreMaisons());
@@ -94,7 +94,7 @@ public class Terrain extends Propriete {
     public Color getColor() {
         return color;
     }
-    
+
     // is a
 
     public boolean estHotel() {
@@ -112,18 +112,20 @@ public class Terrain extends Propriete {
     // autres methodes
 
     public void acheterMaison() throws CannotBuildException, PasAssezArgentException {
-        if (this.getProprietaire().getPorteMonnaie()<this.getPrixMaison()) {
+        if (this.getProprietaire().getPorteMonnaie() < this.getPrixMaison()) {
             throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour acheter une maison");
         } else {
             if (!this.tousTerrainsMemeCouleur(this.getColor())) {
-                throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur "+this.getColor()+", donc vous ne pouvez pas construire la maison!");
+                throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur " + this.getColor()
+                        + ", donc vous ne pouvez pas construire la maison!");
             } else {
-                Map<Terrain,Integer> listeNombreMaisons = this.getListeNombreMaisons();
+                Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
 
                 // voir si on a déjà le nb maximum de maisons
                 boolean toutesMaisonsPossibles = true; // true si le maximum (4) est déjà atteint
                 for (Terrain t : listeNombreMaisons.keySet()) {
-                    if ((t.getNombreMaisons()==0 && !t.estHotel()) || t.getNombreMaisons() == 1 || t.getNombreMaisons() == 2 || t.getNombreMaisons() == 3 ) {
+                    if ((t.getNombreMaisons() == 0 && !t.estHotel()) || t.getNombreMaisons() == 1
+                            || t.getNombreMaisons() == 2 || t.getNombreMaisons() == 3) {
                         toutesMaisonsPossibles = false;
                     }
                 }
@@ -131,7 +133,8 @@ public class Terrain extends Propriete {
                     throw new CannotBuildException("Vous avez construit toutes les maisons possibles!");
                 }
 
-                // chercher le nb minimum de maisons pour voir où on peut en construire une autre
+                // chercher le nb minimum de maisons pour voir où on peut en construire une
+                // autre
                 int minimumNbMaisons = 5;
                 Terrain terrainChoisi = null;
                 for (Terrain t : listeNombreMaisons.keySet()) {
@@ -147,15 +150,17 @@ public class Terrain extends Propriete {
     }
 
     public void acheterHotel() throws CannotBuildException, PasAssezArgentException {
-        if (this.getProprietaire().getPorteMonnaie()<this.getPrixMaison()) {
+        if (this.getProprietaire().getPorteMonnaie() < this.getPrixMaison()) {
             throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour acheter une maison");
         } else if (!this.tousTerrainsMemeCouleur(this.getColor())) {
-            throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur "+this.getColor()+", donc vous ne pouvez pas construire l'hotel!");
+            throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur " + this.getColor()
+                    + ", donc vous ne pouvez pas construire l'hotel!");
         } else {
-            Map<Terrain,Integer> listeNombreMaisons = this.getListeNombreMaisons();
+            Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
             for (Terrain t : listeNombreMaisons.keySet()) {
                 if (listeNombreMaisons.get(t) != 4 && listeNombreMaisons.get(t) != 0) {
-                    throw new CannotBuildException("Vous n'avez construit le maximum de maisons sur les terrains de cette couleur!");
+                    throw new CannotBuildException(
+                            "Vous n'avez construit le maximum de maisons sur les terrains de cette couleur!");
                 }
             }
 
@@ -180,22 +185,24 @@ public class Terrain extends Propriete {
         if (!this.tousTerrainsMemeCouleur(color)) {
             throw new CannotSellException("Vous n'avez même pas tous les terrains de cette couleur! ");
         }
-        Map<Terrain,Integer> listeNombreMaisons = this.getListeNombreMaisons();
+        Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
 
         // chercher le nb maximum de maisons pour voir ce qu'on peut vendre
         int maximumNbMaisons = -1;
         Terrain terrainChoisi = null;
         for (Terrain t : listeNombreMaisons.keySet()) {
-            if (t.getNombreMaisons()>maximumNbMaisons) {
+            if (t.getNombreMaisons() > maximumNbMaisons) {
                 maximumNbMaisons = t.getNombreMaisons();
                 terrainChoisi = t;
             }
         }
-        if (terrainChoisi.getNombreMaisons() == 0) {
-            throw new CannotSellException("Vous n'avez pas de maison sur ce terrain!");
+        if (terrainChoisi != null) {
+            if (terrainChoisi.getNombreMaisons() == 0) {
+                throw new CannotSellException("Vous n'avez pas de maison sur ce terrain!");
+            }
+            terrainChoisi.getProprietaire().ajouterArgent(prixMaison / 2);
+            terrainChoisi.nombreMaisons--;
         }
-        terrainChoisi.getProprietaire().ajouterArgent(prixMaison / 2);
-        terrainChoisi.nombreMaisons--;
     }
 
 }
