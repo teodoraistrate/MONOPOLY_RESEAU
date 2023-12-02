@@ -1,6 +1,8 @@
 package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
@@ -168,9 +170,9 @@ public abstract class Joueur {
 
     public abstract boolean choixSortirPrison();
 
-    public abstract int choixNombreMaisonsAVendre();
+    public abstract Map<Propriete, Integer> choixNombreMaisonsAVendre();
 
-    public abstract int choixNombreHotelsAVendre();
+    public abstract List<Propriete> choixHotelsAVendre();
 
     public abstract List<Propriete> choixProprietesAHypothequer();
 
