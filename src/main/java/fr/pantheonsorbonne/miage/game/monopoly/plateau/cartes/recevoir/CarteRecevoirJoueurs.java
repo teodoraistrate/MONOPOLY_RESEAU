@@ -15,10 +15,16 @@ public class CarteRecevoirJoueurs extends CarteRecevoir {
         this.montant = montant;
     }
 
-    List<Joueur> listeJoueurs = JeuLocal.getListeJoueurs();
-    int nombreJoueurs = listeJoueurs.size();
+    int nombreJoueurs = 1;
 
     public void joueursDonnentArgent(Joueur joueur) throws PasAssezArgentException {
+        JeuLocal jeu = JeuLocal.getInstance();
+        List<Joueur> listeJoueurs = jeu.getListeJoueurs();
+        if (listeJoueurs == null) {
+            JeuLocal.initialiserListeJoueurs();
+        }
+        nombreJoueurs = listeJoueurs.size();
+
         for (Joueur j : listeJoueurs) {
             if (!j.equals(joueur)) {
                 if (j.getPorteMonnaie() < montant) {
