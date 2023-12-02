@@ -10,6 +10,7 @@ public abstract class Propriete extends Case {
     private boolean estHypotheque;
     protected Joueur proprietaire;
     private boolean estSquatte;
+    private int nombreToursInitialSquatteur;
 
     protected Propriete(String name, int price) {
         super(name);
@@ -29,6 +30,12 @@ public abstract class Propriete extends Case {
     public int getPrice() {
         return price;
     }
+
+    public int getNombreToursInitialSquatteur() {
+        return nombreToursInitialSquatteur;
+    }
+
+    public abstract int getLoyer();
 
     // is a 
 
@@ -51,8 +58,6 @@ public abstract class Propriete extends Case {
     }
 
     // autres méthodes
-
-    public abstract int getLoyer();
 
     // hypothequer propriete
 
