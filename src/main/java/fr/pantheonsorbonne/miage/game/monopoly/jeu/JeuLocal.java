@@ -6,8 +6,10 @@ import java.util.List;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 
 public class JeuLocal {
 
@@ -57,7 +59,21 @@ public class JeuLocal {
                         prison.mettreJoueurEnPrison(joueur);
                     }
                     joueur.deplacerNombreCases(des.resultatDe(), true);
-                    
+                    Case nouvelleCase = Plateau.getCaseParId(joueur.getPositionPlateau());
+                    nouvelleCase.appliquerEffetCase(joueur);
+
+                    if (nouvelleCase instanceof Propriete) {
+                        Propriete propriete = (Propriete)nouvelleCase;
+                        if (propriete.getProprietaire() == null) {
+                            if (joueur.choixAcheterPropriete(propriete)) {
+                                try {
+                                    joueur.acheterPropriete(propriete);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
                 }
             }
             nombreTours++;
