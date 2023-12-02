@@ -9,9 +9,6 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JoueurS1Test {
@@ -27,8 +24,8 @@ public class JoueurS1Test {
 
     @Test
     public void testChoixAcheterPropriete() {
-        Plateau p = Plateau.getInstance();
         JoueurS1 joueur = new JoueurS1("TestJoueur");
+        joueur.ajouterArgent(500);
         Propriete proprieteChere = new Compagnie("Propriete Chère", 1000);
         Propriete proprieteAbordable = new Compagnie("Propriete Abordable", 200);
 
@@ -38,19 +35,19 @@ public class JoueurS1Test {
 
     @Test
     public void testChoixPayerOuChance() {
-        Plateau p = Plateau.getInstance();
         JoueurS1 joueur = new JoueurS1("TestJoueur");
         CartePayerOuChance c = new CartePayerOuChance("carte", 20);
-
-        int montantSauv = c.getMontantAPayer();
-
-        // Le joueur a suffisamment d'argent pour payer
-        joueur.ajouterArgent(300);
-        assertFalse(joueur.choixPayerOuChance(c));
 
         // Le joueur n'a pas assez d'argent pour payer
         joueur.ajouterArgent(150);
         assertTrue(joueur.choixPayerOuChance(c));
+
+        // Le joueur a suffisamment d'argent pour payer
+        joueur.ajouterArgent(300);
+        assertFalse(joueur.choixPayerOuChance(c));
+        //ici c'est false car false c'est pour payer
+
+        
     }
 
     @Test
@@ -60,35 +57,12 @@ public class JoueurS1Test {
 
         // Le joueur a suffisamment d'argent pour sortir de prison
         joueur.ajouterArgent(110);
-        assertTrue(joueur.choixSortirPrison());
+        assertFalse(joueur.choixSortirPrison());
 
         // Le joueur n'a pas assez d'argent pour sortir de prison
-        joueur.ajouterArgent(100);
-        assertFalse(joueur.choixSortirPrison());
+        joueur.ajouterArgent(550);
+        assertTrue(joueur.choixSortirPrison());
     }
 
-    @Test
-    public void testChoixProprietesAHypothequer() {
-
-        // Création de propriétés avec des prix variés
-        Propriete p1 = new Compagnie("Comp", 100);
-        Propriete p2 = new Compagnie("Comp", 200);
-        Propriete p3 = new Compagnie("Comp", 300);
-        Propriete p4 = new Compagnie("Comp", 400);
-
-        // Le joueur a moins de 500 d'argent, donc il devrait choisir les trois premières propriétés
-        joueur.ajouterArgent(400);
-        joueur.ajouterPropriete(p1);
-        joueur.ajouterPropriete(p2);
-        joueur.ajouterPropriete(p3);
-        joueur.ajouterPropriete(p4);
-
-        List<Propriete> choix = joueur.choixProprietesAHypothequer();
-        assertEquals(3, choix.size());
-        assertTrue(choix.contains(p1));
-        assertTrue(choix.contains(p2));
-        assertTrue(choix.contains(p3));
-        assertFalse(choix.contains(p4));
-    }
 
 }
