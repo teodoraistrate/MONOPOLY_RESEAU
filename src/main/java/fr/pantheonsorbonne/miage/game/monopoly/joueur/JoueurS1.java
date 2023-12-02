@@ -26,11 +26,11 @@ public class JoueurS1 extends Joueur {
         return true;
     }
 
-    public boolean choixPayerOuChance() {
+    public boolean choixPayerOuChance(CartePayerOuChance c) {
         // true : tirer carte chance
         // false : payer
 
-        if (this.getPorteMonnaie()<CartePayerOuChance.getMontantAPayer()*10) {
+        if (this.getPorteMonnaie()<c.getMontantAPayer()*10) {
             return true;
         }
         return false;

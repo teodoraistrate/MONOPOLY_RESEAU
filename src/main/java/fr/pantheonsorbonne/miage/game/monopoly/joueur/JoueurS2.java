@@ -10,6 +10,7 @@ import java.util.Map;
 
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
 
 public class JoueurS2 extends Joueur {
 
@@ -25,7 +26,7 @@ public class JoueurS2 extends Joueur {
     }
 
     @Override
-    public boolean choixPayerOuChance() {
+    public boolean choixPayerOuChance(CartePayerOuChance c) {
         // true : il tire une carte Chance
         // false : il va payer le montant
 
