@@ -176,6 +176,10 @@ public abstract class Joueur {
 
     public abstract List<Propriete> choixProprietesAHypothequer();
 
+    public abstract boolean payerOuAttendre();
+
+    public abstract boolean transformerProprieteEnPrison();
+
 
     public void setPosition(int positionInitiale) {
     }
