@@ -47,11 +47,6 @@ public class ProprieteTest {
     }
 
     @Test
-    public void testEstSquatte() {
-        assertFalse(propriete.estSquatte());
-    }
-
-    @Test
     public void testSetProprietaire() {
         propriete.setProprietaire(joueur);
         assertEquals(joueur, propriete.getProprietaire());

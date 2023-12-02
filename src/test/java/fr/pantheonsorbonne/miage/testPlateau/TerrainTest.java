@@ -172,4 +172,14 @@ public class TerrainTest {
 
         terrain.vendreMaison(); // Doit lancer une exception CannotSellException
     }
+
+    @Test
+    public void testEstSquatte() {
+        int[] tableauLoyer = {100, 200, 300, 400, 500, 600};
+        int prixMaison = 100;
+        Color color = Color.BLUE;
+        Terrain terrain = new Terrain("ProprieteTest", 1000, color, tableauLoyer, prixMaison);
+        
+        assertFalse(terrain.estSquatte());
+    }
 }

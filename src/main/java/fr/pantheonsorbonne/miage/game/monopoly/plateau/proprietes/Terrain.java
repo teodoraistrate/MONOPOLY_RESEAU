@@ -17,6 +17,8 @@ public class Terrain extends Propriete {
     private boolean estHotel = false;
     private int prixMaison;
     private Color color;
+    private boolean estSquatte;
+    private int nombreToursInitialSquatteur;
 
     public Terrain(String name, int price, Color color, int[] tableauLoyer, int prixMaison) {
         super(name, price);
@@ -33,6 +35,10 @@ public class Terrain extends Propriete {
 
     public int[] getTableauLoyer() {
         return tableauLoyer;
+    }
+
+    public int getNombreToursInitialSquatteur() {
+        return nombreToursInitialSquatteur;
     }
 
     public int getNombreMaisons() {
@@ -86,6 +92,10 @@ public class Terrain extends Propriete {
 
     public boolean estHotel() {
         return estHotel;
+    }
+
+    public boolean estSquatte() {
+        return estSquatte;
     }
 
     // autres methodes

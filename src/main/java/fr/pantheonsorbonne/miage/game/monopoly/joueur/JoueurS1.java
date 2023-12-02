@@ -1,6 +1,8 @@
 package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
@@ -37,23 +39,46 @@ public class JoueurS1 extends Joueur {
         return false;
     }
 
-    
     @Override
-    public int choixNombreMaisonsAVendre() {
+    public List<Propriete> choixProprietesAHypothequer() {
+
+        List<Propriete> choixProprietesAHypothequer = new ArrayList();
+        int nombrePrHypotheques = 0;
+        if (this.getPorteMonnaie() < 500) {
+            for (Propriete p : this.getProperties()) {
+                if (nombrePrHypotheques < 3) {
+                    choixProprietesAHypothequer.add(p);
+                    nombrePrHypotheques++;
+                }
+            }
+        }
+
+        return choixProprietesAHypothequer;
+
+    }
+
+    @Override
+    public Map<Propriete, Integer> choixNombreMaisonsAVendre() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'choixNombreMaisonsAVendre'");
     }
 
     @Override
-    public int choixNombreHotelsAVendre() {
+    public List<Propriete> choixHotelsAVendre() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'choixNombreHotelsAVendre'");
+        throw new UnsupportedOperationException("Unimplemented method 'choixHotelsAVendre'");
     }
 
     @Override
-    public List<Propriete> choixProprietesAHypothequer() {
+    public boolean payerOuAttendre() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'choixProprietesAHypothequer'");
+        throw new UnsupportedOperationException("Unimplemented method 'payerOuAttendre'");
+    }
+
+    @Override
+    public boolean transformerProprieteEnPrison() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'transformerProprieteEnPrison'");
     }
 
     

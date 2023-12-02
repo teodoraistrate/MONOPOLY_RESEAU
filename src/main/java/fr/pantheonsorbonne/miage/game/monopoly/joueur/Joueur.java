@@ -71,7 +71,7 @@ public abstract class Joueur {
             this.declarerPerte();
             throw new PasAssezArgentException ("Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
         }
-        if (!propriete.estSquatte()) {
+        if (propriete instanceof Terrain && !((Terrain)propriete).estSquatte()) {
             this.payer(propriete.getLoyer());
             if (!propriete.estHypotheque()) {
                 propriete.getProprietaire().ajouterArgent(propriete.getLoyer());
@@ -175,6 +175,10 @@ public abstract class Joueur {
     public abstract List<Propriete> choixHotelsAVendre();
 
     public abstract List<Propriete> choixProprietesAHypothequer();
+
+    public abstract boolean payerOuAttendre();
+
+    public abstract boolean transformerProprieteEnPrison();
 
 
     public void setPosition(int positionInitiale) {

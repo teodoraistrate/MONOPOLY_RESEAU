@@ -9,7 +9,6 @@ public abstract class Propriete extends Case {
     private int price;
     private boolean estHypotheque;
     protected Joueur proprietaire;
-    private boolean estSquatte;
 
     protected Propriete(String name, int price) {
         super(name);
@@ -30,6 +29,10 @@ public abstract class Propriete extends Case {
         return price;
     }
 
+    
+
+    public abstract int getLoyer();
+
     // is a 
 
     public boolean estLibre() {
@@ -40,10 +43,6 @@ public abstract class Propriete extends Case {
         return estHypotheque;
     }
 
-    public boolean estSquatte() {
-        return estSquatte;
-    }
-
     // setteurs
 
     public void setProprietaire(Joueur proprietaire) {
@@ -51,8 +50,6 @@ public abstract class Propriete extends Case {
     }
 
     // autres méthodes
-
-    public abstract int getLoyer();
 
     // hypothequer propriete
 
