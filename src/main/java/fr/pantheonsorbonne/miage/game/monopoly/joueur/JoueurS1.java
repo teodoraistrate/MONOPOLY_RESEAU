@@ -1,5 +1,6 @@
 package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +41,20 @@ public class JoueurS1 extends Joueur {
 
     @Override
     public List<Propriete> choixProprietesAHypothequer() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'choixProprietesAHypothequer'");
+
+        List<Propriete> choixProprietesAHypothequer = new ArrayList();
+        int nombrePrHypotheques = 0;
+        if (this.getPorteMonnaie() < 500) {
+            for (Propriete p : this.getProperties()) {
+                if (nombrePrHypotheques < 3) {
+                    choixProprietesAHypothequer.add(p);
+                    nombrePrHypotheques++;
+                }
+            }
+        }
+
+        return choixProprietesAHypothequer;
+
     }
 
     @Override
