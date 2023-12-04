@@ -43,11 +43,12 @@ public class JoueurS2 extends Joueur {
         List<Propriete> listeP = new ArrayList<>();
         int montantDepense = 0;
         for (Propriete p : this.getProperties()) {
-            if (p.estHypotheque() &&  (this.getPorteMonnaie - montantDepense > 700)) {
+            if (p.estHypotheque() &&  (this.getPorteMonnaie() - montantDepense > 700)) {
                 listeP.add(p);
                 montantDepense += 1.1 * p.getPrixRevente();
             }
         }
+        return listeP;
     }
 
     @Override

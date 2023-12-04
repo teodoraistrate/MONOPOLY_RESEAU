@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.miage.game.monopoly.jeu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
@@ -10,6 +11,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public class JeuLocal {
 
@@ -105,18 +107,26 @@ public class JeuLocal {
 
                     // on vend les hotels choisis par le joueur
                     for (Terrain t : joueur.choixHotelsAVendre()) {
-                        t.vendreHotel();
+                        try {
+                            t.vendreHotel();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     // on vend les maisons choisis par le joueur
                     for (Terrain t : joueur.choixNombreMaisonsAVendre().keySet()) {
                         for (int i=0; i<joueur.choixNombreMaisonsAVendre().get(t); i++) {
-                            t.vendreMaison();
+                            try {
+                                t.vendreMaison();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
                     // on va hypothéquer les propriétés (terrains, compagnies ou gares) choisies par le joueur
-                    for (Propriete p : joueur.choixProprietesAHypothequer) {
+                    for (Propriete p : joueur.choixProprietesAHypothequer()) {
                         p.hypothequer();
                     }
 
@@ -138,7 +148,11 @@ public class JeuLocal {
                 proprieteASquatter.setNombreToursInitialSquatteur(nombreTours); // on met le nb Tours Initial
                 System.out.println("La propriété " + proprieteASquatter.getName() + " est squatté! ");
                 if(proprieteASquatter.getProprietaire().choixPayerOuAttendre()) {
-                    proprieteASquatter.fairePartirSquatteur();
+                    try {
+                        proprieteASquatter.fairePartirSquatteur();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
