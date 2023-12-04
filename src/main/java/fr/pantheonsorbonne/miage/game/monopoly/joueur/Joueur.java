@@ -1,5 +1,6 @@
 package fr.pantheonsorbonne.miage.game.monopoly.joueur;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ public abstract class Joueur {
 
     public Joueur(String name) {
         this.name = name;
+        //j'ajoute ça mais au cas ou il faudra supprimer
+        this.properties = new ArrayList<>();
     }
 
     // getteurs
