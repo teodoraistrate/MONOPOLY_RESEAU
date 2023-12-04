@@ -167,6 +167,7 @@ public class JeuLocal {
 
             for (Joueur j : listeJoueurs) {
                 System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
+                System.out.println("Nb de proprietes de " + j.getName() + j.getProperties().size());
             }
             System.out.println("Nombre tours: " + nombreTours);
             System.out.println();

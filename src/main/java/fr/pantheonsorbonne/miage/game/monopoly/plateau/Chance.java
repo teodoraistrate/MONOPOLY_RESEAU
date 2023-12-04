@@ -27,7 +27,7 @@ public class Chance extends Case {
 
         // On ajoute les cartes Chance
         piocheChance.ajouterCarte(new CarteAvancerCaseNormale("Rendez-vous à la Rue de la Paix. Si vous passez par la case départ, recevez 200€.","Rue de la Paix"));
-        piocheChance.ajouterCarte(new CarteAvancerCaseNormale("Avancer jusqu’à la case départ.","Case Départ"));
+        piocheChance.ajouterCarte(new CarteAvancerCaseNormale("Avancer jusqu’à la case départ.","Case départ"));
         piocheChance.ajouterCarte(new CarteAvancerCaseNormale("Rendez-vous à l’Avenue Henri-Martin. Si vous passez par la case départ, recevez 200€.", "Avenue Henri-Martin"));
         piocheChance.ajouterCarte(new CarteAvancerCaseNormale("Avancez au Boulevard de la Vilette. Si vous passez par la case départ, recevez 200€.", "Boulevard de la Vilette"));
         piocheChance.ajouterCarte(new CartePayerDependant("Vous êtes imposé pour les réparations de voirie à raison de 40€ par maison et 115€ par hôtel.", 40, 115));
