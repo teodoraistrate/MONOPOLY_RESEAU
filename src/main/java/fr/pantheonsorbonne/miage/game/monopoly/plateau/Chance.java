@@ -46,6 +46,7 @@ public class Chance extends Case {
 
     public void appliquerEffetCase (Joueur joueur) {
         Carte carte = piocheChance.piocherCarte();
+        System.out.println(joueur.getName() + " a tiré une carte Chance : " + carte.getDescription());
         try {
             carte.appliquerEffet(joueur);
         } catch(Exception e) {

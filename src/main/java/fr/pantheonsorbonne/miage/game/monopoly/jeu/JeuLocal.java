@@ -7,6 +7,7 @@ import java.util.Random;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
@@ -74,6 +75,14 @@ public class JeuLocal {
         while (listeJoueurs.size()>1) {
             double loyerTotalActuel = 0;
             for (Joueur joueur : listeJoueurs) {
+
+                if (nombreTours > 200) {
+                try {
+                    joueur.payer(150);
+                } catch(PasAssezArgentException e) {
+                    joueur.declarerPerte();
+                }
+            }
                 boolean lancerDes = true; 
                 // on a ajouté cette variable pour qu'un joueur puisse lancer les dés plusieurs fois si c'est la même valeur
                 int nombreFoisMemeValeur = 0;
@@ -167,4 +176,6 @@ public class JeuLocal {
 
     }
 
+    // il met pas en prison les joueurs !!!!
+    // il va pas payer un loyer s'il est le proprietaire - a changer
 }
