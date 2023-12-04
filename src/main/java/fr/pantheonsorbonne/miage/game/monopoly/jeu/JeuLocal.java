@@ -7,6 +7,7 @@ import java.util.Random;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS3;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
@@ -53,9 +54,10 @@ public class JeuLocal {
 
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
-        JoueurS2 joueur2 = new JoueurS2("Joueur 2");
+        //JoueurS2 joueur2 = new JoueurS2("Joueur 2");
+        JoueurS3 joueur3 = new JoueurS3("Joueur 2");
         listeJoueurs.add(joueur1);
-        listeJoueurs.add(joueur2);
+        listeJoueurs.add(joueur3);
     }
     
     public static void main(String[] args) {
@@ -167,7 +169,7 @@ public class JeuLocal {
 
             for (Joueur j : listeJoueurs) {
                 System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
-                System.out.println("Nb de proprietes de " + j.getName() + j.getProperties().size());
+                System.out.println("Nb de proprietes de " + j.getName() + " : " + j.getProperties().size());
             }
             System.out.println("Nombre tours: " + nombreTours);
             System.out.println();
