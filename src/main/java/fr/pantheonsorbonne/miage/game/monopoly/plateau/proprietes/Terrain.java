@@ -20,13 +20,14 @@ public class Terrain extends Propriete {
     private boolean estSquatte;
     private int nombreToursInitialSquatteur;
     private boolean estPrisonAdditionnelle = false;
-    // private int loyerPrison = tableauLoyer[0]/10 +1;
+    private int loyerPrison;
 
     public Terrain(String name, int price, Color color, int[] tableauLoyer, int prixMaison) {
         super(name, price);
         this.color = color;
         this.tableauLoyer = tableauLoyer;
         this.prixMaison = prixMaison;
+        this.loyerPrison = tableauLoyer[0]/10 +1;
     }
 
     // getteurs
@@ -47,11 +48,11 @@ public class Terrain extends Propriete {
         return nombreMaisons;
     }
 
-    /*
-     * public int getLoyerPrison() {
-     * return loyerPrison;
-     * }
-     */
+    
+    public int getLoyerPrison() {
+        return loyerPrison;
+    }
+    
     public void augmenterNbMaisons() {
         this.nombreMaisons++;
     }
@@ -93,6 +94,12 @@ public class Terrain extends Propriete {
 
     public Color getColor() {
         return color;
+    }
+
+    // setteurs
+
+    public void setNombreToursInitialSquatteur(int nbTours) {
+        this.nombreToursInitialSquatteur = nbTours;
     }
 
     // is a
@@ -204,5 +211,27 @@ public class Terrain extends Propriete {
             terrainChoisi.nombreMaisons--;
         }
     }
+
+    public void squatter() {
+        this.estSquatte = true;
+    }
+
+    public void fairePartirSquatteur() throws PasAssezArgentException {
+        if (this.getProprietaire().getPorteMonnaie() < 200) {
+            throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour faire le squatteur partir!");
+        } else {
+            this.byeSquatteur();
+            this.getProprietaire().payer(200);
+            double probabilite = 0.1; // une chance sur 10 d'aller en prison s'il paye les 200€
+            if (JeuLocal.verifierProbabilite(probabilite)) {
+                prison.mettreJoueurEnPrison(this.getProprietaire());
+            }
+        }
+    }
+
+    public void byeSquatteur() {
+        this.estSquatte = false;
+    }
+    // on va vérifier si les 8 tours sont passés dans le main
 
 }

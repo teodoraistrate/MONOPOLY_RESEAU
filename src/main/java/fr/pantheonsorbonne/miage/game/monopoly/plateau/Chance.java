@@ -19,6 +19,10 @@ public class Chance extends Case {
         super(name);
     }
 
+    public static Pioche getPiocheChance() {
+        return piocheChance;
+    }
+
     static {
 
         // On ajoute les cartes Chance

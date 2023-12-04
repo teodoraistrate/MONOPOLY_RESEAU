@@ -15,11 +15,21 @@ public class JeuLocal {
 
     public static final Plateau plateau = Plateau.getInstance(); //erreur aussi maybe
     static List<Joueur> listeJoueurs = new ArrayList<>();
+    private int nombrePrisonsAdditionnelles = 0;
 
     private static JeuLocal instance = new JeuLocal(); // Création de l'instance unique
 
     public JeuLocal() {
         // Initialisation de l'instance unique
+    }
+
+    // on a créé une méthode pour qui renvoie true avec une probabilité donnée en paramètre
+    public static boolean verifierProbabilite(double probabilite) {
+        Random random = new Random();
+        double valeurAleatoire = random.nextDouble(); 
+        // Génère un nombre aléatoire entre 0 et 1
+
+        return valeurAleatoire < probabilite;
     }
 
     public static JeuLocal getInstance() {
@@ -32,6 +42,10 @@ public class JeuLocal {
 
     public void removeJoueur(Joueur joueur) {
         listeJoueurs.remove(joueur);
+    }
+
+    public int getNombrePrisonsAdditionnelles() {
+        return nombrePrisonsAdditionnelles;
     }
 
     public static void initialiserListeJoueurs() {
@@ -56,6 +70,7 @@ public class JeuLocal {
 
         // le jeu s'arrête quand il reste un seul joueur
         while (listeJoueurs.size()>1) {
+            double loyerTotalActuel = 0;
             for (Joueur joueur : listeJoueurs) {
                 boolean lancerDes = true; 
                 // on a ajouté cette variable pour qu'un joueur puisse lancer les dés plusieurs fois si c'est la même valeur
@@ -79,25 +94,62 @@ public class JeuLocal {
 
                     if (nouvelleCase instanceof Propriete) {
                         Propriete propriete = (Propriete)nouvelleCase;
-                        if (propriete.getProprietaire() == null) {
-                            if (joueur.choixAcheterPropriete(propriete)) {
+                        if (propriete.getProprietaire() == null && (joueur.choixAcheterPropriete(propriete))) {
                                 try {
                                     joueur.acheterPropriete(propriete);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                            }
                         }
                     }
+
+                    // on vend les hotels choisis par le joueur
+                    for (Terrain t : joueur.choixHotelsAVendre()) {
+                        t.vendreHotel();
+                    }
+
+                    // on vend les maisons choisis par le joueur
+                    for (Terrain t : joueur.choixNombreMaisonsAVendre().keySet()) {
+                        for (int i=0; i<joueur.choixNombreMaisonsAVendre().get(t); i++) {
+                            t.vendreMaison();
+                        }
+                    }
+
+                    // on va hypothéquer les propriétés (terrains, compagnies ou gares) choisies par le joueur
+                    for (Propriete p : joueur.choixProprietesAHypothequer) {
+                        p.hypothequer();
+                    }
+
                 }
             }
+
+            // ajouter méthode pour demander aux proprietaires des terrains squattés s'il veulent faire partir le squatteur
+
+            // ajouter méthode pour faire partir le squatteur à partir de 8 tours!!
+
+            List<Terrain> listeTerrainsAchetes = plateau.getTerrainsAchetesNonSquattes();
+            double probabiliteSquatteur = loyerTotalActuel/15000;
+
+            if (verifierProbabilite(probabiliteSquatteur) && listeTerrainsAchetes!=null) {
+                Random random = new Random();
+                int indexAleatoire = random.nextInt(listeTerrains.size());
+                Terrain proprieteASquatter = listeTerrains.get(indexAleatoire);
+                proprieteASquatter.squatter(); // on squatte la propriété aléatoire
+                proprieteASquatter.setNombreToursInitialSquatteur(nombreTours); // on met le nb Tours Initial
+                System.out.println("La propriété " + proprieteASquatter.getName() + " est squatté! ");
+                if(proprieteASquatter.getProprietaire().choixPayerOuAttendre()) {
+                    proprieteASquatter.fairePartirSquatteur();
+                }
+            }
+
             for (Joueur j : listeJoueurs) {
                 System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
             }
-            System.out.println();
+            System.out.println("Nombre tours: " + nombreTours);
             System.out.println();
             nombreTours++;
         }
+        System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
     }
 

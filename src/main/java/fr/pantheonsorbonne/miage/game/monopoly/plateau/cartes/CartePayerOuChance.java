@@ -6,7 +6,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 
 public class CartePayerOuChance extends Carte {
 
-    private static int montant;
+    private int montant;
 
     public CartePayerOuChance(String description, int montant) {
         super(description);
@@ -20,7 +20,9 @@ public class CartePayerOuChance extends Carte {
     @Override
     public void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException {
         if (joueur.choixPayerOuChance(this)) {
-            // methode tirer carte Chance
+            Pioche piocheChance = Chance.getPiocheChance;
+            Carte carte = piocheChance.piocherCarte();
+            carte.appliquerEffet(joueur);
         } else {
             joueur.payer(montant);
         }

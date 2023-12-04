@@ -199,15 +199,17 @@ public abstract class Joueur {
 
     public abstract boolean choixSortirPrison();
 
+    public abstract List<Propriete> choixProprietesARacheter();
+
     public abstract Map<Terrain, Integer> choixNombreMaisonsAVendre();
 
     public abstract List<Terrain> choixHotelsAVendre();
 
     public abstract List<Propriete> choixProprietesAHypothequer();
 
-    public abstract boolean payerOuAttendre();
+    public abstract boolean choixPayerOuAttendre();
 
-    public abstract boolean transformerProprieteEnPrison(Terrain t);
+    public abstract boolean choixTransformerProprieteEnPrison(Terrain t);
 
 
     public void setPosition(int positionInitiale) {

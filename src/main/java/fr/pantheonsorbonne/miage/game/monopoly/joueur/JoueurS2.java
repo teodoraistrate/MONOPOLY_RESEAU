@@ -21,8 +21,7 @@ public class JoueurS2 extends Joueur {
     // il achète une propriété s'il pourrait en acheter 10
     @Override
     public boolean choixAcheterPropriete(Propriete propriete) {
-        if(propriete.getLoyer()*10<this.getPorteMonnaie()) return true;
-        return false;
+        return (propriete.getLoyer()*10<this.getPorteMonnaie());
     }
 
     @Override
@@ -36,24 +35,34 @@ public class JoueurS2 extends Joueur {
 
     @Override
     public boolean choixSortirPrison() {
-        if(this.getPorteMonnaie()>5*Prison.MONTANT_SORTIR) return true;
-        return false;
+        return (this.getPorteMonnaie()>5*Prison.MONTANT_SORTIR);
+    }
+
+    @Override
+    public List<Propriete> choixProprietesARacheter() {
+        List<Propriete> listeP = new ArrayList<>();
+        int montantDepense = 0;
+        for (Propriete p : this.getProperties()) {
+            if (p.estHypotheque() &&  (this.getPorteMonnaie - montantDepense > 700)) {
+                listeP.add(p);
+                montantDepense += 1.1 * p.getPrixRevente();
+            }
+        }
     }
 
     @Override
     public List<Propriete> choixProprietesAHypothequer() {
 
-        List<Propriete> choixProprietesAHypothequer = new ArrayList();
-        int nombrePrHypotheques = 0;
+        List<Propriete> choixProprietesAHypothequer = new ArrayList<>();
+        int montantRecu = 0;
 
         // à faire : calculer le loyer maximal et remplacer 500 par 3*loyerMax
-        if (this.getPorteMonnaie() < 500) {
-            for (Propriete p : this.getProperties()) {
-                if (nombrePrHypotheques < 3) {
-                    choixProprietesAHypothequer.add(p);
-                    nombrePrHypotheques++;
-                }
+        for (Propriete p : this.getProperties()) {
+            if (this.getPorteMonnaie() + montantRecu < 500) {
+                choixProprietesAHypothequer.add(p);
+                montantRecu += p.getPrixRevente();
             }
+            else break;
         }
 
         return choixProprietesAHypothequer;
@@ -62,19 +71,17 @@ public class JoueurS2 extends Joueur {
 
     @Override
     public Map<Terrain, Integer> choixNombreMaisonsAVendre() {
+        int montantRecu = 0;
         Map <Terrain, Integer> choixNombreMaisonsAVendre = new HashMap<>();
-        if (this.getPorteMonnaie() < 500) {
-            for (Propriete p : this.getProperties()) {
-                if (p instanceof Terrain) {
-                    int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
-                    if (nombreMaisonsP > 0) {
-                        choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);
-                        if (this.getPorteMonnaie() > 500) {
-                            break;
-                        }
-                    }
+        for (Propriete p : this.getProperties()) {
+            if (this.getPorteMonnaie() + montantRecu < 500) {
+                int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
+                if (nombreMaisonsP > 0) {
+                    choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);
+                    montantRecu += nombreMaisonsP*((Terrain)p).getPrixMaison()/2;
                 }
             }
+            else break;
         }
 
         return choixNombreMaisonsAVendre;
@@ -83,30 +90,28 @@ public class JoueurS2 extends Joueur {
     @Override
     public List<Terrain> choixHotelsAVendre() {
         List <Terrain> choixHotelsAVendre = new ArrayList<>();
-        if (this.getPorteMonnaie() < 500) {
-            for (Propriete p : this.getProperties()) {
-                if (p instanceof Terrain) {
-                    if (((Terrain)p).estHotel()) {
+        int montantRecu = 0;
+        
+        for (Propriete p : this.getProperties()) {
+            if (this.getPorteMonnaie() + montantRecu < 500) {
+                if (p instanceof Terrain && (((Terrain)p).estHotel())) {
                         choixHotelsAVendre.add((Terrain)p);
-                    }
-                    if (this.getPorteMonnaie() > 500) {
-                        break;
-                    }
+                        montantRecu += ((Terrain)p).getPrixMaison()/2;
                 }
             }
+            else break;
         }
-
         return choixHotelsAVendre;
     }
 
     @Override
-    public boolean payerOuAttendre() {
+    public boolean choixPayerOuAttendre() {
         return false;
         // il ne  va pas payer ET risquer d'aller en prison
     }
 
     @Override
-    public boolean transformerProprieteEnPrison(Terrain terrain) {
+    public boolean choixTransformerProprieteEnPrison(Terrain terrain) {
         Plateau plateau = Plateau.getInstance();
         if (terrain.tousTerrainsMemeCouleur(terrain.getColor())) return false;
         else {
