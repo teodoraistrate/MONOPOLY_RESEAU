@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Color;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -15,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fr.pantheonsorbonne.miage.game.monopoly.jeu.DeDouble;
+import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
@@ -156,20 +159,15 @@ public class JoueurTest {
         
     }
 
-
-    @Test
-    public void testDeclarerPerte () {
-        Joueur joueur = new JoueurS1 ("ale la connasse");
-        joueur.getPorteMonnaie();
-
-
-    }
-    /*public void declarerPerte() {
-        System.out.println(this.getName() + " a perdu!");
-    }*/
-
     
 
-    
 }
+
+
+
+ 
+    
+
+    
+
 

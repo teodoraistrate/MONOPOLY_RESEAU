@@ -182,6 +182,8 @@ public abstract class Joueur {
     // déclarer perte
 
     public void declarerPerte() {
+        JeuLocal jeu = JeuLocal.getInstance();
+        jeu.removeJoueur(this);
         System.out.println(this.getName() + " a perdu!");
     }
 

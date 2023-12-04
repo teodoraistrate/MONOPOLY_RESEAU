@@ -18,7 +18,7 @@ public class JeuLocal {
 
     private static JeuLocal instance = new JeuLocal(); // Création de l'instance unique
 
-    private JeuLocal() {
+    public JeuLocal() {
         // Initialisation de l'instance unique
     }
 
@@ -30,7 +30,7 @@ public class JeuLocal {
         return listeJoueurs;
     }
 
-    public static void removeJoueur(Joueur joueur) {
+    public void removeJoueur(Joueur joueur) {
         listeJoueurs.remove(joueur);
     }
 

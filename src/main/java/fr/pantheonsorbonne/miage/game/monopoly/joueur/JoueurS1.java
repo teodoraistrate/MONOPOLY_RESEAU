@@ -14,6 +14,8 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 public class JoueurS1 extends Joueur {
 
 
+    public Object joueur;
+
     public JoueurS1(String name) {
         super(name);
     }
