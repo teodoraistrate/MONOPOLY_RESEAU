@@ -171,9 +171,7 @@ public abstract class Joueur {
     }
 
     public void removeAllProprietes() {
-        for (Propriete propriete : this.getProperties()) {
-            this.removePropriete(propriete);
-        }
+        properties.clear();
         System.out.println(this.getName() + " n'a plus de propriétés!");
     }
 

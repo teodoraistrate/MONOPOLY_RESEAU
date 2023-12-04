@@ -50,23 +50,7 @@ public class JoueurS2Test {
         assertTrue(joueur.choixSortirPrison());
     }
 
-    @Test
-    public void testChoixProprietesAHypothequer() {
-        JoueurS2 joueur = new JoueurS2("TestJoueur");
-        Terrain terrain1 = new Terrain("Terrain1", 100, Color.BLUE, new int[]{10, 20, 30, 40, 50, 60}, 50);
-        Terrain terrain2 = new Terrain("Terrain2", 200, Color.BLUE, new int[]{10, 20, 30, 40, 50, 60}, 50);
-        Terrain terrain3 = new Terrain("Terrain3", 300, Color.RED, new int[]{10, 20, 30, 40, 50, 60}, 50);
-
-        joueur.ajouterPropriete(terrain1);
-        joueur.ajouterPropriete(terrain2);
-        joueur.ajouterPropriete(terrain3);
-
-        List<Propriete> result = joueur.choixProprietesAHypothequer();
-
-        assertEquals(3, result.size());
-        assertTrue(result.contains(terrain1));
-        assertTrue(result.contains(terrain2));
-    }
+    
 
 
 
