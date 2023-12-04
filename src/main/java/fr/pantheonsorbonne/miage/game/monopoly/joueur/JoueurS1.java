@@ -100,13 +100,13 @@ public class JoueurS1 extends Joueur {
     }
 
     @Override
-    public boolean payerOuAttendre() {
+    public boolean choixPayerOuAttendre() {
         return false;
         // il ne  va pas payer ET risquer d'aller en prison
     }
 
     @Override
-    public boolean transformerProprieteEnPrison(Terrain terrain) {
+    public boolean choixTransformerProprieteEnPrison(Terrain terrain) {
         Plateau plateau = Plateau.getInstance();
         if (terrain.tousTerrainsMemeCouleur(terrain.getColor())) return false;
         else {

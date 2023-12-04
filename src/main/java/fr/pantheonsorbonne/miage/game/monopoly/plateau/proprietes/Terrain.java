@@ -206,4 +206,26 @@ public class Terrain extends Propriete {
         }
     }
 
+    public void squatter() {
+        this.estSquatte = true;
+    }
+
+    public void fairePartirSquatteur() throws PasAssezArgentException {
+        if (this.getProprietaire().getPorteMonnaie() < 200) {
+            throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour faire le squatteur partir!");
+        } else {
+            this.byeSquatteur();
+            this.getProprietaire().payer(200);
+            double probabilite = 0.1; // une chance sur 10 d'aller en prison s'il paye les 200€
+            if (JeuLocal.verifierProbabilite(probabilite)) {
+                prison.mettreJoueurEnPrison(this.getProprietaire());
+            }
+        }
+    }
+
+    public void byeSquatteur() {
+        this.estSquatte = false;
+    }
+    // on va vérifier si les 8 tours sont passés dans le main
+
 }

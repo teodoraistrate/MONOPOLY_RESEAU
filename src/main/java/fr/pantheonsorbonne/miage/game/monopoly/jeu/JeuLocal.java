@@ -23,6 +23,15 @@ public class JeuLocal {
         // Initialisation de l'instance unique
     }
 
+    // on a créé une méthode pour qui renvoie true avec une probabilité donnée en paramètre
+    public static boolean verifierProbabilite(double probabilite) {
+        Random random = new Random();
+        double valeurAleatoire = random.nextDouble(); 
+        // Génère un nombre aléatoire entre 0 et 1
+
+        return valeurAleatoire < probabilite;
+    }
+
     public static JeuLocal getInstance() {
         return instance;
     }
@@ -61,6 +70,7 @@ public class JeuLocal {
 
         // le jeu s'arrête quand il reste un seul joueur
         while (listeJoueurs.size()>1) {
+            double loyerTotalActuel = 0;
             for (Joueur joueur : listeJoueurs) {
                 boolean lancerDes = true; 
                 // on a ajouté cette variable pour qu'un joueur puisse lancer les dés plusieurs fois si c'est la même valeur
@@ -112,6 +122,17 @@ public class JeuLocal {
 
                 }
             }
+            List<Terrain> listeTerrainsAchetes = plateau.getTerrainsAchetesNonSquattes();
+            double probabiliteSquatteur = loyerTotalActuel/15000;
+
+            if (verifierProbabilite(probabiliteSquatteur) && listeTerrainsAchetes!=null) {
+                Random random = new Random();
+                int indexAleatoire = random.nextInt(listeTerrains.size());
+                Terrain proprieteASquatter = listeTerrains.get(indexAleatoire);
+                proprieteASquatter.squatter(); // on squatte la propriété aléatoire
+                proprieteASquatter.getProprietaire().choixPayer
+            }
+
             for (Joueur j : listeJoueurs) {
                 System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
             }

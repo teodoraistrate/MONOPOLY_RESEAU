@@ -207,9 +207,9 @@ public abstract class Joueur {
 
     public abstract List<Propriete> choixProprietesAHypothequer();
 
-    public abstract boolean payerOuAttendre();
+    public abstract boolean choixPayerOuAttendre();
 
-    public abstract boolean transformerProprieteEnPrison(Terrain t);
+    public abstract boolean choixTransformerProprieteEnPrison(Terrain t);
 
 
     public void setPosition(int positionInitiale) {

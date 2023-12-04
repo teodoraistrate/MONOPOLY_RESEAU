@@ -36,16 +36,17 @@ public class JoueurS2 extends Joueur {
 
     @Override
     public boolean choixSortirPrison() {
-        if(this.getPorteMonnaie()>5*Prison.MONTANT_SORTIR) return true;
-        return false;
+        return (this.getPorteMonnaie()>5*Prison.MONTANT_SORTIR);
     }
 
     @Override
     public List<Propriete> choixProprietesARacheter() {
         List<Propriete> listeP = new ArrayList<>();
+        int montantDepense = 0;
         for (Propriete p : this.getProperties()) {
-            if (p.estHypotheque()) {
-                
+            if (p.estHypotheque() &&  (this.getPorteMonnaie - montantDepense > 700)) {
+                listeP.add(p);
+                montantDepense += 1.1 * p.getPrixRevente();
             }
         }
     }
@@ -87,20 +88,6 @@ public class JoueurS2 extends Joueur {
         return choixNombreMaisonsAVendre;
     }
 
-
-    for (Propriete p : this.getProperties()) {
-        if (p instanceof Terrain) {
-            int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
-            if (nombreMaisonsP > 0) {
-                choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);
-                if (this.getPorteMonnaie() > 500) {
-                    break;
-                }
-            }
-        }
-    }
-
-
     @Override
     public List<Terrain> choixHotelsAVendre() {
         List <Terrain> choixHotelsAVendre = new ArrayList<>();
@@ -119,13 +106,13 @@ public class JoueurS2 extends Joueur {
     }
 
     @Override
-    public boolean payerOuAttendre() {
+    public boolean choixPayerOuAttendre() {
         return false;
         // il ne  va pas payer ET risquer d'aller en prison
     }
 
     @Override
-    public boolean transformerProprieteEnPrison(Terrain terrain) {
+    public boolean choixTransformerProprieteEnPrison(Terrain terrain) {
         Plateau plateau = Plateau.getInstance();
         if (terrain.tousTerrainsMemeCouleur(terrain.getColor())) return false;
         else {
