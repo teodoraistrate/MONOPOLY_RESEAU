@@ -96,6 +96,12 @@ public class Terrain extends Propriete {
         return color;
     }
 
+    // setteurs
+
+    public void setNombreToursInitialSquatteur(int nbTours) {
+        this.nombreToursInitialSquatteur = nbTours;
+    }
+
     // is a
 
     public boolean estHotel() {

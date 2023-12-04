@@ -122,6 +122,11 @@ public class JeuLocal {
 
                 }
             }
+
+            // ajouter méthode pour demander aux proprietaires des terrains squattés s'il veulent faire partir le squatteur
+
+            // ajouter méthode pour faire partir le squatteur à partir de 8 tours!!
+
             List<Terrain> listeTerrainsAchetes = plateau.getTerrainsAchetesNonSquattes();
             double probabiliteSquatteur = loyerTotalActuel/15000;
 
@@ -130,7 +135,11 @@ public class JeuLocal {
                 int indexAleatoire = random.nextInt(listeTerrains.size());
                 Terrain proprieteASquatter = listeTerrains.get(indexAleatoire);
                 proprieteASquatter.squatter(); // on squatte la propriété aléatoire
-                proprieteASquatter.getProprietaire().choixPayer
+                proprieteASquatter.setNombreToursInitialSquatteur(nombreTours); // on met le nb Tours Initial
+                System.out.println("La propriété " + proprieteASquatter.getName() + " est squatté! ");
+                if(proprieteASquatter.getProprietaire().choixPayerOuAttendre()) {
+                    proprieteASquatter.fairePartirSquatteur();
+                }
             }
 
             for (Joueur j : listeJoueurs) {
@@ -140,6 +149,7 @@ public class JeuLocal {
             System.out.println();
             nombreTours++;
         }
+        System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
     }
 

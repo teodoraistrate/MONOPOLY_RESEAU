@@ -21,8 +21,7 @@ public class JoueurS2 extends Joueur {
     // il achète une propriété s'il pourrait en acheter 10
     @Override
     public boolean choixAcheterPropriete(Propriete propriete) {
-        if(propriete.getLoyer()*10<this.getPorteMonnaie()) return true;
-        return false;
+        return (propriete.getLoyer()*10<this.getPorteMonnaie());
     }
 
     @Override
