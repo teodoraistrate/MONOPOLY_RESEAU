@@ -75,7 +75,7 @@ public class JoueurS2 extends Joueur {
         int montantRecu = 0;
         Map <Terrain, Integer> choixNombreMaisonsAVendre = new HashMap<>();
         for (Propriete p : this.getProperties()) {
-            if (this.getPorteMonnaie() + montantRecu < 500) {
+            if (p instanceof Terrain && this.getPorteMonnaie() + montantRecu < 500) {
                 int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
                 if (nombreMaisonsP > 0) {
                     choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);
