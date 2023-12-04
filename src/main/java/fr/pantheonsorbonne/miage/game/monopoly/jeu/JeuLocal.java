@@ -132,8 +132,8 @@ public class JeuLocal {
 
             if (verifierProbabilite(probabiliteSquatteur) && listeTerrainsAchetes!=null) {
                 Random random = new Random();
-                int indexAleatoire = random.nextInt(listeTerrains.size());
-                Terrain proprieteASquatter = listeTerrains.get(indexAleatoire);
+                int indexAleatoire = random.nextInt(listeTerrainsAchetes.size());
+                Terrain proprieteASquatter = listeTerrainsAchetes.get(indexAleatoire);
                 proprieteASquatter.squatter(); // on squatte la propriété aléatoire
                 proprieteASquatter.setNombreToursInitialSquatteur(nombreTours); // on met le nb Tours Initial
                 System.out.println("La propriété " + proprieteASquatter.getName() + " est squatté! ");
