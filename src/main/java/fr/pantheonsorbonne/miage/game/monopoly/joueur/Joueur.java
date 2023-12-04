@@ -199,6 +199,8 @@ public abstract class Joueur {
 
     public abstract boolean choixSortirPrison();
 
+    public abstract List<Propriete> choixProprietesARacheter();
+
     public abstract Map<Terrain, Integer> choixNombreMaisonsAVendre();
 
     public abstract List<Terrain> choixHotelsAVendre();

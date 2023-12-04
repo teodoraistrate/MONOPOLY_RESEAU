@@ -84,16 +84,32 @@ public class JeuLocal {
 
                     if (nouvelleCase instanceof Propriete) {
                         Propriete propriete = (Propriete)nouvelleCase;
-                        if (propriete.getProprietaire() == null) {
-                            if (joueur.choixAcheterPropriete(propriete)) {
+                        if (propriete.getProprietaire() == null && (joueur.choixAcheterPropriete(propriete))) {
                                 try {
                                     joueur.acheterPropriete(propriete);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                            }
                         }
                     }
+
+                    // on vend les hotels choisis par le joueur
+                    for (Terrain t : joueur.choixHotelsAVendre()) {
+                        t.vendreHotel();
+                    }
+
+                    // on vend les maisons choisis par le joueur
+                    for (Terrain t : joueur.choixNombreMaisonsAVendre().keySet()) {
+                        for (int i=0; i<joueur.choixNombreMaisonsAVendre().get(t); i++) {
+                            t.vendreMaison();
+                        }
+                    }
+
+                    // on va hypothéquer les propriétés (terrains, compagnies ou gares) choisies par le joueur
+                    for (Propriete p : joueur.choixProprietesAHypothequer) {
+                        p.hypothequer();
+                    }
+
                 }
             }
             for (Joueur j : listeJoueurs) {

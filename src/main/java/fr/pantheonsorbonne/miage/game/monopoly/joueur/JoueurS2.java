@@ -41,19 +41,28 @@ public class JoueurS2 extends Joueur {
     }
 
     @Override
+    public List<Propriete> choixProprietesARacheter() {
+        List<Propriete> listeP = new ArrayList<>();
+        for (Propriete p : this.getProperties()) {
+            if (p.estHypotheque()) {
+                
+            }
+        }
+    }
+
+    @Override
     public List<Propriete> choixProprietesAHypothequer() {
 
-        List<Propriete> choixProprietesAHypothequer = new ArrayList();
-        int nombrePrHypotheques = 0;
+        List<Propriete> choixProprietesAHypothequer = new ArrayList<>();
+        int montantRecu = 0;
 
         // à faire : calculer le loyer maximal et remplacer 500 par 3*loyerMax
-        if (this.getPorteMonnaie() < 500) {
-            for (Propriete p : this.getProperties()) {
-                if (nombrePrHypotheques < 3) {
-                    choixProprietesAHypothequer.add(p);
-                    nombrePrHypotheques++;
-                }
+        for (Propriete p : this.getProperties()) {
+            if (this.getPorteMonnaie() + montantRecu < 500) {
+                choixProprietesAHypothequer.add(p);
+                montantRecu += p.getPrixRevente();
             }
+            else break;
         }
 
         return choixProprietesAHypothequer;
@@ -62,40 +71,50 @@ public class JoueurS2 extends Joueur {
 
     @Override
     public Map<Terrain, Integer> choixNombreMaisonsAVendre() {
+        int montantRecu = 0;
         Map <Terrain, Integer> choixNombreMaisonsAVendre = new HashMap<>();
-        if (this.getPorteMonnaie() < 500) {
-            for (Propriete p : this.getProperties()) {
-                if (p instanceof Terrain) {
-                    int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
-                    if (nombreMaisonsP > 0) {
-                        choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);
-                        if (this.getPorteMonnaie() > 500) {
-                            break;
-                        }
-                    }
+        for (Propriete p : this.getProperties()) {
+            if (this.getPorteMonnaie() + montantRecu < 500) {
+                int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
+                if (nombreMaisonsP > 0) {
+                    choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);
+                    montantRecu += nombreMaisonsP*((Terrain)p).getPrixMaison()/2;
                 }
             }
+            else break;
         }
 
         return choixNombreMaisonsAVendre;
     }
 
-    @Override
-    public List<Terrain> choixHotelsAVendre() {
-        List <Terrain> choixHotelsAVendre = new ArrayList<>();
-        if (this.getPorteMonnaie() < 500) {
-            for (Propriete p : this.getProperties()) {
-                if (p instanceof Terrain) {
-                    if (((Terrain)p).estHotel()) {
-                        choixHotelsAVendre.add((Terrain)p);
-                    }
-                    if (this.getPorteMonnaie() > 500) {
-                        break;
-                    }
+
+    for (Propriete p : this.getProperties()) {
+        if (p instanceof Terrain) {
+            int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
+            if (nombreMaisonsP > 0) {
+                choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);
+                if (this.getPorteMonnaie() > 500) {
+                    break;
                 }
             }
         }
+    }
 
+
+    @Override
+    public List<Terrain> choixHotelsAVendre() {
+        List <Terrain> choixHotelsAVendre = new ArrayList<>();
+        int montantRecu = 0;
+        
+        for (Propriete p : this.getProperties()) {
+            if (this.getPorteMonnaie() + montantRecu < 500) {
+                if (p instanceof Terrain && (((Terrain)p).estHotel())) {
+                        choixHotelsAVendre.add((Terrain)p);
+                        montantRecu += ((Terrain)p).getPrixMaison()/2;
+                }
+            }
+            else break;
+        }
         return choixHotelsAVendre;
     }
 
