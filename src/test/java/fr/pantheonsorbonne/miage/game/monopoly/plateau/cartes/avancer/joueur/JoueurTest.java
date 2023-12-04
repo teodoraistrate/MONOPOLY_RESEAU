@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -116,7 +117,58 @@ public class JoueurTest {
         assertTrue(joueur.getProperties().isEmpty());
     }
 
+    //TODO : racheteProprieteHypo
 
+    @Test
+    public void testRacheterProprieteHypothequee () throws PasAssezArgentException {
+        JoueurS1 joueur = new JoueurS1("regis");
+        joueur.ajouterArgent(500);
+        Compagnie c1 = new Compagnie("c1", 150);
+        joueur.ajouterPropriete(c1);
+        c1.hypothequer();
+
+        try{
+        joueur.racheterProprieteHypothequee(c1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertFalse(c1.estHypotheque());
+    }
+
+    @Test
+    
+    public void testTransfererProperties (){
+        Joueur joueur = new JoueurS1("pablo escobar");
+        Joueur gagnant = new JoueurS1 ("le gagnant");
+        Compagnie c1 = new Compagnie("c1", 150);
+        Compagnie c2 = new Compagnie("c2", 150);
+        joueur.ajouterPropriete(c1);        
+        joueur.ajouterPropriete(c2);
+        List<Propriete> listeP = new ArrayList<>();
+        listeP.add(c1);
+        listeP.add(c2);
+        joueur.transfererProprietes(gagnant);
+
+        assertTrue(joueur.getProperties().isEmpty());
+        assertEquals(listeP,gagnant.getProperties());
+
+        
+    }
+
+
+    @Test
+    public void testDeclarerPerte () {
+        Joueur joueur = new JoueurS1 ("ale la connasse");
+        joueur.getPorteMonnaie();
+
+
+    }
+    /*public void declarerPerte() {
+        System.out.println(this.getName() + " a perdu!");
+    }*/
+
+    
 
     
 }

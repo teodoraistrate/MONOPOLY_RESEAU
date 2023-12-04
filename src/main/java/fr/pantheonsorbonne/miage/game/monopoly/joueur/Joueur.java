@@ -144,6 +144,7 @@ public abstract class Joueur {
         for (Propriete proprieteATransferer : this.getProperties()) {
             gagnant.ajouterPropriete(proprieteATransferer);
         }
+        properties.clear();
         System.out.println("Toutes les proprietes de " + this.getName() + " ont été transférées à " + gagnant.getName());
     }
 
@@ -171,6 +172,9 @@ public abstract class Joueur {
     }
 
     public void removeAllProprietes() {
+        for (Propriete p : this.getProperties()) {
+            p.setProprietaire(null);
+        }
         properties.clear();
         System.out.println(this.getName() + " n'a plus de propriétés!");
     }
