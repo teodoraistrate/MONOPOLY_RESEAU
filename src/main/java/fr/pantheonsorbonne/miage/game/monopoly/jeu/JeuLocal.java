@@ -15,6 +15,7 @@ public class JeuLocal {
 
     public static final Plateau plateau = Plateau.getInstance(); //erreur aussi maybe
     static List<Joueur> listeJoueurs = new ArrayList<>();
+    private int nombrePrisonsAdditionnelles = 0;
 
     private static JeuLocal instance = new JeuLocal(); // Création de l'instance unique
 
@@ -32,6 +33,10 @@ public class JeuLocal {
 
     public void removeJoueur(Joueur joueur) {
         listeJoueurs.remove(joueur);
+    }
+
+    public int getNombrePrisonsAdditionnelles() {
+        return nombrePrisonsAdditionnelles;
     }
 
     public static void initialiserListeJoueurs() {
@@ -94,7 +99,7 @@ public class JeuLocal {
             for (Joueur j : listeJoueurs) {
                 System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
             }
-            System.out.println();
+            System.out.println("Nombre tours: " + nombreTours);
             System.out.println();
             nombreTours++;
         }

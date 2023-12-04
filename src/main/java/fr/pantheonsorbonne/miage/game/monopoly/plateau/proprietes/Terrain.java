@@ -20,13 +20,14 @@ public class Terrain extends Propriete {
     private boolean estSquatte;
     private int nombreToursInitialSquatteur;
     private boolean estPrisonAdditionnelle = false;
-    // private int loyerPrison = tableauLoyer[0]/10 +1;
+    private int loyerPrison;
 
     public Terrain(String name, int price, Color color, int[] tableauLoyer, int prixMaison) {
         super(name, price);
         this.color = color;
         this.tableauLoyer = tableauLoyer;
         this.prixMaison = prixMaison;
+        this.loyerPrison = tableauLoyer[0]/10 +1;
     }
 
     // getteurs
@@ -47,11 +48,11 @@ public class Terrain extends Propriete {
         return nombreMaisons;
     }
 
-    /*
-     * public int getLoyerPrison() {
-     * return loyerPrison;
-     * }
-     */
+    
+    public int getLoyerPrison() {
+        return loyerPrison;
+    }
+    
     public void augmenterNbMaisons() {
         this.nombreMaisons++;
     }
