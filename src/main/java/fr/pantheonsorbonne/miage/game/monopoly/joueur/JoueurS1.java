@@ -38,11 +38,12 @@ public class JoueurS1 extends Joueur {
         List<Propriete> listeP = new ArrayList<>();
         int montantDepense = 0;
         for (Propriete p : this.getProperties()) {
-            if (p.estHypotheque() &&  (this.getPorteMonnaie - montantDepense > 700)) {
+            if (p.estHypotheque() &&  (this.getPorteMonnaie() - montantDepense > 700)) {
                 listeP.add(p);
                 montantDepense += 1.1 * p.getPrixRevente();
             }
         }
+        return listeP;
     }
 
     @Override
@@ -69,7 +70,7 @@ public class JoueurS1 extends Joueur {
         int montantRecu = 0;
         Map <Terrain, Integer> choixNombreMaisonsAVendre = new HashMap<>();
         for (Propriete p : this.getProperties()) {
-            if (this.getPorteMonnaie() + montantRecu < 500) {
+            if (p instanceof Terrain && this.getPorteMonnaie() + montantRecu < 500) {
                 int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
                 if (nombreMaisonsP > 0) {
                     choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);

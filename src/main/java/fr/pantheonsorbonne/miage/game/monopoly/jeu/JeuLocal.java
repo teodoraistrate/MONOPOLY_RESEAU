@@ -2,14 +2,18 @@ package fr.pantheonsorbonne.miage.game.monopoly.jeu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS3;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public class JeuLocal {
 
@@ -50,9 +54,10 @@ public class JeuLocal {
 
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
-        JoueurS2 joueur2 = new JoueurS2("Joueur 2");
+        //JoueurS2 joueur2 = new JoueurS2("Joueur 2");
+        JoueurS3 joueur3 = new JoueurS3("Joueur 3");
         listeJoueurs.add(joueur1);
-        listeJoueurs.add(joueur2);
+        listeJoueurs.add(joueur3);
     }
     
     public static void main(String[] args) {
@@ -72,6 +77,13 @@ public class JeuLocal {
         while (listeJoueurs.size()>1) {
             double loyerTotalActuel = 0;
             for (Joueur joueur : listeJoueurs) {
+                if (nombreTours > 200) {
+                try {
+                    joueur.payer(150);
+                } catch(PasAssezArgentException e) {
+                    joueur.declarerPerte();
+                }
+            }
                 boolean lancerDes = true; 
                 // on a ajouté cette variable pour qu'un joueur puisse lancer les dés plusieurs fois si c'est la même valeur
                 int nombreFoisMemeValeur = 0;
@@ -105,18 +117,26 @@ public class JeuLocal {
 
                     // on vend les hotels choisis par le joueur
                     for (Terrain t : joueur.choixHotelsAVendre()) {
-                        t.vendreHotel();
+                        try {
+                            t.vendreHotel();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     // on vend les maisons choisis par le joueur
                     for (Terrain t : joueur.choixNombreMaisonsAVendre().keySet()) {
                         for (int i=0; i<joueur.choixNombreMaisonsAVendre().get(t); i++) {
-                            t.vendreMaison();
+                            try {
+                                t.vendreMaison();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 
                     // on va hypothéquer les propriétés (terrains, compagnies ou gares) choisies par le joueur
-                    for (Propriete p : joueur.choixProprietesAHypothequer) {
+                    for (Propriete p : joueur.choixProprietesAHypothequer()) {
                         p.hypothequer();
                     }
 
@@ -132,18 +152,23 @@ public class JeuLocal {
 
             if (verifierProbabilite(probabiliteSquatteur) && listeTerrainsAchetes!=null) {
                 Random random = new Random();
-                int indexAleatoire = random.nextInt(listeTerrains.size());
-                Terrain proprieteASquatter = listeTerrains.get(indexAleatoire);
+                int indexAleatoire = random.nextInt(listeTerrainsAchetes.size());
+                Terrain proprieteASquatter = listeTerrainsAchetes.get(indexAleatoire);
                 proprieteASquatter.squatter(); // on squatte la propriété aléatoire
                 proprieteASquatter.setNombreToursInitialSquatteur(nombreTours); // on met le nb Tours Initial
                 System.out.println("La propriété " + proprieteASquatter.getName() + " est squatté! ");
                 if(proprieteASquatter.getProprietaire().choixPayerOuAttendre()) {
-                    proprieteASquatter.fairePartirSquatteur();
+                    try {
+                        proprieteASquatter.fairePartirSquatteur();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             for (Joueur j : listeJoueurs) {
                 System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
+                System.out.println("Nb de proprietes de " + j.getName() + " : " + j.getProperties().size());
             }
             System.out.println("Nombre tours: " + nombreTours);
             System.out.println();
@@ -153,4 +178,6 @@ public class JeuLocal {
 
     }
 
+    // il met pas en prison les joueurs !!!!
+    // il va pas payer un loyer s'il est le proprietaire - a changer
 }

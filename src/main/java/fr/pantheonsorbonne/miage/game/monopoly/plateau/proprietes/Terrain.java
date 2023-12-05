@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 
 public class Terrain extends Propriete {
 
@@ -21,6 +23,8 @@ public class Terrain extends Propriete {
     private int nombreToursInitialSquatteur;
     private boolean estPrisonAdditionnelle = false;
     private int loyerPrison;
+
+    Prison prison = Prison.getInstance("Prison");
 
     public Terrain(String name, int price, Color color, int[] tableauLoyer, int prixMaison) {
         super(name, price);

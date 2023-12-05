@@ -43,6 +43,7 @@ public class CaisseDeCommunaute extends Case {
 
     public void appliquerEffetCase(Joueur joueur) {
         Carte carteTiree = piocheCaisseCommunaute.piocherCarte();
+        System.out.println(joueur.getName() + " a tiré une carte Chance : " + carteTiree.getDescription());
         try {
             carteTiree.appliquerEffet(joueur);
         } catch(Exception e) {
