@@ -66,10 +66,10 @@ public class Terrain extends Propriete {
         if (this.tousTerrainsMemeCouleur(this.getColor())) {
             if (this.estHotel())
                 return tableauLoyer[5];
-            else if (this.getNombreMaisons() > 1) {
-                return tableauLoyer[this.getNombreMaisons()];
+            else if (this.getNombreMaisons() >= 1) {
+                return tableauLoyer[this.getNombreMaisons()+1];
             } else {
-                return tableauLoyer[0] * 2;
+                return tableauLoyer[1];
             }
         }
         return tableauLoyer[0];
@@ -122,7 +122,7 @@ public class Terrain extends Propriete {
 
     // autres methodes
 
-    public void acheterMaison() throws CannotBuildException, PasAssezArgentException {
+    public void acheterMaisonBackup() throws CannotBuildException, PasAssezArgentException {
         if (this.getProprietaire().getPorteMonnaie() < this.getPrixMaison()) {
             throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour acheter une maison");
         } else {
@@ -159,6 +159,44 @@ public class Terrain extends Propriete {
             }
         }
     }
+
+    public void acheterMaison() throws CannotBuildException, PasAssezArgentException {
+        if (this.getProprietaire().getPorteMonnaie() < this.getPrixMaison()) {
+            throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour acheter une maison");
+        } else {
+            if (!this.tousTerrainsMemeCouleur(this.getColor())) {
+                throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur " + this.getColor()
+                        + ", donc vous ne pouvez pas construire la maison!");
+            } else {
+                int maximumMaisons = 3; // Le maximum de maisons par terrain
+                Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
+    
+                // Vérifier si le maximum de maisons est déjà atteint
+                boolean toutesMaisonsPossibles = listeNombreMaisons.values().stream().allMatch(nbMaisons -> nbMaisons == maximumMaisons);
+                if (toutesMaisonsPossibles) {
+                    throw new CannotBuildException("Vous avez construit toutes les maisons possibles!");
+                }
+    
+                // Rechercher le terrain avec le nombre minimum de maisons pour en construire une autre
+                int minimumNbMaisons = 5;
+                Terrain terrainChoisi = null;
+                for (Terrain t : listeNombreMaisons.keySet()) {
+                    if (t.getNombreMaisons() < minimumNbMaisons) {
+                        minimumNbMaisons = t.getNombreMaisons();
+                        terrainChoisi = t;
+                    }
+                }
+    
+                if (terrainChoisi != null) {
+                    terrainChoisi.getProprietaire().payer(terrainChoisi.getPrixMaison());
+                    terrainChoisi.augmenterNbMaisons();
+                } else {
+                    throw new CannotBuildException("Impossible de trouver un terrain pour construire une maison supplémentaire.");
+                }
+            }
+        }
+    }
+    
 
     public void acheterHotel() throws CannotBuildException, PasAssezArgentException {
         if (this.getProprietaire().getPorteMonnaie() < this.getPrixMaison()) {
