@@ -60,6 +60,7 @@ public class JeuLocal {
         JoueurS3 joueur3 = new JoueurS3("Joueur 3");
         listeJoueurs.add(joueur1);
         listeJoueurs.add(joueur2);
+        listeJoueurs.add(joueur3);
     }
     
     public static void main(String[] args) {

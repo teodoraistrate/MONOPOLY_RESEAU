@@ -117,7 +117,7 @@ public class JoueurS2 extends Joueur {
         for (Propriete p : this.getProperties()) {
             if (p instanceof Terrain) {
                 Terrain terrain = (Terrain) p;
-                if (terrain.tousTerrainsMemeCouleur(terrain.getColor()) || terrain.estHypotheque())
+                if (terrain.tousTerrainsMemeCouleur(terrain.getColor()) || terrain.estHypotheque() || terrain.estPrisonAdditionnelle())
                     break;
                 else {
                     List<Terrain> listeT = plateau.getTerrainsMemeCouleur(terrain.getColor());
