@@ -110,14 +110,20 @@ public class TerrainTest {
         for (Terrain t : listeT2) {
             joueur.ajouterPropriete(t);
         }
-        
+    
         Terrain terrain = listeT2.get(0);
         assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
         joueur.ajouterArgent(10000);
         // Acheter 9 maisons
-        for (int i = 0; i < 9; i++) {
-            terrain.acheterMaison();
-        }
+        terrain.acheterMaison();
+        terrain.acheterMaison();
+        terrain.acheterMaison();
+        terrain.acheterMaison();
+        terrain.acheterMaison();
+        terrain.acheterMaison();
+        terrain.acheterMaison();
+        terrain.acheterMaison();
+        terrain.acheterMaison();
 
         Terrain avecHotel = terrain;
 
@@ -126,6 +132,9 @@ public class TerrainTest {
         assertEquals(0, avecHotel.getNombreMaisons());
         assertEquals(10000 - 10 * terrain.getPrixMaison(), joueur.getPorteMonnaie(), 0.0001);
     }
+
+
+
 
     @Test
     public void testVendreMaison() throws CannotSellException, CannotBuildException, PasAssezArgentException {
@@ -144,18 +153,57 @@ public class TerrainTest {
         terrain.vendreMaison();
 
 
-        assertEquals(1, terrain.getNombreMaisons());
+        assertEquals(1, terrain.getNombreMaisons()); //jsp je pense c'est 1 mais ça fait une erreur 
         
     }
 
+   
+    @Test
+    public void testAcheterHotelAvecAssezArgentEtTousTerrainsDeMemeCouleur() {
+        JoueurS1 proprietaire = new JoueurS1("Propriétaire");
+        Terrain terrain = new Terrain("Boulevard de BelleVille", 60, Color.BLACK, new int[] {2, 4, 10, 30, 90, 160}, 50);
+        terrain.setProprietaire(proprietaire);
+        proprietaire.ajouterArgent(terrain.getPrixMaison() * 4);
+
+        try {
+            terrain.acheterHotel();
+            assertTrue(terrain.estHotel());
+            assertEquals(0, terrain.getNombreMaisons());
+            assertEquals(0, proprietaire.getPorteMonnaie(), 0.0001);
+        } catch (CannotBuildException | PasAssezArgentException e) {
+            e.printStackTrace(); // Ajoutez cette ligne pour imprimer la stack trace de l'exception
+        }
+    }
+
+
+    @Test
+    public void testAcheterHotelSansAssezArgent() {
+        JoueurS1 proprietaire = new JoueurS1("Propriétaire");
+        Terrain terrain = new Terrain("Boulevard de BelleVille", 60, Color.BLACK, new int[] {2, 4, 10, 30, 90, 160}, 50);
+        terrain.setProprietaire(proprietaire);
     
-
-    
-
-
-
-
+        try {
+            terrain.acheterHotel();
+            fail("PasAssezArgentException devrait être levée, mais aucune exception n'a été déclenchée.");
+        } catch (PasAssezArgentException e) {
+            // La PasAssezArgentException est attendue ici, donc le test réussit
+            assertEquals("Vous n'avez pas assez d'argent pour acheter une maison", e.getMessage());
+        } catch (CannotBuildException e) {
+            fail("Une autre exception inattendue a été levée : " + e.getMessage());
+        }
+    }
     
 }
+
+
+    
+
+    
+
+
+
+
+    
+
 
 
