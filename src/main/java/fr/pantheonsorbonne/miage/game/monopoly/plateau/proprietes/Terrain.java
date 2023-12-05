@@ -207,7 +207,7 @@ public class Terrain extends Propriete {
         } else {
             Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
             for (Terrain t : listeNombreMaisons.keySet()) {
-                if (listeNombreMaisons.get(t) != 4 && listeNombreMaisons.get(t) != 0) {
+                if (listeNombreMaisons.get(t) != 3 && listeNombreMaisons.get(t) != 0) {
                     throw new CannotBuildException(
                             "Vous n'avez construit le maximum de maisons sur les terrains de cette couleur!");
                 }
