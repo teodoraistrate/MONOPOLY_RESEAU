@@ -2,6 +2,7 @@ package fr.pantheonsorbonne.miage.testPlateau;
 
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
@@ -59,7 +60,7 @@ public class ProprieteTest {
     */
 
     @Test
-    public void testHypothequer() {
+    public void testHypothequer() throws CannotSellException {
         propriete.setProprietaire(joueur);
         propriete.hypothequer();
         assertTrue(propriete.estHypotheque());

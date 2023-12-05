@@ -24,6 +24,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Compagnie;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
@@ -123,7 +124,7 @@ public class JoueurTest {
     //TODO : racheteProprieteHypo
 
     @Test
-    public void testRacheterProprieteHypothequee () throws PasAssezArgentException {
+    public void testRacheterProprieteHypothequee () throws PasAssezArgentException, CannotSellException {
         JoueurS1 joueur = new JoueurS1("regis");
         joueur.ajouterArgent(500);
         Compagnie c1 = new Compagnie("c1", 150);

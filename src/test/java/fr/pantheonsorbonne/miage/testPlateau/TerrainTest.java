@@ -8,6 +8,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotBuildException;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
@@ -64,7 +65,6 @@ public class TerrainTest {
         int[] tableauLoyer = {10, 50, 150, 450, 625, 750, 875, 925, 975, 1025};
         Terrain terrain = new Terrain("TerrainTest", 200, Color.GREEN, tableauLoyer, 100);
 
-
         // Aucune maison
         assertEquals(20, terrain.getLoyer());
 
@@ -113,9 +113,7 @@ public class TerrainTest {
         
         Terrain terrain = listeT2.get(0);
         assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
-
         joueur.ajouterArgent(10000);
-
         // Acheter 12 maisons
         for (int i = 0; i < 12; i++) {
             terrain.acheterMaison();
@@ -123,7 +121,7 @@ public class TerrainTest {
 
         Terrain avecHotel = terrain;
         for (Terrain t : listeT2) {
-            if (t.getNombreMaisons() == 4) {
+            if (t.getNombreMaisons() == 3) {
                 avecHotel = t;
             }
         }
@@ -133,6 +131,53 @@ public class TerrainTest {
         assertEquals(0, avecHotel.getNombreMaisons());
         assertEquals(10000 - 13 * terrain.getPrixMaison(), joueur.getPorteMonnaie(), 0.0001);
     }
+
+    @Test
+    public void testVendreMaison() throws CannotSellException, CannotBuildException, PasAssezArgentException {
+        JoueurS1 joueur = new JoueurS1("lol");
+        List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
+        for (Terrain t : listeT2) {
+            joueur.ajouterPropriete(t);
+        }
+
+         
+        Terrain terrain = listeT2.get(0);
+        assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
+        joueur.ajouterArgent(10000);
+
+        terrain.acheterMaison();
+        terrain.vendreMaison();
+
+
+        assertEquals(0, terrain.getNombreMaisons());
+        
+    }
+
+    /*
+     * public void vendreMaison() throws CannotSellException {
+        if (!this.tousTerrainsMemeCouleur(color)) {
+            throw new CannotSellException("Vous n'avez même pas tous les terrains de cette couleur! ");
+        }
+        Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
+
+        // chercher le nb maximum de maisons pour voir ce qu'on peut vendre
+        int maximumNbMaisons = -1;
+        Terrain terrainChoisi = null;
+        for (Terrain t : listeNombreMaisons.keySet()) {
+            if (t.getNombreMaisons() > maximumNbMaisons) {
+                maximumNbMaisons = t.getNombreMaisons();
+                terrainChoisi = t;
+            }
+        }
+        if (terrainChoisi != null) {
+            if (terrainChoisi.getNombreMaisons() == 0) {
+                throw new CannotSellException("Vous n'avez pas de maison sur ce terrain!");
+            }
+            terrainChoisi.getProprietaire().ajouterArgent(prixMaison / 2);
+            terrainChoisi.nombreMaisons--;
+        }
+    }
+     */
 
     
 
