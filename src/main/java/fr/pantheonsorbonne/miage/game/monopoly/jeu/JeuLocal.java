@@ -55,7 +55,7 @@ public class JeuLocal {
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
         //JoueurS2 joueur2 = new JoueurS2("Joueur 2");
-        JoueurS3 joueur3 = new JoueurS3("Joueur 2");
+        JoueurS3 joueur3 = new JoueurS3("Joueur 3");
         listeJoueurs.add(joueur1);
         listeJoueurs.add(joueur3);
     }
@@ -77,7 +77,6 @@ public class JeuLocal {
         while (listeJoueurs.size()>1) {
             double loyerTotalActuel = 0;
             for (Joueur joueur : listeJoueurs) {
-
                 if (nombreTours > 200) {
                 try {
                     joueur.payer(150);
