@@ -13,6 +13,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
@@ -55,10 +56,10 @@ public class JeuLocal {
 
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
-        //JoueurS2 joueur2 = new JoueurS2("Joueur 2");
+        JoueurS2 joueur2 = new JoueurS2("Joueur 2");
         JoueurS3 joueur3 = new JoueurS3("Joueur 3");
         listeJoueurs.add(joueur1);
-        listeJoueurs.add(joueur3);
+        listeJoueurs.add(joueur2);
     }
     
     public static void main(String[] args) {
@@ -74,14 +75,17 @@ public class JeuLocal {
 
         int nombreTours = 0;
 
+        List<Joueur> copieListeJoueurs = new ArrayList<>(listeJoueurs);
+
+
         // le jeu s'arrête quand il reste un seul joueur
-        while (listeJoueurs.size()>1) {
+        while (copieListeJoueurs.size() > 1) {
             double loyerTotalActuel = 0;
             for (Joueur joueur : listeJoueurs) {
 
                 if (nombreTours > 200) {
                     try {
-                        joueur.payer(150);
+                        joueur.payer(100);
                     } catch(PasAssezArgentException e) {
                     joueur.declarerPerte();
                     }
@@ -155,7 +159,11 @@ public class JeuLocal {
 
                     // on va hypothéquer les propriétés (terrains, compagnies ou gares) choisies par le joueur
                     for (Propriete p : joueur.choixProprietesAHypothequer()) {
-                        p.hypothequer();
+                        try {
+                            p.hypothequer();
+                        } catch(CannotSellException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }
@@ -202,11 +210,15 @@ public class JeuLocal {
                     joueurIterator.remove();
                 }
             }
+
+            // Mettre à jour la copie de la liste pour refléter les changements
+            copieListeJoueurs = new ArrayList<>(listeJoueurs);
+            // On a fait une copie de la liste parce que des fois il y avait une ConcurrentModificationException
+
         }
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
     }
 
-    // il met pas en prison les joueurs !!!!
     // il va pas payer un loyer s'il est le proprietaire - a changer
 }

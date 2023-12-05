@@ -54,7 +54,7 @@ public class JoueurS1 extends Joueur {
 
         // à faire : calculer le loyer maximal et remplacer 500 par 3*loyerMax
         for (Propriete p : this.getProperties()) {
-            if (this.getPorteMonnaie() + montantRecu < 500) {
+            if (this.getPorteMonnaie() + montantRecu < 500 && !p.estHypotheque()) {
                 choixProprietesAHypothequer.add(p);
                 montantRecu += p.getPrixRevente();
             }
@@ -109,7 +109,7 @@ public class JoueurS1 extends Joueur {
     @Override
     public boolean choixTransformerProprieteEnPrison(Terrain terrain) {
         Plateau plateau = Plateau.getInstance();
-        if (terrain.tousTerrainsMemeCouleur(terrain.getColor())) return false;
+        if (terrain.tousTerrainsMemeCouleur(terrain.getColor()) || terrain.estHypotheque()) return false;
         else {
             List<Terrain> listeT = plateau.getTerrainsMemeCouleur(terrain.getColor());
             for (Terrain t : listeT) {

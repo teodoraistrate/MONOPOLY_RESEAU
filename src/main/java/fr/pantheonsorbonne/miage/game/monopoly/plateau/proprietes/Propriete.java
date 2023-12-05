@@ -53,9 +53,14 @@ public abstract class Propriete extends Case {
 
     // hypothequer propriete
 
-    public void hypothequer() {
-        this.getProprietaire().ajouterArgent(this.getPrixRevente());
-        estHypotheque = true;
+    public void hypothequer() throws CannotSellException{
+
+        if (estHypotheque) {
+            throw new CannotSellException("Vous ne pouvez pas hypothequer encore une fois cette propriété!");
+        } else {
+            this.getProprietaire().ajouterArgent(this.getPrixRevente());
+            estHypotheque = true;
+        }
     }
 
     // AJOUTER MÉTHODE PAYERARGENT POUR QU'ON CALCULE AUSSI LE MONTANT A PAYER
