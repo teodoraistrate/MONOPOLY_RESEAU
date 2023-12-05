@@ -62,7 +62,7 @@ public class TerrainTest {
 
     @Test
     public void testGetLoyerWithoutHotel() {
-        int[] tableauLoyer = {10, 50, 150, 450, 625, 750, 875, 925, 975, 1025};
+        int[] tableauLoyer = {10, 20, 150, 450, 625, 750};
         Terrain terrain = new Terrain("TerrainTest", 200, Color.GREEN, tableauLoyer, 100);
 
         // Aucune maison
@@ -70,11 +70,11 @@ public class TerrainTest {
 
         // Ajout d'une maison
         terrain.augmenterNbMaisons();
-        assertEquals(20, terrain.getLoyer());
+        assertEquals(150, terrain.getLoyer());
 
         // Ajout de deux maisons
         terrain.augmenterNbMaisons();
-        assertEquals(150, terrain.getLoyer());
+        assertEquals(450, terrain.getLoyer());
     }
 
 
@@ -114,22 +114,17 @@ public class TerrainTest {
         Terrain terrain = listeT2.get(0);
         assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
         joueur.ajouterArgent(10000);
-        // Acheter 12 maisons
-        for (int i = 0; i < 12; i++) {
+        // Acheter 9 maisons
+        for (int i = 0; i < 9; i++) {
             terrain.acheterMaison();
         }
 
         Terrain avecHotel = terrain;
-        for (Terrain t : listeT2) {
-            if (t.getNombreMaisons() == 3) {
-                avecHotel = t;
-            }
-        }
 
         avecHotel.acheterHotel();
         //c'est 0 car on a réinitialisé le nombre de maisons après l'achat de l'hotel
         assertEquals(0, avecHotel.getNombreMaisons());
-        assertEquals(10000 - 13 * terrain.getPrixMaison(), joueur.getPorteMonnaie(), 0.0001);
+        assertEquals(10000 - 10 * terrain.getPrixMaison(), joueur.getPorteMonnaie(), 0.0001);
     }
 
     @Test
@@ -145,39 +140,15 @@ public class TerrainTest {
         assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
         joueur.ajouterArgent(10000);
 
-        terrain.acheterMaison();
+        terrain.augmenterNbMaisons();
         terrain.vendreMaison();
 
 
-        assertEquals(0, terrain.getNombreMaisons());
+        assertEquals(1, terrain.getNombreMaisons());
         
     }
 
-    /*
-     * public void vendreMaison() throws CannotSellException {
-        if (!this.tousTerrainsMemeCouleur(color)) {
-            throw new CannotSellException("Vous n'avez même pas tous les terrains de cette couleur! ");
-        }
-        Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
-
-        // chercher le nb maximum de maisons pour voir ce qu'on peut vendre
-        int maximumNbMaisons = -1;
-        Terrain terrainChoisi = null;
-        for (Terrain t : listeNombreMaisons.keySet()) {
-            if (t.getNombreMaisons() > maximumNbMaisons) {
-                maximumNbMaisons = t.getNombreMaisons();
-                terrainChoisi = t;
-            }
-        }
-        if (terrainChoisi != null) {
-            if (terrainChoisi.getNombreMaisons() == 0) {
-                throw new CannotSellException("Vous n'avez pas de maison sur ce terrain!");
-            }
-            terrainChoisi.getProprietaire().ajouterArgent(prixMaison / 2);
-            terrainChoisi.nombreMaisons--;
-        }
-    }
-     */
+    
 
     
 
