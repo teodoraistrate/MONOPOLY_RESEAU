@@ -81,6 +81,8 @@ public class JeuLocal {
         // le jeu s'arrête quand il reste un seul joueur
         while (copieListeJoueurs.size() > 1) {
 
+            double loyerTotalActuel = 0;
+
             // on commence par demander aux proprietaires des terrains squattés s'il veulent faire le squatteur partir
             List<Terrain> listeTerrainsSquattes = plateau.getTerrainsAchetesSquattes();
             for (Terrain t : listeTerrainsSquattes) {
@@ -92,9 +94,6 @@ public class JeuLocal {
                     }
                 }
             }
-
-            double loyerTotalActuel = 0;
-            // !!! augmenter le loyer total
 
             for (Joueur joueur : listeJoueurs) {
 
@@ -204,6 +203,16 @@ public class JeuLocal {
             }
 
             List<Terrain> listeTerrainsAchetes = plateau.getTerrainsAchetesNonSquattes();
+
+            // calculer le loyer total actuel 
+            // est-ce qu'il faut aussi compter les terrains squattés ??? sinon on supprime la première boucle
+            for (Terrain t : listeTSq) {
+                loyerTotalActuel += t.getLoyer();
+            }
+            for (Terrain t : listeTerrainsAchetes) {
+                loyerTotalActuel += t.getLoyer();
+            }
+
             double probabiliteSquatteur = loyerTotalActuel/15000;
 
             if (verifierProbabilite(probabiliteSquatteur) && listeTerrainsAchetes!=null) {
@@ -221,6 +230,7 @@ public class JeuLocal {
                     }
                 }
             }
+
 
             for (Joueur j : listeJoueurs) {
                 System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
@@ -244,6 +254,7 @@ public class JeuLocal {
             copieListeJoueurs = new ArrayList<>(listeJoueurs);
             // On a fait une copie de la liste parce que des fois il y avait une ConcurrentModificationException
 
+            // !!casseurs!!
         }
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
