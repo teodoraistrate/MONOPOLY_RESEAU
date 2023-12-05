@@ -172,7 +172,9 @@ public class Terrain extends Propriete {
                 Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
     
                 // Vérifier si le maximum de maisons est déjà atteint
-                boolean toutesMaisonsPossibles = listeNombreMaisons.values().stream().allMatch(nbMaisons -> nbMaisons == maximumMaisons);
+                //boolean toutesMaisonsPossibles = listeNombreMaisons.values().stream().allMatch(nbMaisons -> nbMaisons == maximumMaisons);
+                boolean toutesMaisonsPossibles = listeNombreMaisons.values().stream().noneMatch(nbMaisons -> nbMaisons < maximumMaisons);
+
                 if (toutesMaisonsPossibles) {
                     throw new CannotBuildException("Vous avez construit toutes les maisons possibles!");
                 }
