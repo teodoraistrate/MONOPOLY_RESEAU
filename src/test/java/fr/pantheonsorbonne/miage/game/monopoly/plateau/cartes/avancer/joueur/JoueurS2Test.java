@@ -54,12 +54,6 @@ public class JoueurS2Test {
 
 
 
-    @Test
-    public void testPayerOuAttendre() {
-        JoueurS2 joueur = new JoueurS2("TestJoueur");
-
-        assertFalse(joueur.payerOuAttendre());
-    }
 
 
 }

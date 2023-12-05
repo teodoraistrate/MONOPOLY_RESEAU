@@ -139,7 +139,7 @@ public class JoueurS1Test {
         boolean estEnPrisonAvant = joueur.estEnPrison();
         double argentAvant = joueur.getPorteMonnaie();
     
-        boolean transformationReussie = joueur.transformerProprieteEnPrison(terrain);
+        boolean transformationReussie = joueur.choixTransformerProprieteEnPrison(terrain);
     
         boolean estEnPrisonApres = joueur.estEnPrison();
         double argentApres = joueur.getPorteMonnaie();
