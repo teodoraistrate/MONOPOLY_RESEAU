@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.miage.game.monopoly.jeu;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +13,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.CannotSellException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
@@ -54,10 +56,10 @@ public class JeuLocal {
 
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
-        //JoueurS2 joueur2 = new JoueurS2("Joueur 2");
+        JoueurS2 joueur2 = new JoueurS2("Joueur 2");
         JoueurS3 joueur3 = new JoueurS3("Joueur 3");
         listeJoueurs.add(joueur1);
-        listeJoueurs.add(joueur3);
+        listeJoueurs.add(joueur2);
     }
     
     public static void main(String[] args) {
@@ -73,17 +75,32 @@ public class JeuLocal {
 
         int nombreTours = 0;
 
+        List<Joueur> copieListeJoueurs = new ArrayList<>(listeJoueurs);
+
+
         // le jeu s'arrête quand il reste un seul joueur
-        while (listeJoueurs.size()>1) {
+        while (copieListeJoueurs.size() > 1) {
             double loyerTotalActuel = 0;
             for (Joueur joueur : listeJoueurs) {
+
                 if (nombreTours > 200) {
-                try {
-                    joueur.payer(150);
-                } catch(PasAssezArgentException e) {
+                    try {
+                        joueur.payer(100);
+                    } catch(PasAssezArgentException e) {
                     joueur.declarerPerte();
+                    }
+                    if (joueur.aPerdu()) {
+                        break; 
+                        // Un break pour qu'il puisse sortir de la boucle
+                    }
                 }
-            }
+            // méthode pour ne pas avoir une infinité de tours
+
+            // ajouter des méthodes pour qu'il puisse sortir de la prison en payant ou en ayant un dé double
+            // ajouter méthode augmenterNombreTours
+            // si le joueur est en Prison il ne peut pas lancer les dés, prendre des décisions, etc.
+            if (!joueur.estEnPrison()) {
+
                 boolean lancerDes = true; 
                 // on a ajouté cette variable pour qu'un joueur puisse lancer les dés plusieurs fois si c'est la même valeur
                 int nombreFoisMemeValeur = 0;
@@ -103,6 +120,11 @@ public class JeuLocal {
                     joueur.deplacerNombreCases(des.resultatDe(), true);
                     Case nouvelleCase = Plateau.getCaseParId(joueur.getPositionPlateau());
                     nouvelleCase.appliquerEffetCase(joueur);
+
+                    if (joueur.aPerdu()) {
+                        break; 
+                        // Un break pour qu'il puisse sortir de la boucle
+                    }
 
                     if (nouvelleCase instanceof Propriete) {
                         Propriete propriete = (Propriete)nouvelleCase;
@@ -137,10 +159,16 @@ public class JeuLocal {
 
                     // on va hypothéquer les propriétés (terrains, compagnies ou gares) choisies par le joueur
                     for (Propriete p : joueur.choixProprietesAHypothequer()) {
-                        p.hypothequer();
+                        try {
+                            p.hypothequer();
+                        } catch(CannotSellException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }
+            }
+
             }
 
             // ajouter méthode pour demander aux proprietaires des terrains squattés s'il veulent faire partir le squatteur
@@ -173,11 +201,24 @@ public class JeuLocal {
             System.out.println("Nombre tours: " + nombreTours);
             System.out.println();
             nombreTours++;
+
+            // Supprimer les joueurs marqués comme ayant perdu après la boucle
+            Iterator<Joueur> joueurIterator = listeJoueurs.iterator();
+            while (joueurIterator.hasNext()) {
+                Joueur joueur = joueurIterator.next();
+                if (joueur.aPerdu()) {
+                    joueurIterator.remove();
+                }
+            }
+
+            // Mettre à jour la copie de la liste pour refléter les changements
+            copieListeJoueurs = new ArrayList<>(listeJoueurs);
+            // On a fait une copie de la liste parce que des fois il y avait une ConcurrentModificationException
+
         }
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
     }
 
-    // il met pas en prison les joueurs !!!!
     // il va pas payer un loyer s'il est le proprietaire - a changer
 }

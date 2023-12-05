@@ -23,6 +23,7 @@ public abstract class Joueur {
     private int positionPlateau = 0;
     private List<Propriete> properties;
     private static boolean enPrison;
+    private boolean aPerdu = false;
 
     public Joueur(String name) {
         this.name = name;
@@ -52,6 +53,10 @@ public abstract class Joueur {
 
     public boolean estEnPrison(){ // Si le joueur est en prison (oui/non)
         return enPrison;
+    }
+
+    public boolean aPerdu() {
+        return aPerdu;
     }
 
     // méthodes concernant l'argent
@@ -183,8 +188,9 @@ public abstract class Joueur {
 
     public void declarerPerte() {
         JeuLocal jeu = JeuLocal.getInstance();
-        jeu.removeJoueur(this);
+        this.aPerdu = true;
         System.out.println(this.getName() + " a perdu!");
+        this.removeAllProprietes();
     }
 
 
