@@ -96,7 +96,7 @@ public abstract class Joueur {
                 throw new PasAssezArgentException(
                         "Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
             }
-            if (propriete instanceof Terrain && !((Terrain) propriete).estSquatte()) {
+            if (propriete instanceof Terrain && !((Terrain) propriete).estSquatte() && !((Terrain) propriete).estPrisonAdditionnelle()) {
                 this.payer(propriete.getLoyer());
                 System.out.println(this.getName() + " a payé le loyer pour " + propriete.getName());
                 if (!propriete.estHypotheque()) {

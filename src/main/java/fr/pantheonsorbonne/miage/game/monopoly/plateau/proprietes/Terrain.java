@@ -240,6 +240,7 @@ public class Terrain extends Propriete {
 
     public void squatter() {
         this.estSquatte = true;
+        System.out.println("Un squatteur a occupé " + this.getName() + " :(");
     }
 
     public void fairePartirSquatteur() throws PasAssezArgentException {
@@ -257,11 +258,13 @@ public class Terrain extends Propriete {
 
     public void byeSquatteur() {
         this.estSquatte = false;
+        System.out.println("Le squatteur est parti de " + this.getName() + "yay!!");
     }
     // on va vérifier si les 8 tours sont passés dans le main
 
     public void transformerProprieteEnPrison() {
         this.estPrisonAdditionnelle = true;
+        System.out.println(this.getName() + " est maintenant une prison additionnelle!");
     }
 
 }
