@@ -248,6 +248,4 @@ public class JeuLocal {
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
     }
-
-    // il va pas payer un loyer s'il est le proprietaire - a changer
 }
