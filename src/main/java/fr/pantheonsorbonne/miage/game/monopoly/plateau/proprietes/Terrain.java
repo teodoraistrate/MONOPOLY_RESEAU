@@ -259,6 +259,23 @@ public class Terrain extends Propriete {
         }
     }
 
+    public void casserMaison() {
+        Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
+
+        // chercher le nb maximum de maisons pour voir ce qu'on peut vendre
+        int maximumNbMaisons = -1;
+        Terrain terrainChoisi = null;
+        for (Terrain t : listeNombreMaisons.keySet()) {
+            if (t.getNombreMaisons() > maximumNbMaisons) {
+                maximumNbMaisons = t.getNombreMaisons();
+                terrainChoisi = t;
+            }
+        }
+        if (terrainChoisi != null) {
+            terrainChoisi.nombreMaisons--;
+        }
+    }
+
     public void squatter() {
         this.estSquatte = true;
     }

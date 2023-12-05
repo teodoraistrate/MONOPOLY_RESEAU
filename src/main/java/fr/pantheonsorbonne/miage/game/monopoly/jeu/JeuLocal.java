@@ -188,6 +188,10 @@ public class JeuLocal {
                             e.printStackTrace();
                         }
                     }
+
+                    if (joueur.choixTransformerProprieteEnPrison() != null) {
+                        
+                    }
                 }
             }
 
@@ -231,7 +235,6 @@ public class JeuLocal {
                 }
             }
 
-
             for (Joueur j : listeJoueurs) {
                 System.out.println("Solde de " + j.getName() + " : " + j.getPorteMonnaie());
                 System.out.println("Nb de proprietes de " + j.getName() + " : " + j.getProperties().size());
@@ -254,7 +257,8 @@ public class JeuLocal {
             copieListeJoueurs = new ArrayList<>(listeJoueurs);
             // On a fait une copie de la liste parce que des fois il y avait une ConcurrentModificationException
 
-            // !!casseurs!!
+            // !!casseurs!! 
+            // prisons additionnelles
         }
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 

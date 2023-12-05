@@ -59,8 +59,8 @@ public class JoueurS3 extends Joueur {
     }
 
     @Override
-    public boolean choixTransformerProprieteEnPrison(Terrain terrain) {
-        return false;
+    public Terrain choixTransformerProprieteEnPrison() {
+        return null;
     }
 
 }

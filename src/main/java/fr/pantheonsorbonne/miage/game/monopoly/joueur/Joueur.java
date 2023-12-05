@@ -219,7 +219,7 @@ public abstract class Joueur {
 
     public abstract boolean choixPayerOuAttendre();
 
-    public abstract boolean choixTransformerProprieteEnPrison(Terrain t);
+    public abstract Terrain choixTransformerProprieteEnPrison();
 
     public void setPosition(int positionInitiale) {
     }
