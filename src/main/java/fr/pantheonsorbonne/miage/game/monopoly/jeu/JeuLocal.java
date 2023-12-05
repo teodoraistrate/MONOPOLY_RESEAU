@@ -80,7 +80,22 @@ public class JeuLocal {
 
         // le jeu s'arrête quand il reste un seul joueur
         while (copieListeJoueurs.size() > 1) {
+
+            // on commence par demander aux proprietaires des terrains squattés s'il veulent faire le squatteur partir
+            List<Terrain> listeTerrainsSquattes = plateau.getTerrainsAchetesSquattes();
+            for (Terrain t : listeTerrainsSquattes) {
+                if (t.getProprietaire().choixPayerOuAttendre()) {
+                    try {
+                        t.fairePartirSquatteur();
+                    } catch (PasAssezArgentException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
             double loyerTotalActuel = 0;
+            // !!! augmenter le loyer total
+
             for (Joueur joueur : listeJoueurs) {
 
                 if (nombreTours > 200) {
@@ -96,15 +111,23 @@ public class JeuLocal {
                 }
             // méthode pour ne pas avoir une infinité de tours
 
-            // ajouter des méthodes pour qu'il puisse sortir de la prison en payant ou en ayant un dé double
-            // ajouter méthode augmenterNombreTours
-            // si le joueur est en Prison il ne peut pas lancer les dés, prendre des décisions, etc.
+            if (joueur.estEnPrison()) {
+                prison.sortirPrisonDoubleDe(joueur);
+                if (joueur.choixSortirPrison() && joueur.getPorteMonnaie()>50) {
+                    prison.sortirPrisonPayer(joueur);
+                }
+                prison.augmenterNombreTours(joueur);
+            }
+
+            // on ne met pas if-else parce que le statut estEnPrison peut se changer
             if (!joueur.estEnPrison()) {
 
                 boolean lancerDes = true; 
                 // on a ajouté cette variable pour qu'un joueur puisse lancer les dés plusieurs fois si c'est la même valeur
+                
                 int nombreFoisMemeValeur = 0;
                 // le but de cette variable est de mettre le joueur en prison s'il a la même valeur 3 fois
+                
                 while(lancerDes) {
                     DeDouble des = new DeDouble();
                     des.lancerDes();
@@ -116,6 +139,7 @@ public class JeuLocal {
                     }
                     if (nombreFoisMemeValeur == 3) {
                         prison.mettreJoueurEnPrison(joueur);
+                        break;
                     }
                     joueur.deplacerNombreCases(des.resultatDe(), true);
                     Case nouvelleCase = Plateau.getCaseParId(joueur.getPositionPlateau());
@@ -165,15 +189,19 @@ public class JeuLocal {
                             e.printStackTrace();
                         }
                     }
-
                 }
             }
 
             }
 
-            // ajouter méthode pour demander aux proprietaires des terrains squattés s'il veulent faire partir le squatteur
-
-            // ajouter méthode pour faire partir le squatteur à partir de 8 tours!!
+            // avant de mettre un nouveau squatteur sur un terrain, on va faire partir ceux qui sont restés pour 8 tours
+            List<Terrain> listeTSq = plateau.getTerrainsAchetesSquattes();
+            // on n'a pas utilisé la même variable qu'avant (et on n'a pas fait de remove dans la liste en haut pour ne pas avoir des exceptions ConcurrentModificationException)
+            for (Terrain t : listeTSq) {
+                if (nombreTours - t.getNombreToursInitialSquatteur() >= 8) {
+                    t.byeSquatteur();
+                }
+            }
 
             List<Terrain> listeTerrainsAchetes = plateau.getTerrainsAchetesNonSquattes();
             double probabiliteSquatteur = loyerTotalActuel/15000;
@@ -210,6 +238,7 @@ public class JeuLocal {
                     joueurIterator.remove();
                 }
             }
+            // on a encore des pb dans certains corner cases (J'ai vu qu'il se passe qq chose avec Gare de Montparnasse)
 
             // Mettre à jour la copie de la liste pour refléter les changements
             copieListeJoueurs = new ArrayList<>(listeJoueurs);
@@ -219,6 +248,4 @@ public class JeuLocal {
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
     }
-
-    // il va pas payer un loyer s'il est le proprietaire - a changer
 }

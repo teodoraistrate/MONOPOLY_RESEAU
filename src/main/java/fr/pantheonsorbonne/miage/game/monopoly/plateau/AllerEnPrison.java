@@ -12,6 +12,10 @@ public class AllerEnPrison extends Case {
 
     public void appliquerEffetCase(Joueur joueur) {
         prison.mettreJoueurEnPrison(joueur);
+        prison.sortirPrisonDoubleDe(joueur);
+        if (joueur.choixSortirPrison() && joueur.getPorteMonnaie()>50) {
+            prison.sortirPrisonPayer(joueur);
+        }
     }
     
 }

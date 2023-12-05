@@ -27,31 +27,31 @@ public abstract class Joueur {
 
     public Joueur(String name) {
         this.name = name;
-        //j'ajoute ça mais au cas ou il faudra supprimer
+        // j'ajoute ça mais au cas ou il faudra supprimer
         this.properties = new ArrayList<>();
     }
 
     // getteurs
 
-    public String getName() { //le nom du joueur
+    public String getName() { // le nom du joueur
         return name;
     }
 
-    public double getPorteMonnaie() { //combien il a d'argent
+    public double getPorteMonnaie() { // combien il a d'argent
         return porteMonnaie;
     }
 
-    public int getPositionPlateau() { //position du joueur dans le plateau
+    public int getPositionPlateau() { // position du joueur dans le plateau
         return positionPlateau;
     }
 
-    public List<Propriete> getProperties() { //combien le joueur a de propriétés
+    public List<Propriete> getProperties() { // combien le joueur a de propriétés
         return properties;
     }
 
     // is a
 
-    public boolean estEnPrison(){ // Si le joueur est en prison (oui/non)
+    public boolean estEnPrison() { // Si le joueur est en prison (oui/non)
         return enPrison;
     }
 
@@ -67,7 +67,8 @@ public abstract class Joueur {
     }
 
     public void payer(double montant) throws PasAssezArgentException {
-        if (porteMonnaie < montant) throw new PasAssezArgentException ("Vous n'avez pas assez d'argent pour cette action!");
+        if (porteMonnaie < montant)
+            throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour cette action!");
         porteMonnaie -= montant;
         System.out.println(this.getName() + " a payé " + montant);
     }
@@ -78,28 +79,30 @@ public abstract class Joueur {
     }
 
     public void payerLoyer(Propriete propriete) throws PasAssezArgentException {
-
-        if (porteMonnaie < propriete.getLoyer()) {
-            this.transfererProprietes(propriete.getProprietaire());
-            this.declarerPerte();
-            throw new PasAssezArgentException ("Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
-        }
-        if (propriete instanceof Terrain && !((Terrain)propriete).estSquatte()) {
-            this.payer(propriete.getLoyer());
-            System.out.println(this.getName() + " a payé le loyer pour " + propriete.getName());
-            if (!propriete.estHypotheque()) {
-                propriete.getProprietaire().ajouterArgent(propriete.getLoyer());
+        if (!propriete.getProprietaire().equals(this)) {
+            if (porteMonnaie < propriete.getLoyer()) {
+                this.transfererProprietes(propriete.getProprietaire());
+                this.declarerPerte();
+                throw new PasAssezArgentException(
+                        "Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
+            }
+            if (propriete instanceof Terrain && !((Terrain) propriete).estSquatte()) {
+                this.payer(propriete.getLoyer());
+                System.out.println(this.getName() + " a payé le loyer pour " + propriete.getName());
+                if (!propriete.estHypotheque()) {
+                    propriete.getProprietaire().ajouterArgent(propriete.getLoyer());
+                }
             }
         }
     }
 
-    public void payerTaxes(Taxes taxe) throws PasAssezArgentException{
+    public void payerTaxes(Taxes taxe) throws PasAssezArgentException {
         if (porteMonnaie < taxe.getMontantAPayer()) {
             this.removeAllProprietes();
             this.declarerPerte();
-            throw new PasAssezArgentException ("Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
-        }
-        else {
+            throw new PasAssezArgentException(
+                    "Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
+        } else {
             this.payer(taxe.getMontantAPayer());
             System.out.println(this.getName() + " a payé les taxes " + taxe.getName());
         }
@@ -123,14 +126,12 @@ public abstract class Joueur {
             if (this.positionPlateau + nombreCases > 40) {
                 this.getStartingBonus();
             }
-            this.positionPlateau = (this.positionPlateau + nombreCases)%40;
-        }
-        else {
+            this.positionPlateau = (this.positionPlateau + nombreCases) % 40;
+        } else {
             // s'il recule il ne va pas recevoir le bonus quand il passe par la Case Start
             if (this.positionPlateau < nombreCases) {
                 this.positionPlateau = 40 + this.positionPlateau - nombreCases;
-            }
-            else {
+            } else {
                 this.positionPlateau -= nombreCases;
             }
         }
@@ -145,16 +146,18 @@ public abstract class Joueur {
         System.out.println(this.getName() + " est maintenant le proprietaire de " + propriete.getName());
     }
 
-    public void transfererProprietes (Joueur gagnant) {
+    public void transfererProprietes(Joueur gagnant) {
         for (Propriete proprieteATransferer : this.getProperties()) {
             gagnant.ajouterPropriete(proprieteATransferer);
         }
         properties.clear();
-        System.out.println("Toutes les proprietes de " + this.getName() + " ont été transférées à " + gagnant.getName());
+        System.out
+                .println("Toutes les proprietes de " + this.getName() + " ont été transférées à " + gagnant.getName());
     }
 
-    public void acheterPropriete(Propriete propriete) throws PasAssezArgentException{
-        if (this.getPorteMonnaie() < propriete.getPrice()) throw new PasAssezArgentException("Vous ne pouvez pas acheter ce terrain!");
+    public void acheterPropriete(Propriete propriete) throws PasAssezArgentException {
+        if (this.getPorteMonnaie() < propriete.getPrice())
+            throw new PasAssezArgentException("Vous ne pouvez pas acheter ce terrain!");
         this.payer(propriete.getPrice());
         this.ajouterPropriete(propriete);
         propriete.setProprietaire(this);
@@ -162,9 +165,11 @@ public abstract class Joueur {
     }
 
     public void racheterProprieteHypothequee(Propriete propriete) throws PasAssezArgentException, DejaAcheteException {
-        double prix = 1.1 * propriete.getPrixRevente(); //prixRevente + 10%
-        if (porteMonnaie < prix) throw new PasAssezArgentException ("Vous ne pouvez pas racheter cette propriete!");
-        if (!propriete.estHypotheque()) throw new DejaAcheteException("La propriété n'est pas hypothéquée!");
+        double prix = 1.1 * propriete.getPrixRevente(); // prixRevente + 10%
+        if (porteMonnaie < prix)
+            throw new PasAssezArgentException("Vous ne pouvez pas racheter cette propriete!");
+        if (!propriete.estHypotheque())
+            throw new DejaAcheteException("La propriété n'est pas hypothéquée!");
         this.payer(prix);
         propriete.leverHypotheque();
         System.out.println("La propriété " + propriete.getName() + " de " + this.getName() + " n'est pus hypothéquée!");
@@ -193,7 +198,6 @@ public abstract class Joueur {
         this.removeAllProprietes();
     }
 
-
     public JeuLocal jeu = JeuLocal.getInstance();
     public List<Joueur> listeJoueurs = jeu.getListeJoueurs();
 
@@ -217,10 +221,7 @@ public abstract class Joueur {
 
     public abstract boolean choixTransformerProprieteEnPrison(Terrain t);
 
-
     public void setPosition(int positionInitiale) {
     }
-
-
 
 }

@@ -50,13 +50,14 @@ public class Prison extends Case {
         if (de.memeValeur()) {
             this.sortirPrison(joueur);
         }
+        System.out.println(joueur.getName() + " est sorti de la prison grâce à un Double Dé!");
     }
-
     
     public void sortirPrisonPayer(Joueur joueur) {
         try {
             joueur.payer(MONTANT_SORTIR);
             this.sortirPrison(joueur);
+            System.out.println(joueur.getName() + " a payé pour sortir de la prison!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,6 +70,4 @@ public class Prison extends Case {
         // un info logger
     }
     
-
-    //ajouter méthode pour compter le nombre de tour en prison 
 }

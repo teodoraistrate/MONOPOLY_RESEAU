@@ -113,6 +113,16 @@ public final class Plateau {
         return listeT;
     }
 
+    public List<Terrain> getTerrainsAchetesSquattes() {
+        List<Terrain> listeT = new ArrayList<>();
+        for (Case c : plateauJeu) {
+            if (c instanceof Terrain && ((Terrain)c).getProprietaire() != null && ((Terrain)c).estSquatte()) {
+                listeT.add((Terrain)c);
+            }
+        }
+        return listeT;
+    }
+
     
 
 }
