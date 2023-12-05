@@ -99,6 +99,14 @@ public class JeuLocal {
             // ajouter des méthodes pour qu'il puisse sortir de la prison en payant ou en ayant un dé double
             // ajouter méthode augmenterNombreTours
             // si le joueur est en Prison il ne peut pas lancer les dés, prendre des décisions, etc.
+            if (joueur.estEnPrison()) {
+                prison.sortirPrisonDoubleDe(joueur);
+                if (joueur.choixSortirPrison() && joueur.getPorteMonnaie()>50) {
+                    prison.sortirPrisonPayer(joueur);
+                }
+            }
+
+            // on ne met pas if-else parce que le statut estEnPrison peut se changer
             if (!joueur.estEnPrison()) {
 
                 boolean lancerDes = true; 
