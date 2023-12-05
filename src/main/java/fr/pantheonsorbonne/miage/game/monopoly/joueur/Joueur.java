@@ -190,6 +190,7 @@ public abstract class Joueur {
         JeuLocal jeu = JeuLocal.getInstance();
         this.aPerdu = true;
         System.out.println(this.getName() + " a perdu!");
+        this.removeAllProprietes();
     }
 
 

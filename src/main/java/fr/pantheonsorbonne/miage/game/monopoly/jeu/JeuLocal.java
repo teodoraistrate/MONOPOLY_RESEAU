@@ -80,12 +80,16 @@ public class JeuLocal {
             for (Joueur joueur : listeJoueurs) {
 
                 if (nombreTours > 200) {
-                try {
-                    joueur.payer(150);
-                } catch(PasAssezArgentException e) {
+                    try {
+                        joueur.payer(150);
+                    } catch(PasAssezArgentException e) {
                     joueur.declarerPerte();
+                    }
+                    if (joueur.aPerdu()) {
+                        break; 
+                        // Un break pour qu'il puisse sortir de la boucle
+                    }
                 }
-            }
             // méthode pour ne pas avoir une infinité de tours
 
             // ajouter des méthodes pour qu'il puisse sortir de la prison en payant ou en ayant un dé double
@@ -112,19 +116,7 @@ public class JeuLocal {
                     joueur.deplacerNombreCases(des.resultatDe(), true);
                     Case nouvelleCase = Plateau.getCaseParId(joueur.getPositionPlateau());
                     nouvelleCase.appliquerEffetCase(joueur);
-/*
-                    // la condition pour voir si le joueur a perdu
-                    if (joueur.aPerdu()) {
-                        Iterator<Joueur> joueurIterator = listeJoueurs.iterator();
-                        while (joueurIterator.hasNext()) {
-                            Joueur joueurASupprimer = joueurIterator.next();
-                            if (joueurASupprimer.equals(joueur)) {
-                                joueurIterator.remove(); // Retire le joueur de la liste
-                                break; // Sort de la boucle après la suppression
-                            }
-                        }
-                    }
-*/
+
                     if (joueur.aPerdu()) {
                         break; 
                         // Un break pour qu'il puisse sortir de la boucle
