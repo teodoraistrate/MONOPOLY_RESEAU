@@ -120,45 +120,7 @@ public class Terrain extends Propriete {
         return estPrisonAdditionnelle;
     }
 
-    // autres methodes
-
-    public void acheterMaisonBackup() throws CannotBuildException, PasAssezArgentException {
-        if (this.getProprietaire().getPorteMonnaie() < this.getPrixMaison()) {
-            throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour acheter une maison");
-        } else {
-            if (!this.tousTerrainsMemeCouleur(this.getColor())) {
-                throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur " + this.getColor()
-                        + ", donc vous ne pouvez pas construire la maison!");
-            } else {
-                Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
-
-                // voir si on a déjà le nb maximum de maisons
-                boolean toutesMaisonsPossibles = true; // true si le maximum (4) est déjà atteint
-                for (Terrain t : listeNombreMaisons.keySet()) {
-                    if ((t.getNombreMaisons() == 0 && !t.estHotel()) || t.getNombreMaisons() == 1
-                            || t.getNombreMaisons() == 2 || t.getNombreMaisons() == 3) {
-                        toutesMaisonsPossibles = false;
-                    }
-                }
-                if (toutesMaisonsPossibles) {
-                    throw new CannotBuildException("Vous avez construit toutes les maisons possibles!");
-                }
-
-                // chercher le nb minimum de maisons pour voir où on peut en construire une
-                // autre
-                int minimumNbMaisons = 5;
-                Terrain terrainChoisi = null;
-                for (Terrain t : listeNombreMaisons.keySet()) {
-                    if (t.getNombreMaisons() < minimumNbMaisons) {
-                        minimumNbMaisons = t.getNombreMaisons();
-                        terrainChoisi = t;
-                    }
-                }
-                terrainChoisi.getProprietaire().payer(terrainChoisi.getPrixMaison());
-                terrainChoisi.augmenterNbMaisons();
-            }
-        }
-    }
+    // autres méthodes
 
     public void acheterMaison() throws CannotBuildException, PasAssezArgentException {
         if (this.getProprietaire().getPorteMonnaie() < this.getPrixMaison()) {
@@ -297,5 +259,9 @@ public class Terrain extends Propriete {
         this.estSquatte = false;
     }
     // on va vérifier si les 8 tours sont passés dans le main
+
+    public void transformerProprieteEnPrison() {
+        this.estPrisonAdditionnelle = true;
+    }
 
 }

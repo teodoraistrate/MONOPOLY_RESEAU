@@ -49,6 +49,16 @@ public abstract class Joueur {
         return properties;
     }
 
+    public List<Terrain> getPrisonsAdditionnelles() {
+        List<Terrain> listePrisonsAdd = new ArrayList<>();
+        for (Propriete p : this.getProperties()) {
+            if (p instanceof Terrain && ((Terrain)p).estPrisonAdditionnelle()) {
+                listePrisonsAdd.add((Terrain)p);
+            }
+        }
+        return listePrisonsAdd;
+    }
+
     // is a
 
     public boolean estEnPrison() { // Si le joueur est en prison (oui/non)

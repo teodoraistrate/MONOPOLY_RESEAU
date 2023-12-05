@@ -21,7 +21,7 @@ public class JeuLocal {
 
     public static final Plateau plateau = Plateau.getInstance(); //erreur aussi maybe
     static List<Joueur> listeJoueurs = new ArrayList<>();
-    private int nombrePrisonsAdditionnelles = 0;
+    private static int nombrePrisonsAdditionnelles = 0;
 
     private static JeuLocal instance = new JeuLocal(); // Création de l'instance unique
 
@@ -189,8 +189,15 @@ public class JeuLocal {
                         }
                     }
 
-                    if (joueur.choixTransformerProprieteEnPrison() != null) {
-                        
+                    Terrain choixPrisonAdd = joueur.choixTransformerProprieteEnPrison();
+                    if (choixPrisonAdd != null) {
+                        choixPrisonAdd.transformerProprieteEnPrison();
+                        nombrePrisonsAdditionnelles++;
+                    }
+
+                    // à la fin de son tour, le joueur va recevoir le loyer pour chacune de ses prisons additionnelles
+                    for (Terrain prisonAdd : joueur.getPrisonsAdditionnelles()) {
+                        joueur.ajouterArgent(prisonAdd.getLoyerPrison());
                     }
                 }
             }
