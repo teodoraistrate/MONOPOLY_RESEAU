@@ -33,7 +33,7 @@ public class PlateauTest {
         Plateau plateau = Plateau.getInstance();
         List<Case> cases = plateau.getPlateau();
         assertNotNull(cases);
-        assertEquals(43, cases.size());
+        assertEquals(40, cases.size());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class PlateauTest {
         Plateau plateau = Plateau.getInstance();
         List<Terrain> terrainsNoirs = plateau.getTerrainsMemeCouleur(Color.BLACK);
         assertNotNull(terrainsNoirs);
-        assertEquals(3, terrainsNoirs.size());
+        assertEquals(2, terrainsNoirs.size());
     }
 
 }
