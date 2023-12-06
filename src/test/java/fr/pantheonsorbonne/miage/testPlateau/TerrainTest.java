@@ -156,15 +156,15 @@ public class TerrainTest {
 
         Terrain terrain = listeT2.get(0);
         assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
+        joueur.ajouterArgent(10000);
 
-        // Ajouter assez d'argent pour acheter les maisons et l'hôtel
-        joueur.ajouterArgent(15000);
+        assertEquals(0,listeT2.get(0).getNombreMaisons());
+        assertEquals(0,listeT2.get(1).getNombreMaisons());
+        assertEquals(0,listeT2.get(2).getNombreMaisons());
 
-        // Acheter quatre maisons sur chaque propriété du groupe de couleur
-        for (Terrain t : listeT2) {
-            for (int i = 0; i < 4; i++) {
-                t.acheterMaison();
-            }
+        // Acheter toutes les maisons
+        for (int i=0; i<listeT2.size()*4; i++) {
+            terrain.acheterMaison();
         }
 
         // Acheter un hôtel sur la première propriété du groupe de couleur
