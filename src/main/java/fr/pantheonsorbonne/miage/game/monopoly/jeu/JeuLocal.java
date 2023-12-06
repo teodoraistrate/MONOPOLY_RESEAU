@@ -29,7 +29,7 @@ public class JeuLocal {
         // Initialisation de l'instance unique
     }
 
-    // on a créé une méthode pour qui renvoie true avec une probabilité donnée en paramètre
+    // on a créé une méthode qui renvoie true avec une probabilité donnée en paramètre
     public static boolean verifierProbabilite(double probabilite) {
         Random random = new Random();
         double valeurAleatoire = random.nextDouble(); 
