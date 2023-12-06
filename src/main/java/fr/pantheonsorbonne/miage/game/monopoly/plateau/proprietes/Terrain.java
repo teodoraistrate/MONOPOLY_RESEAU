@@ -220,12 +220,23 @@ public class Terrain extends Propriete {
 
         // chercher le nb maximum de maisons pour voir ce qu'on peut vendre
         int maximumNbMaisons = -1;
-        Terrain terrainChoisi = null;
         for (Terrain t : listeNombreMaisons.keySet()) {
             if (t.getNombreMaisons() > maximumNbMaisons) {
                 maximumNbMaisons = t.getNombreMaisons();
-                terrainChoisi = t;
             }
+        }
+
+        Terrain terrainChoisi = null;
+
+        if (this.getNombreMaisons() == maximumNbMaisons) {
+            terrainChoisi = this;
+        } else {
+            for (Terrain t : listeNombreMaisons.keySet()) {
+            if (t.getNombreMaisons() == maximumNbMaisons) {
+                terrainChoisi = t;
+                break;
+            }
+        }
         }
         if (terrainChoisi != null) {
             if (terrainChoisi.getNombreMaisons() == 0) {
@@ -241,13 +252,24 @@ public class Terrain extends Propriete {
 
         // chercher le nb maximum de maisons pour voir ce qu'on peut vendre
         int maximumNbMaisons = -1;
-        Terrain terrainChoisi = null;
         for (Terrain t : listeNombreMaisons.keySet()) {
             if (t.getNombreMaisons() > maximumNbMaisons) {
                 maximumNbMaisons = t.getNombreMaisons();
-                terrainChoisi = t;
             }
         }
+
+        Terrain terrainChoisi = null;
+        if (this.getNombreMaisons() == maximumNbMaisons) {
+            terrainChoisi = this;
+        } else {
+            for (Terrain t : listeNombreMaisons.keySet()) {
+            if (t.getNombreMaisons() == maximumNbMaisons) {
+                terrainChoisi = t;
+                break;
+            }
+        }
+        }
+
         if (terrainChoisi != null) {
             terrainChoisi.nombreMaisons--;
         }
