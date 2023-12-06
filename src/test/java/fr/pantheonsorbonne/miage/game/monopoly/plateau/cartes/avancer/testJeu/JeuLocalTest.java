@@ -18,6 +18,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public class JeuLocalTest {
@@ -67,18 +68,24 @@ public class JeuLocalTest {
 
     @Test
     public void testGetNombrePrisonsAdditionnelles() {
+        jeuLocal.reInitialiseNbPrisons();
+
         int nombrePrisons = jeuLocal.getNombrePrisonsAdditionnelles();
 
         assertEquals(0, nombrePrisons);
+
+        JeuLocal.augmenterNbPrisonsAdd();
+
+        assertEquals(1, jeuLocal.getNombrePrisonsAdditionnelles());
     }
 
      @Test
     public void testInitialiserListeJoueurs() {
-        assertNotNull(jeuLocal); // Assurez-vous que jeuLocal est correctement initialisé
+        assertNotNull(jeuLocal); 
 
         jeuLocal.initialiserListeJoueurs();
 
-        assertEquals(2, jeuLocal.getListeJoueurs().size());
+        assertEquals(3, jeuLocal.getListeJoueurs().size());
         assertTrue(jeuLocal.getListeJoueurs().get(0) instanceof JoueurS1);
         assertTrue(jeuLocal.getListeJoueurs().get(1) instanceof JoueurS2);
     }

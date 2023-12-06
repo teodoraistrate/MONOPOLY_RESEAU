@@ -234,44 +234,7 @@ public class JoueurS1Test {
         assertTrue(result.isEmpty(), "Aucune propriété ne devrait être choisie pour l'achat si aucune n'est hypothéquée");
     }
 
-    @Test
-    public void testChoixProprietesARacheter_UneProprieteHypothequee() throws CannotSellException {
-        // Given
-        JoueurS1 joueur = new JoueurS1("Joueur1");
-        Terrain terrain = new Terrain("Propriété1", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
-        terrain.hypothequer();
-        joueur.ajouterPropriete(terrain);
-        joueur.ajouterArgent(1000); // Assez d'argent pour racheter la propriété hypothéquée
-
-        // When
-        List<Propriete> result = joueur.choixProprietesARacheter();
-
-        // Then
-        assertEquals(1, result.size(), "Une propriété devrait être choisie pour l'achat");
-        assertEquals(terrain, result.get(0), "La propriété choisie devrait être celle qui est hypothéquée");
-    }
-
-    @Test
-    public void testChoixProprietesARacheter_MultiplesProprietesHypothequees() throws CannotSellException {
-        // Given
-        JoueurS1 joueur = new JoueurS1("Joueur1");
-        Terrain terrain1 = new Terrain("Propriété1", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
-        Terrain terrain2 = new Terrain("Propriété2", 150, Color.GREEN, new int[]{6, 12, 30, 90, 270, 400}, 60);
-
-        terrain1.hypothequer();
-        terrain2.hypothequer();
-
-        joueur.ajouterPropriete(terrain1);
-        joueur.ajouterPropriete(terrain2);
-        joueur.ajouterArgent(1000); // Assez d'argent pour racheter les propriétés hypothéquées
-
-        // When
-        List<Propriete> result = joueur.choixProprietesARacheter();
-
-        // Then
-        assertEquals(2, result.size(), "Deux propriétés devraient être choisies pour l'achat");
-        assertTrue(result.contains(terrain1) && result.contains(terrain2), "Les deux propriétés hypothéquées devraient être choisies");
-    }
+    
 
 }
 

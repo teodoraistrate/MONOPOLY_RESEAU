@@ -54,6 +54,14 @@ public class JeuLocal {
         return nombrePrisonsAdditionnelles;
     }
 
+    public void reInitialiseNbPrisons() {
+        nombrePrisonsAdditionnelles = 0;
+    }
+
+    public static void augmenterNbPrisonsAdd() {
+        nombrePrisonsAdditionnelles++;
+    }
+
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
         JoueurS2 joueur2 = new JoueurS2("Joueur 2");
@@ -193,7 +201,7 @@ public class JeuLocal {
                     Terrain choixPrisonAdd = joueur.choixTransformerProprieteEnPrison();
                     if (choixPrisonAdd != null) {
                         choixPrisonAdd.transformerProprieteEnPrison();
-                        nombrePrisonsAdditionnelles++;
+                        augmenterNbPrisonsAdd();
                     }
 
                     // à la fin de son tour, le joueur va recevoir le loyer pour chacune de ses prisons additionnelles
