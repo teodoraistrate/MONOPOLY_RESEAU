@@ -15,7 +15,7 @@ public abstract class CarteAvancer extends Carte {
     @Override
     public void appliquerEffet(Joueur joueur) throws PasAssezArgentException {
         int nouvellePosition = this.getNouvellePosition(joueur);
-        joueur.deplacerNombreCases(nouvellePosition, true);
+        joueur.deplacerSurPlateau(nouvellePosition,true);
     }
 
 }
