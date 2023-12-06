@@ -15,7 +15,5 @@ public abstract class Carte {
         return description;
     }
 
-    public void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException {
-        System.out.println(joueur.getName() + " a tiré une carte : " + description);
-    }
+    public abstract void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException;
 }
