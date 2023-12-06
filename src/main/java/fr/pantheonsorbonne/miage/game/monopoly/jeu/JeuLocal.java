@@ -204,9 +204,31 @@ public class JeuLocal {
                         nombrePrisonsAdditionnelles++;
                     }
 
+            // VERIFIER SI ON MET LE CASSEUR + SI LE JOUEUR REÇOIT L'ARGENT POUR LES PRISONS ADD APRÈS CHAQUE LANCEMENT DE DÉS 
+
                     // à la fin de son tour, le joueur va recevoir le loyer pour chacune de ses prisons additionnelles
                     for (Terrain prisonAdd : joueur.getPrisonsAdditionnelles()) {
                         joueur.ajouterArgent(prisonAdd.getLoyerPrison());
+                    }
+
+                    for (Case c : Plateau.getPlateau()) {
+                        if (c instanceof Terrain && ((Terrain)c).getNombreMaisons() > 0 && ((Terrain)c).getProprietaire()==joueur) {
+                            int maximumLoyerBase = 0;
+                            for (Terrain t : plateau.getTerrainsMemeCouleur(((Terrain)c).getColor())) {
+                                if (t.getTableauLoyer()[0] > maximumLoyerBase) {
+                                    maximumLoyerBase = t.getTableauLoyer()[0];
+                                }
+                            }
+                            double probabiliteCasseur = (1/maximumLoyerBase) - (nombrePrisonsAdditionnelles/10);
+                            if (probabiliteCasseur < 0) {
+                                probabiliteCasseur = 0;
+                            }
+                            boolean casserM = verifierProbabilite(probabiliteCasseur);
+                            if (casserM) {
+                                ((Terrain)c).casserMaison();
+                            }
+                            break;
+                        }
                     }
                 }
             }
