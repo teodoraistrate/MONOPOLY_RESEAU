@@ -30,7 +30,7 @@ public class CaisseDeCommunaute extends Case {
         piocheCaisseCommunaute.ajouterCarte(new CartePrison("Aller en prison. Rendez-vous directement à la prison. Ne franchissez pas par la case départ, ne touchez pas 200€."));
         piocheCaisseCommunaute.ajouterCarte(new CarteReculerNom("Retournez à Belleville", "Boulevard de BelleVille"));
         piocheCaisseCommunaute.ajouterCarte(new CarteRecevoirFixe("Recevez votre revenu annuel 100€.", 100));
-        piocheCaisseCommunaute.ajouterCarte(new CarteRecevoirJoueurs("C’est votre anniversaire. Chaque joueur doit vous donner 10€.", 10));
+        piocheCaisseCommunaute.ajouterCarte(new CarteRecevoirJoueurs("C’est votre anniversaire, Happy Birthday Champion ! Chaque joueur doit vous donner 10€.", 10));
         piocheCaisseCommunaute.ajouterCarte(new CarteRecevoirFixe("Les contributions vous remboursent la somme de 20€.", 20));
         piocheCaisseCommunaute.ajouterCarte(new CarteRecevoirFixe("Recevez votre intérêt sur l’emprunt à 7% 25€.", 25));
         piocheCaisseCommunaute.ajouterCarte(new CartePayerFixe("Payez votre Police d’Assurance 50€.", 50));

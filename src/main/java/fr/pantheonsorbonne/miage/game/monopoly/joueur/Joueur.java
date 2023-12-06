@@ -73,19 +73,19 @@ public abstract class Joueur {
 
     public void ajouterArgent(int montant) {
         porteMonnaie += montant;
-        System.out.println(this.getName() + " a reçu " + montant);
+        System.out.println(this.getName() + " a reçu " + montant + " euros");
     }
 
     public void payer(double montant) throws PasAssezArgentException {
         if (porteMonnaie < montant)
-            throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour cette action!");
+            throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour cette action !");
         porteMonnaie -= montant;
         System.out.println(this.getName() + " a payé " + montant);
     }
 
     public void getStartingBonus() {
         this.ajouterArgent(Start.RECEIVE_MONEY);
-        System.out.println(this.getName() + " a reçu son Bonus de 200!");
+        System.out.println(this.getName() + " a reçu son Bonus de 200 !");
     }
 
     public void payerLoyer(Propriete propriete) throws PasAssezArgentException {
@@ -94,7 +94,7 @@ public abstract class Joueur {
                 this.transfererProprietes(propriete.getProprietaire());
                 this.declarerPerte();
                 throw new PasAssezArgentException(
-                        "Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
+                        "Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu ! C'est vraiment la loose :()");
             }
             if (propriete instanceof Terrain && !((Terrain) propriete).estSquatte() && !((Terrain) propriete).estPrisonAdditionnelle()) {
                 this.payer(propriete.getLoyer());
@@ -150,6 +150,16 @@ public abstract class Joueur {
 
     // concernant les proprietes
 
+    public void acheterPropriete(Propriete propriete) throws PasAssezArgentException {
+        if (this.getPorteMonnaie() < propriete.getPrice())
+            throw new PasAssezArgentException("Vous ne pouvez pas acheter ce terrain!");
+        this.payer(propriete.getPrice());
+        System.out.println(this.getName() + " a acheté la propriété " + propriete.getName());
+
+        this.ajouterPropriete(propriete);
+        propriete.setProprietaire(this);
+    }
+
     public void ajouterPropriete(Propriete propriete) {
         this.properties.add(propriete);
         propriete.setProprietaire(this);
@@ -165,14 +175,7 @@ public abstract class Joueur {
                 .println("Toutes les proprietes de " + this.getName() + " ont été transférées à " + gagnant.getName());
     }
 
-    public void acheterPropriete(Propriete propriete) throws PasAssezArgentException {
-        if (this.getPorteMonnaie() < propriete.getPrice())
-            throw new PasAssezArgentException("Vous ne pouvez pas acheter ce terrain!");
-        this.payer(propriete.getPrice());
-        this.ajouterPropriete(propriete);
-        propriete.setProprietaire(this);
-        System.out.println(this.getName() + " a acheté la propriété " + propriete.getName());
-    }
+   
 
     public void racheterProprieteHypothequee(Propriete propriete) throws PasAssezArgentException, DejaAcheteException {
         double prix = 1.1 * propriete.getPrixRevente(); // prixRevente + 10%
