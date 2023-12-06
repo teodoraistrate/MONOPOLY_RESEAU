@@ -77,8 +77,9 @@ public abstract class Joueur {
     }
 
     public void payer(double montant) throws PasAssezArgentException {
-        if (porteMonnaie < montant)
+        if (porteMonnaie < montant) {
             throw new PasAssezArgentException("Vous n'avez pas assez d'argent pour cette action!");
+        }
         porteMonnaie -= montant;
         System.out.println(this.getName() + " a payé " + montant);
     }
@@ -94,7 +95,7 @@ public abstract class Joueur {
                 this.transfererProprietes(propriete.getProprietaire());
                 this.declarerPerte();
                 throw new PasAssezArgentException(
-                        "Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
+                    "Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
             }
             if (propriete instanceof Terrain && !((Terrain) propriete).estSquatte() && !((Terrain) propriete).estPrisonAdditionnelle()) {
                 this.payer(propriete.getLoyer());

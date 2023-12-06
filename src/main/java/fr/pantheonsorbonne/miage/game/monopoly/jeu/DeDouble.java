@@ -39,7 +39,7 @@ public class DeDouble {
         // si deux dés ont la mm valeur
         memeValeur = de1 == de2;
 
-        System.out.println("Valeur des dès : " + de1 + " et " + de2);
+        System.out.println("Valeur des dés : " + de1 + " et " + de2);
     }
 
 /* 
