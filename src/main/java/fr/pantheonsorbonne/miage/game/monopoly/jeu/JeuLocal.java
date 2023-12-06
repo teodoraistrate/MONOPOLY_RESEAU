@@ -121,9 +121,12 @@ public class JeuLocal {
 
             if (joueur.estEnPrison()) {
                 prison.sortirPrisonDoubleDe(joueur);
-                if (joueur.choixSortirPrison() && joueur.getPorteMonnaie()>50) {
-                    prison.sortirPrisonPayer(joueur);
-                }
+            }
+            // le statut estEnPrison peut se changer
+            if (joueur.estEnPrison() && joueur.choixSortirPrison() && joueur.getPorteMonnaie()>50) {
+                prison.sortirPrisonPayer(joueur);
+            }
+            if (joueur.estEnPrison()) {
                 prison.augmenterNombreTours(joueur);
             }
 
@@ -208,6 +211,7 @@ public class JeuLocal {
 
                     // à la fin de son tour, le joueur va recevoir le loyer pour chacune de ses prisons additionnelles
                     for (Terrain prisonAdd : joueur.getPrisonsAdditionnelles()) {
+                        System.out.println(joueur.getName()+ " a reçu le loyer pour une prison additionnelle : " + prisonAdd.getLoyerPrison() + "€");
                         joueur.ajouterArgent(prisonAdd.getLoyerPrison());
                     }
 
@@ -289,8 +293,7 @@ public class JeuLocal {
                     joueurIterator.remove();
                 }
             }
-            // on a encore des pb dans certains corner cases (J'ai vu qu'il se passe qq chose avec Gare de Montparnasse)
-            // j'ai l'impression que la méthode qui permet au joueur d'avancer vers une case avec un certain nom ne marche pas
+            // faire de sorte que si un joueur perde, la boucle est arretée (indexOutOBounds pour le vainqueur si les joueurs 1 et 2 perdent au meme temps)
 
             // Mettre à jour la copie de la liste pour refléter les changements
             copieListeJoueurs = new ArrayList<>(listeJoueurs);
