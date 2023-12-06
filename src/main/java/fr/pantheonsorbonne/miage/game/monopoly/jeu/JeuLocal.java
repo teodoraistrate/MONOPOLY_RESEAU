@@ -54,6 +54,14 @@ public class JeuLocal {
         return nombrePrisonsAdditionnelles;
     }
 
+    public static void reInitialiseNbPrisons() {
+        nombrePrisonsAdditionnelles = 0;
+    }
+
+    public static void augmenterNbPrisonsAdd() {
+        nombrePrisonsAdditionnelles++;
+    }
+
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
         JoueurS2 joueur2 = new JoueurS2("Joueur 2");
