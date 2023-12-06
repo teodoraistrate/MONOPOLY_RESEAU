@@ -282,4 +282,7 @@ public class Terrain extends Propriete {
         System.out.println(this.getName() + " est maintenant une prison additionnelle!");
     }
 
+    public void reInitialiseNbMaisons () {
+        this.nombreMaisons=0;
+    }
 }

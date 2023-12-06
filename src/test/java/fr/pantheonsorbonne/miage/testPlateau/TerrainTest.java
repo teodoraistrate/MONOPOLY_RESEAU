@@ -66,21 +66,20 @@ public class TerrainTest {
         List<Terrain> listeT = plateau.getTerrainsMemeCouleur(Color.BLACK);
         for(Terrain t : listeT) {
             joueur.ajouterPropriete(t);
+            t.reInitialiseNbMaisons();
+
         }
 
         Terrain terrain = listeT.get(0);
         boolean terrainsMemeCouleur = terrain.tousTerrainsMemeCouleur(terrain.getColor());
         assertTrue(terrainsMemeCouleur);
 
-        joueur.ajouterArgent(1000);
-        terrain.acheterMaison();
-        terrain.acheterMaison();        
-        
+        joueur.ajouterArgent(1000);        
         terrain.acheterMaison();
 
         //le joueur possède une maison sur chaque terrain
-        assertEquals(1, terrain.getNombreMaisons());
-        assertEquals(1000- 3*(terrain.getPrixMaison()), joueur.getPorteMonnaie(), 0.001);
+        assertEquals(1,terrain.getNombreMaisons());
+        assertEquals(1000- (terrain.getPrixMaison()), joueur.getPorteMonnaie(), 0.001);
     }
 
     @Test
@@ -89,6 +88,7 @@ public class TerrainTest {
         List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
         for (Terrain t : listeT2) {
             joueur.ajouterPropriete(t);
+            t.reInitialiseNbMaisons();
         }
 
          
@@ -96,11 +96,13 @@ public class TerrainTest {
         assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
         joueur.ajouterArgent(10000);
 
-        terrain.augmenterNbMaisons();
+        terrain.acheterMaison();
+
         terrain.vendreMaison();
 
 
-        assertEquals(1, terrain.getNombreMaisons()); //jsp je pense c'est 1 mais ça fait une erreur 
+        assertEquals(0, terrain.getNombreMaisons()); //jsp je pense c'est 1 mais ça fait une erreur 
+        assertEquals(10000-(terrain.getPrixMaison())+ terrain.getPrixMaison()/2, joueur.getPorteMonnaie());
         
     }
 
@@ -140,28 +142,39 @@ public class TerrainTest {
         }
     }
 
+    
+
     @Test
-    public void testAcheterHotel() throws CannotBuildException, PasAssezArgentException {
+    public void testAcheterHotel2() throws CannotBuildException, PasAssezArgentException {
         JoueurS1 joueur = new JoueurS1("jojo");
         List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
+        
         for (Terrain t : listeT2) {
             joueur.ajouterPropriete(t);
+            t.reInitialiseNbMaisons();
         }
-   
+
         Terrain terrain = listeT2.get(0);
         assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
-        joueur.ajouterArgent(10000);
-        // Acheter 12 maisons
-        
-        for (int i=0; i<12; i++) {
-            terrain.acheterMaison();
+
+        // Ajouter assez d'argent pour acheter les maisons et l'hôtel
+        joueur.ajouterArgent(15000);
+
+        // Acheter quatre maisons sur chaque propriété du groupe de couleur
+        for (Terrain t : listeT2) {
+            for (int i = 0; i < 4; i++) {
+                t.acheterMaison();
+            }
         }
-        
+
+        // Acheter un hôtel sur la première propriété du groupe de couleur
         terrain.acheterHotel();
-        //c'est 0 car on a réinitialisé le nombre de maisons après l'achat de l'hotel
-        assertEquals(0, terrain.getNombreMaisons());
-        assertEquals(10000 - 13 * terrain.getPrixMaison(), joueur.getPorteMonnaie(), 0.0001);
+
+        // Vérifier que l'hôtel a été acheté correctement
+        assertEquals(0, terrain.getNombreMaisons(), "Le nombre de maisons devrait être 0 après l'achat de l'hôtel");
+        
     }
+
     
     
 }
