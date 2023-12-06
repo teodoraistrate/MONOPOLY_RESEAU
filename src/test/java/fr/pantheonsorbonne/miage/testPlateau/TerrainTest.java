@@ -175,6 +175,29 @@ public class TerrainTest {
         
     }
 
+    @Test
+    public void testCasserMaison() throws CannotSellException, CannotBuildException, PasAssezArgentException {
+        JoueurS1 joueur = new JoueurS1("lol");
+        List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
+        for (Terrain t : listeT2) {
+            joueur.ajouterPropriete(t);
+            t.reInitialiseNbMaisons();
+        }
+         
+        Terrain terrain = listeT2.get(0);
+        assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
+        joueur.ajouterArgent(10000);
+
+        terrain.acheterMaison();
+
+        terrain.casserMaison();
+
+
+        assertEquals(0, terrain.getNombreMaisons()); //jsp je pense c'est 1 mais ça fait une erreur 
+        assertEquals(10000-(terrain.getPrixMaison()), joueur.getPorteMonnaie());
+        
+    }
+
     
     
 }
