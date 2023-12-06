@@ -211,7 +211,7 @@ public class JeuLocal {
 
                     // à la fin de son tour, le joueur va recevoir le loyer pour chacune de ses prisons additionnelles
                     for (Terrain prisonAdd : joueur.getPrisonsAdditionnelles()) {
-                        System.out.println(joueur.getName()+ " a reçu le loyer pour une prison additionnelle : " + prisonAdd.getLoyerPrison() + " €");
+                        System.out.println(joueur.getName()+ " a reçu le loyer pour une prison additionnelle : " + prisonAdd.getLoyerPrison() + "€");
                         joueur.ajouterArgent(prisonAdd.getLoyerPrison());
                     }
 
