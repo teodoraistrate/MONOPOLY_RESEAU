@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.awt.Color;
@@ -54,7 +55,7 @@ public class JoueurS2Test {
 
     @Test
     public void testRacheterProprieteHypothequee() throws PasAssezArgentException, DejaAcheteException, CannotSellException {
-        JoueurS1 joueur = new JoueurS1("Joueur1");
+        JoueurS2 joueur = new JoueurS2("Joueur1");
         Terrain terrain = new Terrain("Propriété1", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
 
         joueur.ajouterPropriete(terrain);
@@ -72,9 +73,85 @@ public class JoueurS2Test {
         assertFalse(terrain.estHypotheque(), "La propriété devrait ne plus être hypothéquée");
         assertEquals(1000 + terrain.getPrixRevente() - 1.1*terrain.getPrixRevente(), joueur.getPorteMonnaie(), "Le joueur devrait avoir dépensé le montant correct pour le rachat");
     }
+
+    @Test
+    public void testChoixProprieteARacheter () throws PasAssezArgentException, DejaAcheteException, CannotSellException {
+        JoueurS2 joueur = new JoueurS2("patoch la totoche");
+        joueur.getPorteMonnaie();
+        Terrain terrain = new Terrain("Rue de la Paix", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
+        Terrain terrain2 = new Terrain("Street of la Paix", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
+
+        joueur.ajouterPropriete(terrain);
+        joueur.ajouterPropriete(terrain2);
+        List<Propriete> listeP1 = new ArrayList<>();
+        listeP1.add(terrain);
+        listeP1.add(terrain2);
+        joueur.ajouterArgent(100);
+        List<Propriete> listeP = joueur.choixProprietesAHypothequer();
+        listeP.add(terrain);
+        terrain.hypothequer();
+
+        //liste avec les prop qu'il peut hypothéquer 
+
+        joueur.racheterProprieteHypothequee(terrain);
+
+        assertFalse(terrain.estHypotheque()); // La propriété ne devrait plus être hypothéquée
+        assertEquals(95, joueur.getPorteMonnaie(), 0.001);
+
+
+    }
+
+    //version 2
+
+    @Test
+    public void testRachatProprieteHypothequee() throws PasAssezArgentException, DejaAcheteException, CannotSellException {
+        JoueurS2 joueur = new JoueurS2("patoch la totoche");
+        Terrain terrain = new Terrain("Rue de la Paix", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
+        
+        joueur.ajouterPropriete(terrain);
+        joueur.ajouterArgent(100);
+        
+        // Hypothequer la propriété
+        terrain.hypothequer();
+        
+        joueur.racheterProprieteHypothequee(terrain);
+        
+        assertFalse(terrain.estHypotheque(), "La propriété ne devrait plus être hypothéquée");
+        assertEquals(95, joueur.getPorteMonnaie(), 0.001, "Le porte-monnaie du joueur doit être mis à jour");
+    }
+
+
+    @Test
+    public void testChoixProprietesARacheter_AucunePropriete() {
+        JoueurS2 joueur = new JoueurS2("Joueur1");
+        List<Propriete> result = joueur.choixProprietesARacheter();
+        assertTrue(result.isEmpty(), "Aucune propriété ne devrait être choisie pour l'achat");
+    }
+
+    @Test
+    public void testChoixProprietesARacheter_ToutesProprietesNonHypothequees() {
+        // Given
+        JoueurS2 joueur = new JoueurS2("Joueur1");
+        Terrain terrain1 = new Terrain("Propriété1", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
+        Terrain terrain2 = new Terrain("Propriété2", 150, Color.GREEN, new int[]{6, 12, 30, 90, 270, 400}, 60);
+
+        joueur.ajouterPropriete(terrain1);
+        joueur.ajouterPropriete(terrain2);
+
+        // When
+        List<Propriete> result = joueur.choixProprietesARacheter();
+
+        // Then
+        assertTrue(result.isEmpty(), "Aucune propriété ne devrait être choisie pour l'achat si aucune n'est hypothéquée");
+    }
+
+    
+
+}
+
     
 
 
 
 
-}
+

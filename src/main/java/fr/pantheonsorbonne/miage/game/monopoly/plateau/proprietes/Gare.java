@@ -11,17 +11,19 @@ public class Gare extends Propriete {
     }
 
     // getteurs
-    public int getNombreGaresJoueur() {
-        return nombreGaresJoueur;
-    }
 
-    public void compterNombreGaresProprietaire() {
+    public int getNombreGaresJoueur() {
         Joueur proprietaire = this.getProprietaire();
+        int nombreGaresJoueur = 0;
+        if (proprietaire == null) {
+            return 0;
+        }
         for (Propriete propriete : proprietaire.getProperties()) {
             if (propriete instanceof Gare) {
                 nombreGaresJoueur++;
             }
         }
+        return nombreGaresJoueur;
     }
 
     @Override
