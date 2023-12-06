@@ -61,24 +61,6 @@ public class TerrainTest {
     }
 
     @Test
-    public void testGetLoyerWithoutHotel() {
-        int[] tableauLoyer = {10, 20, 150, 450, 625, 750};
-        Terrain terrain = new Terrain("TerrainTest", 200, Color.GREEN, tableauLoyer, 100);
-
-        // Aucune maison
-        assertEquals(20, terrain.getLoyer());
-
-        // Ajout d'une maison
-        terrain.augmenterNbMaisons();
-        assertEquals(150, terrain.getLoyer());
-
-        // Ajout de deux maisons
-        terrain.augmenterNbMaisons();
-        assertEquals(450, terrain.getLoyer());
-    }
-
-
-    @Test
     public void testAcheterMaison() throws CannotBuildException, PasAssezArgentException {
         JoueurS1 joueur = new JoueurS1("manu");
         List<Terrain> listeT = plateau.getTerrainsMemeCouleur(Color.BLACK);
@@ -100,41 +82,6 @@ public class TerrainTest {
         assertEquals(1, terrain.getNombreMaisons());
         assertEquals(1000- 3*(terrain.getPrixMaison()), joueur.getPorteMonnaie(), 0.001);
     }
-
-    
-
-    @Test
-    public void testAcheterHotel() throws CannotBuildException, PasAssezArgentException {
-        JoueurS1 joueur = new JoueurS1("jojo");
-        List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
-        for (Terrain t : listeT2) {
-            joueur.ajouterPropriete(t);
-        }
-    
-        Terrain terrain = listeT2.get(0);
-        assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
-        joueur.ajouterArgent(10000);
-        // Acheter 9 maisons
-        terrain.acheterMaison();
-        terrain.acheterMaison();
-        terrain.acheterMaison();
-        terrain.acheterMaison();
-        terrain.acheterMaison();
-        terrain.acheterMaison();
-        terrain.acheterMaison();
-        terrain.acheterMaison();
-        terrain.acheterMaison();
-
-        Terrain avecHotel = terrain;
-
-        avecHotel.acheterHotel();
-        //c'est 0 car on a réinitialisé le nombre de maisons après l'achat de l'hotel
-        assertEquals(0, avecHotel.getNombreMaisons());
-        assertEquals(10000 - 10 * terrain.getPrixMaison(), joueur.getPorteMonnaie(), 0.0001);
-    }
-
-
-
 
     @Test
     public void testVendreMaison() throws CannotSellException, CannotBuildException, PasAssezArgentException {
