@@ -139,6 +139,30 @@ public class TerrainTest {
             fail("Une autre exception inattendue a été levée : " + e.getMessage());
         }
     }
+
+    @Test
+    public void testAcheterHotel() throws CannotBuildException, PasAssezArgentException {
+        JoueurS1 joueur = new JoueurS1("jojo");
+        List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
+        for (Terrain t : listeT2) {
+            joueur.ajouterPropriete(t);
+        }
+   
+        Terrain terrain = listeT2.get(0);
+        assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
+        joueur.ajouterArgent(10000);
+        // Acheter 12 maisons
+        
+        for (int i=0; i<12; i++) {
+            terrain.acheterMaison();
+        }
+        
+        terrain.acheterHotel();
+        //c'est 0 car on a réinitialisé le nombre de maisons après l'achat de l'hotel
+        assertEquals(0, terrain.getNombreMaisons());
+        assertEquals(10000 - 13 * terrain.getPrixMaison(), joueur.getPorteMonnaie(), 0.0001);
+    }
+    
     
 }
 

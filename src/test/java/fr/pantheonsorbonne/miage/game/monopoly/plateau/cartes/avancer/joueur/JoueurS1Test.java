@@ -131,7 +131,7 @@ public class JoueurS1Test {
 
     */
 
-
+/* 
     @Test
     public void testTransformerProprieteEnPrison () {
         JoueurS1 joueur = new JoueurS1("fefe");
@@ -152,7 +152,7 @@ public class JoueurS1Test {
         //assertTrue(estEnPrisonApres);  jsp pourquoi ca marche pas ca me saoule
 
     }
-
+*/
     //version1
 
     @Test

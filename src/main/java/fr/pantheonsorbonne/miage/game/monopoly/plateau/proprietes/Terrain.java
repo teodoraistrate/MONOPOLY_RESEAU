@@ -69,7 +69,7 @@ public class Terrain extends Propriete {
             else if (this.getNombreMaisons() >= 1) {
                 return tableauLoyer[this.getNombreMaisons()+1];
             } else {
-                return tableauLoyer[1];
+                return tableauLoyer[0]*2;
             }
         }
         return tableauLoyer[0];
@@ -130,26 +130,43 @@ public class Terrain extends Propriete {
                 throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur " + this.getColor()
                         + ", donc vous ne pouvez pas construire la maison!");
             } else {
-                int maximumMaisons = 3; // Le maximum de maisons par terrain
+                int maximumMaisons = 4; // Le maximum de maisons par terrain
                 Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
     
                 // Vérifier si le maximum de maisons est déjà atteint
-                //boolean toutesMaisonsPossibles = listeNombreMaisons.values().stream().allMatch(nbMaisons -> nbMaisons == maximumMaisons);
-                boolean toutesMaisonsPossibles = listeNombreMaisons.values().stream().noneMatch(nbMaisons -> nbMaisons < maximumMaisons);
+                boolean toutesMaisonsPossibles = listeNombreMaisons.values().stream().allMatch(nbMaisons -> nbMaisons == maximumMaisons);
+                //boolean toutesMaisonsPossibles = listeNombreMaisons.values().stream().noneMatch(nbMaisons -> nbMaisons < maximumMaisons);
 
                 if (toutesMaisonsPossibles) {
                     throw new CannotBuildException("Vous avez construit toutes les maisons possibles!");
                 }
     
-                // Rechercher le terrain avec le nombre minimum de maisons pour en construire une autre
-                int minimumNbMaisons = 4;
-                Terrain terrainChoisi = null;
+                // Rechercher le nombre minimum de maisons
+                int minimumNbMaisons = 5;
                 for (Terrain t : listeNombreMaisons.keySet()) {
                     if (t.getNombreMaisons() < minimumNbMaisons) {
                         minimumNbMaisons = t.getNombreMaisons();
-                        terrainChoisi = t;
+                        // même si ça ne semble pas efficace, on va calculer le minimum mais on ne va pas sauvegarder le terrain choisi
+                        // on veut avoir du contrôle quand on va choisir le terrain sur lequel on va construire la maison
+                        // quand on a mis terrain choisi = t dans cette boucle on a eu des erreurs dans les tests unitaires
                     }
                 }
+
+                Terrain terrainChoisi = null;
+
+                // on va d'abord vérifier si on peut construire une maison sur le terrain qui appelle la méthode : il est prioritaire
+                if (this.getNombreMaisons() == minimumNbMaisons) {
+                    terrainChoisi = this;
+                } else {
+                    // sinon, on va construire la maison sur le premier terrain de cette couleur qui est disponible
+                    for (Terrain t : listeNombreMaisons.keySet()) {
+                        if (t.getNombreMaisons() == minimumNbMaisons) {
+                            terrainChoisi = t;
+                            break; // on ne va prendre que le premier
+                        }
+                    }
+                }
+
     
                 if (terrainChoisi != null) {
                     terrainChoisi.getProprietaire().payer(terrainChoisi.getPrixMaison());
@@ -169,15 +186,13 @@ public class Terrain extends Propriete {
             throw new CannotBuildException("Vous n'avez pas tous les terrains de la couleur " + this.getColor()
                     + ", donc vous ne pouvez pas construire l'hotel!");
         } else {
-            /*Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
+            Map<Terrain, Integer> listeNombreMaisons = this.getListeNombreMaisons();
             for (Terrain t : listeNombreMaisons.keySet()) {
-                if (listeNombreMaisons.get(t) != 3 && listeNombreMaisons.get(t) != 0) {
+                if (listeNombreMaisons.get(t) != 4 && listeNombreMaisons.get(t) != 0) {
                     throw new CannotBuildException(
                             "Vous n'avez construit le maximum de maisons sur les terrains de cette couleur!");
                 }
-            }*/ //ça c'était l'ancienne version je fais des modif pour les tests pcq ça marche pas 
-            
-
+            }
             this.getProprietaire().payer(prixMaison);
             estHotel = true;
             nombreMaisons = 0;
