@@ -19,18 +19,18 @@ public class JoueurS1 extends Joueur {
 
     // Joueur qui achète tout le temps
     public boolean choixAcheterPropriete(Propriete propriete) {
-        return (this.getPorteMonnaie()>propriete.getPrice());
+        return (this.getPorteMonnaie() > propriete.getPrice());
     }
 
     public boolean choixPayerOuChance(CartePayerOuChance c) {
         // true : tirer carte chance
         // false : payer
-        return (this.getPorteMonnaie()<c.getMontantAPayer()*10);
+        return (this.getPorteMonnaie() < c.getMontantAPayer() * 10);
     }
 
     @Override
     public boolean choixSortirPrison() {
-        return (this.getPorteMonnaie()>10*Prison.MONTANT_SORTIR);
+        return (this.getPorteMonnaie() > 10 * Prison.MONTANT_SORTIR);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class JoueurS1 extends Joueur {
         List<Propriete> listeP = new ArrayList<>();
         int montantDepense = 0;
         for (Propriete p : this.getProperties()) {
-            if (p.estHypotheque() &&  (this.getPorteMonnaie() - montantDepense > 700)) {
+            if (p.estHypotheque() && (this.getPorteMonnaie() - montantDepense > 700)) {
                 listeP.add(p);
                 montantDepense += 1.1 * p.getPrixRevente();
             }
@@ -57,8 +57,8 @@ public class JoueurS1 extends Joueur {
             if (this.getPorteMonnaie() + montantRecu < 500 && !p.estHypotheque()) {
                 choixProprietesAHypothequer.add(p);
                 montantRecu += p.getPrixRevente();
-            }
-            else break;
+            } else
+                break;
         }
 
         return choixProprietesAHypothequer;
@@ -68,16 +68,16 @@ public class JoueurS1 extends Joueur {
     @Override
     public Map<Terrain, Integer> choixNombreMaisonsAVendre() {
         int montantRecu = 0;
-        Map <Terrain, Integer> choixNombreMaisonsAVendre = new HashMap<>();
+        Map<Terrain, Integer> choixNombreMaisonsAVendre = new HashMap<>();
         for (Propriete p : this.getProperties()) {
             if (p instanceof Terrain && this.getPorteMonnaie() + montantRecu < 500) {
-                int nombreMaisonsP = ((Terrain)p).getNombreMaisons();
+                int nombreMaisonsP = ((Terrain) p).getNombreMaisons();
                 if (nombreMaisonsP > 0) {
-                    choixNombreMaisonsAVendre.put((Terrain)p, nombreMaisonsP);
-                    montantRecu += nombreMaisonsP*((Terrain)p).getPrixMaison()/2;
+                    choixNombreMaisonsAVendre.put((Terrain) p, nombreMaisonsP);
+                    montantRecu += nombreMaisonsP * ((Terrain) p).getPrixMaison() / 2;
                 }
-            }
-            else break;
+            } else
+                break;
         }
 
         return choixNombreMaisonsAVendre;
@@ -85,43 +85,48 @@ public class JoueurS1 extends Joueur {
 
     @Override
     public List<Terrain> choixHotelsAVendre() {
-        List <Terrain> choixHotelsAVendre = new ArrayList<>();
+        List<Terrain> choixHotelsAVendre = new ArrayList<>();
         int montantRecu = 0;
-        
+
         for (Propriete p : this.getProperties()) {
             if (this.getPorteMonnaie() + montantRecu < 500) {
-                if (p instanceof Terrain && (((Terrain)p).estHotel())) {
-                        choixHotelsAVendre.add((Terrain)p);
-                        montantRecu += ((Terrain)p).getPrixMaison()/2; 
+                if (p instanceof Terrain && (((Terrain) p).estHotel())) {
+                    choixHotelsAVendre.add((Terrain) p);
+                    montantRecu += ((Terrain) p).getPrixMaison() / 2;
                 }
-            }
-            else break;
-        }   
+            } else
+                break;
+        }
         return choixHotelsAVendre;
     }
 
     @Override
     public boolean choixPayerOuAttendre() {
         return false;
-        // il ne  va pas payer ET risquer d'aller en prison
+        // il ne va pas payer ET risquer d'aller en prison
     }
 
     @Override
-    public boolean choixTransformerProprieteEnPrison(Terrain terrain) {
+    public Terrain choixTransformerProprieteEnPrison() {
         Plateau plateau = Plateau.getInstance();
-        if (terrain.tousTerrainsMemeCouleur(terrain.getColor()) || terrain.estHypotheque()) return false;
-        else {
-            List<Terrain> listeT = plateau.getTerrainsMemeCouleur(terrain.getColor());
-            for (Terrain t : listeT) {
-                if (t.getProprietaire() != terrain.getProprietaire() && t.getProprietaire() != null) {
-                    return true;
+        for (Propriete p : this.getProperties()) {
+            if (p instanceof Terrain) {
+                Terrain terrain = (Terrain) p;
+                if (terrain.tousTerrainsMemeCouleur(terrain.getColor()) || terrain.estHypotheque() || terrain.estPrisonAdditionnelle())
+                    break;
+                else {
+                    List<Terrain> listeT = plateau.getTerrainsMemeCouleur(terrain.getColor());
+                    for (Terrain t : listeT) {
+                        if (t.getProprietaire() != terrain.getProprietaire() && t.getProprietaire() != null) {
+                            return terrain;
+                        }
+                    }
                 }
             }
         }
-        return false;
+        return null;
         // il ne veut transformer son terrain en prison que s'il y a un autre joueur qui a un des terrains de la meme couleur
         // sinon il va espérer qu'il va pouvoir acquerir tous les terrains de cette couleur
     }
 
-    
 }

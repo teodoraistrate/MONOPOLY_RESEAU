@@ -112,18 +112,24 @@ public class JoueurS2 extends Joueur {
     }
 
     @Override
-    public boolean choixTransformerProprieteEnPrison(Terrain terrain) {
+    public Terrain choixTransformerProprieteEnPrison() {
         Plateau plateau = Plateau.getInstance();
-        if (terrain.tousTerrainsMemeCouleur(terrain.getColor()) || terrain.estHypotheque()) return false;
-        else {
-            List<Terrain> listeT = plateau.getTerrainsMemeCouleur(terrain.getColor());
-            for (Terrain t : listeT) {
-                if (t.getProprietaire() != terrain.getProprietaire() && t.getProprietaire() != null) {
-                    return true;
+        for (Propriete p : this.getProperties()) {
+            if (p instanceof Terrain) {
+                Terrain terrain = (Terrain) p;
+                if (terrain.tousTerrainsMemeCouleur(terrain.getColor()) || terrain.estHypotheque() || terrain.estPrisonAdditionnelle())
+                    break;
+                else {
+                    List<Terrain> listeT = plateau.getTerrainsMemeCouleur(terrain.getColor());
+                    for (Terrain t : listeT) {
+                        if (t.getProprietaire() != terrain.getProprietaire() && t.getProprietaire() != null) {
+                            return terrain;
+                        }
+                    }
                 }
             }
         }
-        return false;
+        return null;
         // il ne veut transformer son terrain en prison que s'il y a un autre joueur qui a un des terrains de la meme couleur
         // sinon il va espérer qu'il va pouvoir acquerir tous les terrains de cette couleur
     }

@@ -21,7 +21,7 @@ public class JeuLocal {
 
     public static final Plateau plateau = Plateau.getInstance(); //erreur aussi maybe
     static List<Joueur> listeJoueurs = new ArrayList<>();
-    private int nombrePrisonsAdditionnelles = 0;
+    private static int nombrePrisonsAdditionnelles = 0;
 
     private static JeuLocal instance = new JeuLocal(); // Création de l'instance unique
 
@@ -60,6 +60,7 @@ public class JeuLocal {
         JoueurS3 joueur3 = new JoueurS3("Joueur 3");
         listeJoueurs.add(joueur1);
         listeJoueurs.add(joueur2);
+        listeJoueurs.add(joueur3);
     }
     
     public static void main(String[] args) {
@@ -81,6 +82,8 @@ public class JeuLocal {
         // le jeu s'arrête quand il reste un seul joueur
         while (copieListeJoueurs.size() > 1) {
 
+            double loyerTotalActuel = 0;
+
             // on commence par demander aux proprietaires des terrains squattés s'il veulent faire le squatteur partir
             List<Terrain> listeTerrainsSquattes = plateau.getTerrainsAchetesSquattes();
             for (Terrain t : listeTerrainsSquattes) {
@@ -92,9 +95,6 @@ public class JeuLocal {
                     }
                 }
             }
-
-            double loyerTotalActuel = 0;
-            // !!! augmenter le loyer total
 
             for (Joueur joueur : listeJoueurs) {
 
@@ -189,6 +189,17 @@ public class JeuLocal {
                             e.printStackTrace();
                         }
                     }
+
+                    Terrain choixPrisonAdd = joueur.choixTransformerProprieteEnPrison();
+                    if (choixPrisonAdd != null) {
+                        choixPrisonAdd.transformerProprieteEnPrison();
+                        nombrePrisonsAdditionnelles++;
+                    }
+
+                    // à la fin de son tour, le joueur va recevoir le loyer pour chacune de ses prisons additionnelles
+                    for (Terrain prisonAdd : joueur.getPrisonsAdditionnelles()) {
+                        joueur.ajouterArgent(prisonAdd.getLoyerPrison());
+                    }
                 }
             }
 
@@ -204,6 +215,16 @@ public class JeuLocal {
             }
 
             List<Terrain> listeTerrainsAchetes = plateau.getTerrainsAchetesNonSquattes();
+
+            // calculer le loyer total actuel 
+            // est-ce qu'il faut aussi compter les terrains squattés ??? sinon on supprime la première boucle
+            for (Terrain t : listeTSq) {
+                loyerTotalActuel += t.getLoyer();
+            }
+            for (Terrain t : listeTerrainsAchetes) {
+                loyerTotalActuel += t.getLoyer();
+            }
+
             double probabiliteSquatteur = loyerTotalActuel/15000;
 
             if (verifierProbabilite(probabiliteSquatteur) && listeTerrainsAchetes!=null) {
@@ -244,6 +265,8 @@ public class JeuLocal {
             copieListeJoueurs = new ArrayList<>(listeJoueurs);
             // On a fait une copie de la liste parce que des fois il y avait une ConcurrentModificationException
 
+            // !!casseurs!! 
+            // prisons additionnelles
         }
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 

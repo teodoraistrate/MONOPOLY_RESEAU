@@ -49,6 +49,16 @@ public abstract class Joueur {
         return properties;
     }
 
+    public List<Terrain> getPrisonsAdditionnelles() {
+        List<Terrain> listePrisonsAdd = new ArrayList<>();
+        for (Propriete p : this.getProperties()) {
+            if (p instanceof Terrain && ((Terrain)p).estPrisonAdditionnelle()) {
+                listePrisonsAdd.add((Terrain)p);
+            }
+        }
+        return listePrisonsAdd;
+    }
+
     // is a
 
     public boolean estEnPrison() { // Si le joueur est en prison (oui/non)
@@ -86,7 +96,7 @@ public abstract class Joueur {
                 throw new PasAssezArgentException(
                         "Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
             }
-            if (propriete instanceof Terrain && !((Terrain) propriete).estSquatte()) {
+            if (propriete instanceof Terrain && !((Terrain) propriete).estSquatte() && !((Terrain) propriete).estPrisonAdditionnelle()) {
                 this.payer(propriete.getLoyer());
                 System.out.println(this.getName() + " a payé le loyer pour " + propriete.getName());
                 if (!propriete.estHypotheque()) {
@@ -219,7 +229,7 @@ public abstract class Joueur {
 
     public abstract boolean choixPayerOuAttendre();
 
-    public abstract boolean choixTransformerProprieteEnPrison(Terrain t);
+    public abstract Terrain choixTransformerProprieteEnPrison();
 
     public void setPosition(int positionInitiale) {
     }
