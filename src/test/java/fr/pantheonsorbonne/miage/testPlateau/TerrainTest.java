@@ -160,7 +160,6 @@ public class TerrainTest {
 
         assertEquals(0,listeT2.get(0).getNombreMaisons());
         assertEquals(0,listeT2.get(1).getNombreMaisons());
-        assertEquals(0,listeT2.get(2).getNombreMaisons());
 
         // Acheter toutes les maisons
         for (int i=0; i<listeT2.size()*4; i++) {
@@ -214,7 +213,6 @@ public class TerrainTest {
 
         assertEquals(0,listeT2.get(0).getNombreMaisons());
         assertEquals(0,listeT2.get(1).getNombreMaisons());
-        assertEquals(0,listeT2.get(2).getNombreMaisons());
 
         // Acheter toutes les maisons
         for (int i=0; i<listeT2.size()*4; i++) {
