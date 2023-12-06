@@ -54,14 +54,6 @@ public class JeuLocal {
         return nombrePrisonsAdditionnelles;
     }
 
-    public void reInitialiseNbPrisons() {
-        nombrePrisonsAdditionnelles = 0;
-    }
-
-    public static void augmenterNbPrisonsAdd() {
-        nombrePrisonsAdditionnelles++;
-    }
-
     public static void initialiserListeJoueurs() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
         JoueurS2 joueur2 = new JoueurS2("Joueur 2");
@@ -201,7 +193,7 @@ public class JeuLocal {
                     Terrain choixPrisonAdd = joueur.choixTransformerProprieteEnPrison();
                     if (choixPrisonAdd != null) {
                         choixPrisonAdd.transformerProprieteEnPrison();
-                        augmenterNbPrisonsAdd();
+                        nombrePrisonsAdditionnelles++;
                     }
 
                     // à la fin de son tour, le joueur va recevoir le loyer pour chacune de ses prisons additionnelles
@@ -268,13 +260,13 @@ public class JeuLocal {
                 }
             }
             // on a encore des pb dans certains corner cases (J'ai vu qu'il se passe qq chose avec Gare de Montparnasse)
+            // j'ai l'impression que la méthode qui permet au joueur d'avancer vers une case avec un certain nom ne marche pas
 
             // Mettre à jour la copie de la liste pour refléter les changements
             copieListeJoueurs = new ArrayList<>(listeJoueurs);
             // On a fait une copie de la liste parce que des fois il y avait une ConcurrentModificationException
 
             // !!casseurs!! 
-            // prisons additionnelles
         }
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
