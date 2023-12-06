@@ -52,6 +52,27 @@ public class JoueurS2Test {
 
     
 
+    @Test
+    public void testRacheterProprieteHypothequee() throws PasAssezArgentException, DejaAcheteException, CannotSellException {
+        JoueurS1 joueur = new JoueurS1("Joueur1");
+        Terrain terrain = new Terrain("Propriété1", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
+
+        joueur.ajouterPropriete(terrain);
+        terrain.hypothequer();
+    
+        assertTrue(terrain.estHypotheque());
+
+        // Ajout d'argent au joueur
+        joueur.ajouterArgent(1000);
+    
+        // Rachat de la propriété hypothéquée
+        joueur.racheterProprieteHypothequee(terrain);
+    
+        // Assertions
+        assertFalse(terrain.estHypotheque(), "La propriété devrait ne plus être hypothéquée");
+        assertEquals(1000 + terrain.getPrixRevente() - 1.1*terrain.getPrixRevente(), joueur.getPorteMonnaie(), "Le joueur devrait avoir dépensé le montant correct pour le rachat");
+    }
+    
 
 
 

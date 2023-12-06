@@ -198,6 +198,40 @@ public class TerrainTest {
         
     }
 
+    @Test
+    public void testVendreHotel() throws CannotSellException, CannotBuildException, PasAssezArgentException {
+        JoueurS1 joueur = new JoueurS1("jojo");
+        List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
+        
+        for (Terrain t : listeT2) {
+            joueur.ajouterPropriete(t);
+            t.reInitialiseNbMaisons();
+        }
+
+        Terrain terrain = listeT2.get(0);
+        assertTrue(terrain.tousTerrainsMemeCouleur(Color.BLACK));
+        joueur.ajouterArgent(10000);
+
+        assertEquals(0,listeT2.get(0).getNombreMaisons());
+        assertEquals(0,listeT2.get(1).getNombreMaisons());
+        assertEquals(0,listeT2.get(2).getNombreMaisons());
+
+        // Acheter toutes les maisons
+        for (int i=0; i<listeT2.size()*4; i++) {
+            terrain.acheterMaison();
+        }
+
+        // Acheter un hôtel sur la première propriété du groupe de couleur
+        terrain.acheterHotel();
+        terrain.vendreHotel();
+
+        // Vérifier que l'hôtel a été acheté correctement
+        assertEquals(4, terrain.getNombreMaisons(), "Le nombre de maisons devrait être 0 après l'achat de l'hôtel");
+        
+
+    }
+
+
     
     
 }
