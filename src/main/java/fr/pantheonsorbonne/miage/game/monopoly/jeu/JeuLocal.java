@@ -300,5 +300,12 @@ public class JeuLocal {
         }
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
+
+
+
+        for(int i=0; i<Plateau.getPlateau().size(); i++) {
+            System.out.println(Plateau.getPlateau().get(i).getName());
+        }
+
     }
 }

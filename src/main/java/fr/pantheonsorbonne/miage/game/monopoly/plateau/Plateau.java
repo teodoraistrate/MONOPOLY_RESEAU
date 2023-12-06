@@ -41,11 +41,8 @@ public final class Plateau {
         cases.add(new Terrain("Rue LeCourbe",60, Color.BLACK,  new int[] { 4, 8, 20, 60, 180, 320 }, 50));
         cases.add(new Taxes ("Impôts sur le Revenu", 200));
         cases.add(new Gare ("Gare de Montparnasse", 200));
-        cases.add(new Terrain("Rue LeCourbe",60, Color.BLACK,  new int[] { 4, 8, 20, 60, 180, 320 }, 50));
-        cases.add(new Taxes("Impôts sur le Revenu", 200));
-        cases.add(new Gare("Gare de Montparnasse", 200));
         cases.add(new Terrain("Rue de Vaugirard", 100, Color.CYAN, new int[] { 6, 12, 30, 90, 270, 400 }, 50));
-        cases.add(new Chance("Chance"));
+        cases.add(new Chance("Chance1"));
         cases.add(new Terrain("Rue de Courcelles", 100, Color.CYAN, new int[] { 2, 12, 30, 90, 270, 400 }, 50));
         cases.add(new Terrain("Avenue de la République", 120, Color.CYAN, new int[] { 8, 16, 40, 100, 300, 450}, 50));
         cases.add(new Prison("Jail, simple visite"));
@@ -60,7 +57,7 @@ public final class Plateau {
         cases.add(new Terrain("Place Pigalle", 200, Color.ORANGE, new int[] { 16, 32, 80, 220, 600, 800 }, 100));
         cases.add(new Parking("Parc Gratuit"));
         cases.add(new Terrain("Avenue Matignon", 220, Color.RED, new int[] { 18, 36, 90, 250, 700, 875 }, 150));
-        cases.add(new Chance("Chance"));
+        cases.add(new Chance("Chance2"));
         cases.add(new Terrain("Boulevard Malesherbes", 220, Color.RED, new int[] { 18, 36, 90, 250, 700,875 }, 150));
         cases.add(new Terrain("Avenue Henri-Martin", 240, Color.RED, new int[] { 20, 40, 100, 300, 750,925 }, 150));
         cases.add(new Gare("Gare du Nord", 200));
@@ -74,8 +71,8 @@ public final class Plateau {
         cases.add(new CaisseDeCommunaute("Caisse de Communauté"));
         cases.add(new Terrain("Boulevard des Capucines", 320, Color.GREEN, new int[] { 28, 56, 150, 450, 1000, 1200 }, 200));
         cases.add(new Gare("Gare de Saint-Lazare", 200));
-        cases.add(new Chance("Chance"));
-        cases.add(new Terrain("Avenue des Champs - Elysées", 350, Color.BLUE, new int[] { 35, 70, 175, 500, 1100, 1300 }, 200));
+        cases.add(new Chance("Chance3"));
+        cases.add(new Terrain("Avenue des Champs-Elysées", 350, Color.BLUE, new int[] { 35, 70, 175, 500, 1100, 1300 }, 200));
         cases.add(new Taxes("Taxe de Luxe", 100));
         cases.add(new Terrain("Rue de la Paix", 400, Color.BLUE, new int[] { 50, 100, 200, 600, 1400,1700 }, 200));
         return cases;

@@ -23,7 +23,7 @@ public class CaisseDeCommunaute extends Case {
     static {
 
         //On ajoute les cartes Caisse de communauté
-        piocheCaisseCommunaute.ajouterCarte(new CarteAvancerCaseNormale("Placez-vous sur la case départ.","Case Départ"));
+        piocheCaisseCommunaute.ajouterCarte(new CarteAvancerCaseNormale("Placez-vous sur la case départ.","Case départ"));
         piocheCaisseCommunaute.ajouterCarte(new CarteRecevoirFixe("Erreur de la banque en votre faveur. Recevez 200€.", 200));
         piocheCaisseCommunaute.ajouterCarte(new CartePayerFixe("Payez la note du médecin 50€.", 50));
         piocheCaisseCommunaute.ajouterCarte(new CarteRecevoirFixe("La vente de votre stock vous rapporte 50€.", 50));
@@ -43,7 +43,7 @@ public class CaisseDeCommunaute extends Case {
 
     public void appliquerEffetCase(Joueur joueur) {
         Carte carteTiree = piocheCaisseCommunaute.piocherCarte();
-        System.out.println(joueur.getName() + " a tiré une carte Chance : " + carteTiree.getDescription());
+        System.out.println(joueur.getName() + " a tiré une carte Caissé de Communauté : " + carteTiree.getDescription());
         try {
             carteTiree.appliquerEffet(joueur);
         } catch(Exception e) {

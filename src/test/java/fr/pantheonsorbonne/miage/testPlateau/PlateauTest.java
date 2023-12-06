@@ -41,6 +41,11 @@ public class PlateauTest {
         Plateau plateau = Plateau.getInstance();
         int id = plateau.getCaseParNom("Case départ");
         assertEquals(0, id);
+
+        String nom = plateau.getPlateau().get(39).getName();
+        assertEquals("Rue de la Paix", nom);
+        int id2 = plateau.getCaseParNom("Rue de la Paix");
+        assertEquals(39, id2);
     }
 
     @Test
