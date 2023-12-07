@@ -202,6 +202,7 @@ public class JeuLocal {
                     }
 
                     Terrain choixPrisonAdd = joueur.choixTransformerProprieteEnPrison();
+                    // ajouter une condition qui vérifie si 
                     if (choixPrisonAdd != null) {
                         choixPrisonAdd.transformerProprieteEnPrison();
                         nombrePrisonsAdditionnelles++;
