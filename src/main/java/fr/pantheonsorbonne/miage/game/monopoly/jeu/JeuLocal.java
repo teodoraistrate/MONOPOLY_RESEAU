@@ -205,7 +205,7 @@ public class JeuLocal {
                     // ajouter une condition qui vérifie si 
                     if (choixPrisonAdd != null) {
                         choixPrisonAdd.transformerProprieteEnPrison();
-                        nombrePrisonsAdditionnelles++;
+                        augmenterNbPrisonsAdd();
                     }
 
             // VERIFIER SI ON MET LE CASSEUR + SI LE JOUEUR REÇOIT L'ARGENT POUR LES PRISONS ADD APRÈS CHAQUE LANCEMENT DE DÉS 
