@@ -72,7 +72,7 @@ public abstract class Joueur {
 
     // méthodes concernant l'argent
 
-    public void ajouterArgent(int montant) throws IOException {
+    public void ajouterArgent(int montant) {
         porteMonnaie += montant;
         System.out.println(this.getName() + " a reçu " + montant + " euros");
     }
@@ -84,12 +84,12 @@ public abstract class Joueur {
         System.out.println(this.getName() + " a payé " + montant);
     }
 
-    public void getStartingBonus() throws IOException {
+    public void getStartingBonus() {
         this.ajouterArgent(Start.RECEIVE_MONEY);
         System.out.println(this.getName() + " a reçu son Bonus de 200 !");
     }
 
-    public void payerLoyer(Propriete propriete) throws PasAssezArgentException, IOException {
+    public void payerLoyer(Propriete propriete) throws PasAssezArgentException {
         if (!propriete.getProprietaire().equals(this)) {
             if (porteMonnaie < propriete.getLoyer()) {
                 this.transfererProprietes(propriete.getProprietaire());
@@ -124,7 +124,7 @@ public abstract class Joueur {
     Plateau plateau = Plateau.getInstance();
 
     // boolean avancer parce que c'est aussi possible de reculer
-    public void deplacerSurPlateau(int nouvellePosition, boolean avancer) throws IOException {
+    public void deplacerSurPlateau(int nouvellePosition, boolean avancer) {
         if (nouvellePosition < this.positionPlateau && avancer) {
             this.getStartingBonus();
         }
@@ -132,7 +132,7 @@ public abstract class Joueur {
         System.out.println(this.getName() + " est allé à " + plateau.getCaseParId(nouvellePosition).getName());
     }
 
-    public void deplacerNombreCases(int nombreCases, boolean avancer) throws IOException {
+    public void deplacerNombreCases(int nombreCases, boolean avancer) {
         if (avancer) {
             if (this.positionPlateau + nombreCases > 40) {
                 this.getStartingBonus();
