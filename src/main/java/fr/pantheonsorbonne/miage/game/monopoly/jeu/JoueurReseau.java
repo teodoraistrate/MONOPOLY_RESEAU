@@ -25,7 +25,7 @@ public class JoueurReseau extends Joueur {
 
     @Override
     public boolean choixAcheterPropriete(Propriete propriete) {
-
+/*
         StringBuilder bodyCommande = new StringBuilder();
         bodyCommande.append(propriete.getName());
         bodyCommande.append(";");
@@ -36,6 +36,7 @@ public class JoueurReseau extends Joueur {
         Map <String,String> parametres = new HashMap<>();
 
         GameCommand commande = new GameCommand("askBuyProperty", bodyCommande.toString(), parametres);
+*/
     }
 
     @Override
