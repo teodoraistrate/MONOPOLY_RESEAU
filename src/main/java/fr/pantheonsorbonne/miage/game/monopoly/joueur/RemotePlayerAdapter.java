@@ -186,7 +186,8 @@ public class RemotePlayerAdapter extends Joueur {
         // Convertir les noms en objets Propriete
         List<Propriete> proprietesDisponibles = new ArrayList<>();
         for (String nomPropriete : nomsProprietesDisponibles) {
-            Propriete propriete = Plateau.getCaseParNom(nomPropriete);
+            Plateau plateau = Plateau.getInstance();
+            Propriete propriete = (Propriete)Plateau.getCaseParId(plateau.getCaseParNom(nomPropriete));
             if (propriete != null) {
                 proprietesDisponibles.add(propriete);
             } else {
@@ -250,9 +251,10 @@ public class RemotePlayerAdapter extends Joueur {
             // Convertir les noms en objets Propriete
             List<Propriete> proprietesDisponibles = new ArrayList<>();
             for (String nomPropriete : nomsProprietesDisponibles) {
-                Propriete propriete = plateauInstance.getCaseParNom(nomPropriete);
+                Plateau plateau = Plateau.getInstance();
+                Propriete propriete = (Propriete)Plateau.getCaseParId(plateau.getCaseParNom(nomPropriete));
                 if (propriete instanceof Terrain) {
-                    proprietesDisponibles.add((Terrain) propriete);
+                    proprietesDisponibles.add(propriete);
                 } else {
                     System.out.println("La propriété n'est pas un terrain : " + nomPropriete);
                     // Gérer le cas où la propriété n'est pas un terrain
