@@ -1,10 +1,11 @@
-package fr.pantheonsorbonne.miage.game.monopoly.joueur;
+package fr.pantheonsorbonne.miage.game.monopoly.jeu;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import fr.pantheonsorbonne.miage.PlayerFacade;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
