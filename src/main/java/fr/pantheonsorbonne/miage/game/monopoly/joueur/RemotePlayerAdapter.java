@@ -8,13 +8,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
+import fr.pantheonsorbonne.miage.model.Game;
+import fr.pantheonsorbonne.miage.model.GameCommand;
+import fr.pantheonsorbonne.miage.PlayerFacade;
 
 public class RemotePlayerAdapter extends Joueur {
 
