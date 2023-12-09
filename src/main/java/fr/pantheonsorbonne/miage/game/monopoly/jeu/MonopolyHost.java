@@ -4,97 +4,99 @@ import fr.pantheonsorbonne.miage.Facade;
 import fr.pantheonsorbonne.miage.HostFacade;
 import fr.pantheonsorbonne.miage.PlayerFacade;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 import fr.pantheonsorbonne.miage.model.Game;
 import fr.pantheonsorbonne.miage.model.GameCommand;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Cet exemple représente l'hôte dans le jeu Monopoly.
  */
-public final class MonopolyHost {
+public final class MonopolyHost extends JeuMonopoly {
+
+    private static MonopolyHost instance;
+    Prison prison = Prison.getInstance("Prison");
+    private static List<Joueur> listeJoueurs;
 
     private MonopolyHost() {
     }
 
-    public static void main(String[] args) throws Exception {
-        PlayerFacade playerFacade = (PlayerFacade) Facade.getFacade();
-        HostFacade hostFacade = (HostFacade) Facade.getFacade();
-        hostFacade.waitReady();
-        // Définir le nom de notre joueur
-        playerFacade.createNewPlayer("Nicolas Herbaut le meilleur prof de POO" + new Random().nextInt());
+    public static MonopolyHost getInstance() {
+        if (instance == null) {
+            instance = new MonopolyHost();
+        }
+        return instance;
+    }
 
-        Plateau monopoly = Plateau.getInstance();
-
-        /*while (true) {
-            Game game = hostFacade.createNewGame("monopoly");
-            hostFacade.waitForExtraPlayerCount(3); // Par exemple, attendre 3 joueurs
-            playTheGame(playerFacade, game);
-        }*/
-
-        Game game = hostFacade.createNewGame("monopoly");
-        hostFacade.waitForExtraPlayerCount(3); // Par exemple, attendre 3 joueurs
-
-        while (true) {
-            //get a command from someone else
-            GameCommand commandLoop = hostFacade.receiveGameCommand(game);
-
-            switch (commandLoop.name()) {
-                case "enCours":
-                    //if we receive a new board, the game is not other and we should player one more round
-                    playTheGame(playerFacade, game, monopoly);
+    private static void initialiserListeJoueurs(Set<String> setJoueurs) {
+        int joueurCount = 0;
+        for (String nomJoueur : setJoueurs) {
+            switch (joueurCount) {
+                case 0:
+                    listeJoueurs.add(new JoueurS1(nomJoueur));
                     break;
-                case "gameOver":
-                    //if the game is other, stop playing and show the results
-                    handleGameOver(playerFacade, game, monopoly);
-                    System.exit(0);
+                case 1:
+                    listeJoueurs.add(new JoueurS2(nomJoueur));
+                    break;
             }
-
-
+            joueurCount++;
         }
     }
 
-    private static void playTheGame(PlayerFacade playerFacade, Game game, Plateau monopoly) {
-
-        // tant que c'est true le jeu continu 
-        while (true) {
-            // Vérifier si le jeu est terminé
-            if (handleGameOver(playerFacade, game, monopoly))
-                break;
-
-            // Effectuer des actions de jeu Monopoly ici
-            // (par exemple, les joueurs jouent tour à tour, se déplacent sur le plateau, gèrent les transactions de propriété, etc.)
-
-            // Envoyer l'état de jeu mis à jour à tous les joueurs
-            playerFacade.sendGameCommandToAll(game, new GameCommand("board", monopoly.getBoardState()));
-
-            // Attendre les commandes des joueurs et mettre à jour l'état du jeu en conséquence
-            // (par exemple, gérer les mouvements des joueurs, les achats de propriétés, etc.)
-            GameCommand command = playerFacade.receiveGameCommand(game);
-            // Mettre à jour l'état du jeu Monopoly en fonction de la commande du joueur
-
-            // Répéter la boucle pour le tour suivant ou jusqu'à ce que le jeu se termine
-        }
-
-
-        while(true) {
-            
-        }
+    @Override
+    public List<Joueur> getListeJoueurs() {
+        return listeJoueurs;
     }
 
-    private static boolean handleGameOver(PlayerFacade playerFacade, Game game, Plateau monopoly) {
-        // Vérifier si le jeu est terminé en fonction des règles du Monopoly
-        // (par exemple, toutes les propriétés sont détenues par un joueur, faillites, etc.)
+    public static void main(String[] args) {
 
-        // Si le jeu est terminé, envoyer un message de fin de jeu approprié et l'état du plateau à tous les joueurs
-        // Par exemple :
-        playerFacade.sendGameCommandToAll(game, new GameCommand("gameover", "winner"));
-        playerFacade.sendGameCommandToAll(game, new GameCommand("board", monopoly.getBoardState()));
+        HostFacade hostFacade = Facade.getFacade();
+        hostFacade.waitReady();
+        // Définir le nom de l'hote
+        hostFacade.createNewPlayer("Nicolas Herbaut le meilleur prof de POO - host");
 
-        // Afficher le résultat du jeu (par exemple, gagnant, perdant, égalité) dans la console
-        System.out.println("Fin du jeu ! Résultat : ...");
+        // Création du jeu
+        Game game = hostFacade.createNewGame("Monopoly");
+        hostFacade.waitForExtraPlayerCount(2); // Par exemple, attendre 2 joueurs
 
-        // Renvoyer true si le jeu est terminé, false sinon
-        return false;
+        // Définition de la liste des Joueurs
+        Set<String> setJoueurs = game.getPlayers();
+        initialiserListeJoueurs(setJoueurs);
+
     }
+
+
+    @Override
+    protected boolean askGetOutOfJail(String idJoueur) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'askGetOutOfJail'");
+    }
+
+    @Override
+    protected boolean askBuyProperty(String idJoueur, Propriete propriete) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'askBuyProperty'");
+    }
+
+    @Override
+    protected boolean askRemoveInstantlySquat(String idJoueur, Terrain proprieteSquatee) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'askRemoveInstantlySquat'");
+    }
+
+    @Override
+    protected void thinkAndDo(String idJoueur) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'thinkAndDo'");
+    }
+
 }

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Start;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Taxes;
@@ -68,6 +67,10 @@ public abstract class Joueur {
 
     public boolean aPerdu() {
         return aPerdu;
+    }
+
+    public void setAPerdu() {
+        this.aPerdu = true;
     }
 
     // méthodes concernant l'argent
@@ -206,14 +209,11 @@ public abstract class Joueur {
     // déclarer perte
 
     public void declarerPerte() {
-        JeuLocal jeu = JeuLocal.getInstance();
         this.aPerdu = true;
         System.out.println(this.getName() + " a perdu!");
         this.removeAllProprietes();
     }
 
-    public JeuLocal jeu = JeuLocal.getInstance();
-    public List<Joueur> listeJoueurs = jeu.getListeJoueurs();
 
     // choix à faire
 
@@ -235,7 +235,5 @@ public abstract class Joueur {
 
     public abstract Terrain choixTransformerProprieteEnPrison();
 
-    public void setPosition(int positionInitiale) {
-    }
 
 }
