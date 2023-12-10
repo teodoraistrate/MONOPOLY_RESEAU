@@ -95,11 +95,9 @@ public class MonopolyHostLocal extends JeuMonopoly {
     public MonopolyHostLocal() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
         JoueurS2 joueur2 = new JoueurS2("Joueur 2");
-        JoueurS3 joueur3 = new JoueurS3("Joueur 3");
 
         listeJoueurs.add(joueur1);
         listeJoueurs.add(joueur2);
-        listeJoueurs.add(joueur3);
     }
 
     public static MonopolyHostLocal getInstance() {
@@ -116,25 +114,30 @@ public class MonopolyHostLocal extends JeuMonopoly {
         return null;
     }
 
+    public static void main(String[] args) {
+        MonopolyHostLocal jeu = new MonopolyHostLocal();
+        jeu.jouerMonopoly();
+    }
+
     @Override
     public List<Joueur> getListeJoueurs() {
         return listeJoueurs;
     }
   
     @Override
-    protected boolean askGetOutOfJail(String idJoueur) {
+    protected boolean choixSortirPrison(String idJoueur) {
         Joueur joueur = getJoueurParId(idJoueur);
         return joueur.choixSortirPrison();
     }
 
     @Override
-    protected boolean askBuyProperty(String idJoueur, Propriete propriete) {
+    protected boolean choixAcheterPropriete(String idJoueur, Propriete propriete) {
         Joueur joueur = getJoueurParId(idJoueur);
         return joueur.choixAcheterPropriete(propriete);
     }
 
     @Override
-    protected boolean askRemoveInstantlySquat(String idJoueur, Terrain proprieteSquatee) {
+    protected boolean choixPayerOuAttendre(String idJoueur, Terrain proprieteSquatee) {
         Joueur joueur = getJoueurParId(idJoueur);
         return joueur.choixPayerOuAttendre();
     }
@@ -146,7 +149,7 @@ public class MonopolyHostLocal extends JeuMonopoly {
         // Logique pour la réflexion et l'action du joueur
         List<Propriete> proprietesAchete = joueur.choixProprietesARacheter();
         for (Propriete p : proprietesAchete) {
-            boolean aAchete = askBuyProperty(idJoueur, p);
+            boolean aAchete = choixAcheterPropriete(idJoueur, p);
             if (aAchete) {
                 try {
                     joueur.acheterPropriete(p);
@@ -157,6 +160,11 @@ public class MonopolyHostLocal extends JeuMonopoly {
             }
         }
 
+    }
+
+    @Override
+    protected void declarerFinJeu() {
+        // rien ne se passe en plus - on a declaré la victoire dans la classe JeuMonopoly
     }
 
 

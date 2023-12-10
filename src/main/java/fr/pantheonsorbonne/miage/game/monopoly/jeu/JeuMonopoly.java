@@ -87,7 +87,7 @@ public abstract class JeuMonopoly {
             // faire le squatteur partir
             List<Terrain> listeTerrainsSquattes = plateau.getTerrainsAchetesSquattes();
             for (Terrain t : listeTerrainsSquattes) {
-                if (this.askRemoveInstantlySquat(t.getProprietaire().getName(), t)) {
+                if (this.choixPayerOuAttendre(t.getProprietaire().getName(), t)) {
                     try {
                         t.fairePartirSquatteur();
                     } catch (PasAssezArgentException e) {
@@ -118,7 +118,7 @@ public abstract class JeuMonopoly {
                     prison.sortirPrisonDoubleDe(joueur);
                 }
                 // le statut estEnPrison peut se changer
-                if (joueur.estEnPrison() && this.askGetOutOfJail(joueur.getName()) && joueur.getPorteMonnaie() > 50) {
+                if (joueur.estEnPrison() && this.choixSortirPrison(joueur.getName()) && joueur.getPorteMonnaie() > 50) {
                     prison.sortirPrisonPayer(joueur);
                 }
                 if (joueur.estEnPrison()) {
@@ -148,7 +148,7 @@ public abstract class JeuMonopoly {
                         if (nombreFoisMemeValeur == 3) {
                             prison.mettreJoueurEnPrison(joueur);
                             prison.sortirPrisonDoubleDe(joueur);
-                            if (this.askGetOutOfJail(joueur.getName()) && joueur.getPorteMonnaie() > 50) {
+                            if (this.choixSortirPrison(joueur.getName()) && joueur.getPorteMonnaie() > 50) {
                                 prison.sortirPrisonPayer(joueur);
                             }
                             break;
@@ -164,7 +164,7 @@ public abstract class JeuMonopoly {
 
                         if (nouvelleCase instanceof Propriete) {
                             Propriete propriete = (Propriete) nouvelleCase;
-                            if (propriete.getProprietaire() == null && this.askBuyProperty(joueur.getName(), propriete)) {
+                            if (propriete.getProprietaire() == null && this.choixAcheterPropriete(joueur.getName(), propriete)) {
                                 try {
                                     joueur.acheterPropriete(propriete);
                                 } catch (Exception e) {
@@ -287,7 +287,7 @@ public abstract class JeuMonopoly {
                 proprieteASquatter.squatter(); // on squatte la propriété aléatoire
                 proprieteASquatter.setNombreToursInitialSquatteur(nombreTours); // on met le nb Tours Initial
                 System.out.println("La propriété " + proprieteASquatter.getName() + " est squatté! ");
-                if (this.askRemoveInstantlySquat(proprieteASquatter.getProprietaire().getName(), proprieteASquatter)) {
+                if (this.choixPayerOuAttendre(proprieteASquatter.getProprietaire().getName(), proprieteASquatter)) {
                     try {
                         proprieteASquatter.fairePartirSquatteur();
                     } catch (Exception e) {
@@ -317,17 +317,20 @@ public abstract class JeuMonopoly {
         for (Joueur j : listeJoueurs) {
             if (!j.aPerdu()) {
                 System.out.println("Gagnant : " + j.getName());
+                declarerFinJeu();
             }
         }
 
     }
 
-    protected abstract boolean askGetOutOfJail(String idJoueur);
+    protected abstract boolean choixSortirPrison(String idJoueur);
 
-    protected abstract boolean askBuyProperty(String idJoueur, Propriete propriete);
+    protected abstract boolean choixAcheterPropriete(String idJoueur, Propriete propriete);
 
-    protected abstract boolean askRemoveInstantlySquat(String idJoueur, Terrain proprieteSquatee);
+    protected abstract boolean choixPayerOuAttendre(String idJoueur, Terrain proprieteSquatee);
 
     protected abstract void thinkAndDo(String idJoueur);
+
+    protected abstract void declarerFinJeu();
 
 }

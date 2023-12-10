@@ -115,7 +115,7 @@ public abstract class Joueur {
             this.removeAllProprietes();
             this.declarerPerte();
             throw new PasAssezArgentException(
-                    "Vous n'avez pas assez d'argent pour payer le loyer donc vous avez perdu!");
+                    "Vous n'avez pas assez d'argent pour payer les taxes donc vous avez perdu!");
         } else {
             this.payer(taxe.getMontantAPayer());
             System.out.println(this.getName() + " a payé les taxes " + taxe.getName());
@@ -234,6 +234,7 @@ public abstract class Joueur {
     public abstract boolean choixPayerOuAttendre();
 
     public abstract Terrain choixTransformerProprieteEnPrison();
+
 
 
 }

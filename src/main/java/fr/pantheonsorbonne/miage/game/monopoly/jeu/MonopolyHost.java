@@ -10,6 +10,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 import fr.pantheonsorbonne.miage.model.Game;
 import fr.pantheonsorbonne.miage.model.GameCommand;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurReseau;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
 
@@ -23,9 +24,9 @@ import java.util.Set;
  */
 public final class MonopolyHost extends JeuMonopoly {
 
-    //private static MonopolyHost instance = new MonopolyHost();
+    private static MonopolyHost instance;
     Prison prison = Prison.getInstance("Prison");
-    private static List<Joueur> listeJoueurs;
+    private static List<Joueur> listeJoueurs = new ArrayList<>();
 
     private final HostFacade hostFacade;
     private final Game game;
@@ -34,29 +35,26 @@ public final class MonopolyHost extends JeuMonopoly {
         this.hostFacade = h;
         this.game = g;
     }
-/* 
+ 
     public static MonopolyHost getInstance() {
-        if (instance == null) {
-            instance = new MonopolyHost();
-        }
         return instance;
     }
-*/
+/* 
     private static void initialiserListeJoueurs(Set<String> setJoueurs) {
         int joueurCount = 0;
         for (String nomJoueur : setJoueurs) {
             switch (joueurCount) {
                 case 0:
-                    listeJoueurs.add(new JoueurS1(nomJoueur));
+                    listeJoueurs.add(new JoueurReseau(nomJoueur, playerFacade, game, "S1"));
                     break;
                 case 1:
-                    listeJoueurs.add(new JoueurS2(nomJoueur));
+                    listeJoueurs.add(new JoueurReseau(nomJoueur, playerFacade, game, "S2"));
                     break;
             }
             joueurCount++;
         }
     }
-
+*/
     @Override
     public List<Joueur> getListeJoueurs() {
         return listeJoueurs;
@@ -75,9 +73,22 @@ public final class MonopolyHost extends JeuMonopoly {
 
         // Définition de la liste des Joueurs
         Set<String> setJoueurs = game.getPlayers();
-        initialiserListeJoueurs(setJoueurs);
+        //initialiserListeJoueurs(setJoueurs);
+        int joueurCount = 0;
+        for (String nomJoueur : setJoueurs) {
+            switch (joueurCount) {
+                case 0:
+                    listeJoueurs.add(new JoueurReseau(nomJoueur, "S1"));
+                    break;
+                case 1:
+                    listeJoueurs.add(new JoueurReseau(nomJoueur, "S2"));
+                    break;
+            }
+            joueurCount++;
+        }
 
         MonopolyHost jeu = new MonopolyHost(hostFacade, game);
+        instance = jeu;
 
         jeu.jouerMonopoly();
 
@@ -85,7 +96,7 @@ public final class MonopolyHost extends JeuMonopoly {
 
 
     @Override
-    protected boolean askGetOutOfJail(String idJoueur) {
+    protected boolean choixSortirPrison(String idJoueur) {
         hostFacade.sendGameCommandToPlayer(game, idJoueur, new GameCommand("askGetOutOfJail",
                 null, null));
 
@@ -95,10 +106,9 @@ public final class MonopolyHost extends JeuMonopoly {
     }
 
     @Override
-    protected boolean askBuyProperty(String idJoueur, Propriete propriete) {
-        hostFacade.sendGameCommandToPlayer(game, idJoueur, new GameCommand("askGetOutOfJail",
-                propriete.getPrice() + "", null)); 
-                // c'est si simple parce que nos stratégies sont de type "always buy"
+    protected boolean choixAcheterPropriete(String idJoueur, Propriete propriete) {
+        hostFacade.sendGameCommandToPlayer(game, idJoueur, new GameCommand("askBuyProperty",
+                propriete.getName(), null)); 
 
         GameCommand reponse = hostFacade.receiveGameCommand(game);
 
@@ -106,10 +116,9 @@ public final class MonopolyHost extends JeuMonopoly {
     }
 
     @Override
-    protected boolean askRemoveInstantlySquat(String idJoueur, Terrain proprieteSquatee) {
-        hostFacade.sendGameCommandToPlayer(game, idJoueur, new GameCommand("askGetOutOfJail",
-            null, null)); 
-        // c'est si simple parce que nos joueurs ne vont jamais payer pour faire le squatteur partir
+    protected boolean choixPayerOuAttendre(String idJoueur, Terrain proprieteSquatee) {
+        hostFacade.sendGameCommandToPlayer(game, idJoueur, new GameCommand("askRemoveInstantlySquat",
+            proprieteSquatee.getName(), null)); 
 
         GameCommand reponse = hostFacade.receiveGameCommand(game);
 
@@ -119,6 +128,13 @@ public final class MonopolyHost extends JeuMonopoly {
     @Override
     protected void thinkAndDo(String idJoueur) {
         // à implémenter
+    }
+    @Override
+    protected void declarerFinJeu() {
+        for (Joueur j : listeJoueurs) {
+            hostFacade.sendGameCommandToPlayer(game, j.getName(), new GameCommand("gameOver",
+            null, null)); 
+        }
     }
 
 }
