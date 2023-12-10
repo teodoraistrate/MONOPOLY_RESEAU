@@ -304,8 +304,5 @@ public class JeuLocal {
         }
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
-
-
-
     }
 }
