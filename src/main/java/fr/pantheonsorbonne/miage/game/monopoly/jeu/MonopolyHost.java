@@ -97,7 +97,8 @@ public final class MonopolyHost extends JeuMonopoly {
     @Override
     protected boolean askBuyProperty(String idJoueur, Propriete propriete) {
         hostFacade.sendGameCommandToPlayer(game, idJoueur, new GameCommand("askGetOutOfJail",
-                null, null));
+                propriete.getPrice() + "", null)); 
+                // c'est si simple parce que nos stratégies sont de type "always buy"
 
         GameCommand reponse = hostFacade.receiveGameCommand(game);
 
@@ -106,14 +107,18 @@ public final class MonopolyHost extends JeuMonopoly {
 
     @Override
     protected boolean askRemoveInstantlySquat(String idJoueur, Terrain proprieteSquatee) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'askRemoveInstantlySquat'");
+        hostFacade.sendGameCommandToPlayer(game, idJoueur, new GameCommand("askGetOutOfJail",
+            null, null)); 
+        // c'est si simple parce que nos joueurs ne vont jamais payer pour faire le squatteur partir
+
+        GameCommand reponse = hostFacade.receiveGameCommand(game);
+
+        return reponse.name().equals("yesGetRid");
     }
 
     @Override
     protected void thinkAndDo(String idJoueur) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'thinkAndDo'");
+        // à implémenter
     }
 
 }
