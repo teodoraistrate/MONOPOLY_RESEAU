@@ -19,7 +19,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 public abstract class JeuMonopoly {
 
     public static final Plateau plateau = Plateau.getInstance();
-    static List<Joueur> listeJoueurs = new ArrayList<>();
+    List<Joueur> listeJoueurs = new ArrayList<>();
     private static int nombrePrisonsAdditionnelles = 0;
     private static int nombreTours = 0;
 
@@ -55,18 +55,18 @@ public abstract class JeuMonopoly {
     public abstract List<Joueur> getListeJoueurs();
 
     // ça va retourner le nom du gagnant
-    public String jouerMonopoly() {
+    public void jouerMonopoly() {
 
-        MonopolyHostLocal hostLocal = MonopolyHostLocal.getInstance();
-        MonopolyHost hostReseau = MonopolyHost.getInstance();
+        //MonopolyHostLocal hostLocal = MonopolyHostLocal.getInstance();
+        //MonopolyHost hostReseau = MonopolyHost.getInstance();
 
         Prison prison = Prison.getInstance("Prison");
 
         // jeu = hostReseau pour jouer en réseau
         // jeu = hostLocal pour jouer en local
-        JeuMonopoly jeu = hostLocal;
+        //JeuMonopoly jeu = hostLocal;
 
-        listeJoueurs = jeu.getListeJoueurs();
+        listeJoueurs = this.getListeJoueurs();
 
         for (Joueur j : listeJoueurs) {
             j.ajouterArgent(1500);
@@ -87,7 +87,7 @@ public abstract class JeuMonopoly {
             // faire le squatteur partir
             List<Terrain> listeTerrainsSquattes = plateau.getTerrainsAchetesSquattes();
             for (Terrain t : listeTerrainsSquattes) {
-                if (jeu.askRemoveInstantlySquat(t.getProprietaire().getName(), t)) {
+                if (this.askRemoveInstantlySquat(t.getProprietaire().getName(), t)) {
                     try {
                         t.fairePartirSquatteur();
                     } catch (PasAssezArgentException e) {
@@ -118,7 +118,7 @@ public abstract class JeuMonopoly {
                     prison.sortirPrisonDoubleDe(joueur);
                 }
                 // le statut estEnPrison peut se changer
-                if (joueur.estEnPrison() && jeu.askGetOutOfJail(joueur.getName()) && joueur.getPorteMonnaie() > 50) {
+                if (joueur.estEnPrison() && this.askGetOutOfJail(joueur.getName()) && joueur.getPorteMonnaie() > 50) {
                     prison.sortirPrisonPayer(joueur);
                 }
                 if (joueur.estEnPrison()) {
@@ -148,7 +148,7 @@ public abstract class JeuMonopoly {
                         if (nombreFoisMemeValeur == 3) {
                             prison.mettreJoueurEnPrison(joueur);
                             prison.sortirPrisonDoubleDe(joueur);
-                            if (jeu.askGetOutOfJail(joueur.getName()) && joueur.getPorteMonnaie() > 50) {
+                            if (this.askGetOutOfJail(joueur.getName()) && joueur.getPorteMonnaie() > 50) {
                                 prison.sortirPrisonPayer(joueur);
                             }
                             break;
@@ -164,7 +164,7 @@ public abstract class JeuMonopoly {
 
                         if (nouvelleCase instanceof Propriete) {
                             Propriete propriete = (Propriete) nouvelleCase;
-                            if (propriete.getProprietaire() == null && jeu.askBuyProperty(joueur.getName(), propriete)) {
+                            if (propriete.getProprietaire() == null && this.askBuyProperty(joueur.getName(), propriete)) {
                                 try {
                                     joueur.acheterPropriete(propriete);
                                 } catch (Exception e) {
@@ -173,7 +173,7 @@ public abstract class JeuMonopoly {
                             }
                         }
 
-                        jeu.thinkAndDo(joueur.getName());
+                        this.thinkAndDo(joueur.getName());
 
                         /*
 
@@ -287,7 +287,7 @@ public abstract class JeuMonopoly {
                 proprieteASquatter.squatter(); // on squatte la propriété aléatoire
                 proprieteASquatter.setNombreToursInitialSquatteur(nombreTours); // on met le nb Tours Initial
                 System.out.println("La propriété " + proprieteASquatter.getName() + " est squatté! ");
-                if (jeu.askRemoveInstantlySquat(proprieteASquatter.getProprietaire().getName(), proprieteASquatter)) {
+                if (this.askRemoveInstantlySquat(proprieteASquatter.getProprietaire().getName(), proprieteASquatter)) {
                     try {
                         proprieteASquatter.fairePartirSquatteur();
                     } catch (Exception e) {
@@ -316,10 +316,9 @@ public abstract class JeuMonopoly {
         }
         for (Joueur j : listeJoueurs) {
             if (!j.aPerdu()) {
-                return j.getName();
+                System.out.println("Gagnant : " + j.getName());
             }
         }
-        return null;
 
     }
 

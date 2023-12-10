@@ -18,11 +18,9 @@ public class MonopolyHostLocal extends JeuMonopoly {
     public MonopolyHostLocal() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
         JoueurS2 joueur2 = new JoueurS2("Joueur 2");
-        JoueurS3 joueur3 = new JoueurS3("Joueur 3");
 
         listeJoueurs.add(joueur1);
         listeJoueurs.add(joueur2);
-        listeJoueurs.add(joueur3);
     }
 
     public static MonopolyHostLocal getInstance() {
@@ -46,8 +44,12 @@ public class MonopolyHostLocal extends JeuMonopoly {
 
     @Override
     protected boolean askGetOutOfJail(String idJoueur) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'askGetOutOfJail'");
+        for(Joueur j : listeJoueurs) {
+            if(j.getName().equals(idJoueur)) {
+                return j.choixSortirPrison();
+            }
+        }
+        return false; // on ne va jamais arriver à ça - si on a le temps on va faire throw new NomPasValideException
     }
 
     @Override

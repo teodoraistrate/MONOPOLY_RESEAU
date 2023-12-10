@@ -23,20 +23,25 @@ import java.util.Set;
  */
 public final class MonopolyHost extends JeuMonopoly {
 
-    private static MonopolyHost instance;
+    //private static MonopolyHost instance = new MonopolyHost();
     Prison prison = Prison.getInstance("Prison");
     private static List<Joueur> listeJoueurs;
 
-    private MonopolyHost() {
-    }
+    private final HostFacade hostFacade;
+    private final Game game;
 
+    private MonopolyHost(HostFacade h, Game g) {
+        this.hostFacade = h;
+        this.game = g;
+    }
+/* 
     public static MonopolyHost getInstance() {
         if (instance == null) {
             instance = new MonopolyHost();
         }
         return instance;
     }
-
+*/
     private static void initialiserListeJoueurs(Set<String> setJoueurs) {
         int joueurCount = 0;
         for (String nomJoueur : setJoueurs) {
@@ -72,19 +77,31 @@ public final class MonopolyHost extends JeuMonopoly {
         Set<String> setJoueurs = game.getPlayers();
         initialiserListeJoueurs(setJoueurs);
 
+        MonopolyHost jeu = new MonopolyHost(hostFacade, game);
+
+        jeu.jouerMonopoly();
+
     }
 
 
     @Override
     protected boolean askGetOutOfJail(String idJoueur) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'askGetOutOfJail'");
+        hostFacade.sendGameCommandToPlayer(game, idJoueur, new GameCommand("askGetOutOfJail",
+                null, null));
+
+        GameCommand reponse = hostFacade.receiveGameCommand(game);
+
+        return reponse.name().equals("yesOut");
     }
 
     @Override
     protected boolean askBuyProperty(String idJoueur, Propriete propriete) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'askBuyProperty'");
+        hostFacade.sendGameCommandToPlayer(game, idJoueur, new GameCommand("askGetOutOfJail",
+                null, null));
+
+        GameCommand reponse = hostFacade.receiveGameCommand(game);
+
+        return reponse.name().equals("yesBuy");
     }
 
     @Override
