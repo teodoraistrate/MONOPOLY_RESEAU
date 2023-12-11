@@ -22,7 +22,7 @@ public abstract class Joueur {
     private double porteMonnaie;
     private int positionPlateau = 0;
     private List<Propriete> properties;
-    private static boolean enPrison;
+    private boolean enPrison;
     private boolean aPerdu = false;
 
     public Joueur(String name) {
@@ -71,6 +71,16 @@ public abstract class Joueur {
 
     public void setAPerdu() {
         this.aPerdu = true;
+    }
+
+    // autres méthodes
+
+    public void mettreEnPrison() {
+        this.enPrison = true;
+    }
+
+    public void sortirDePrison() {
+        this.enPrison = false;
     }
 
     // méthodes concernant l'argent

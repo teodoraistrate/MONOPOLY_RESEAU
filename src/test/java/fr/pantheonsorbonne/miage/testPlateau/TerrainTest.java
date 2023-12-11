@@ -3,6 +3,8 @@ package fr.pantheonsorbonne.miage.testPlateau;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fr.pantheonsorbonne.miage.game.monopoly.jeu.JeuLocal;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
@@ -34,6 +36,7 @@ public class TerrainTest {
         assertEquals(100, terrain.getPrixMaison());
     }
 
+
     @Test
     public void testGetTableauLoyer() {
         int[] tableauLoyer = {10, 50, 150, 450, 625, 750, 875, 925, 975, 1025};
@@ -62,7 +65,7 @@ public class TerrainTest {
 
     @Test
     public void testAcheterMaison() throws CannotBuildException, PasAssezArgentException {
-        JoueurS1 joueur = new JoueurS1("manu");
+        Joueur joueur = new JoueurS1("manu");
         List<Terrain> listeT = plateau.getTerrainsMemeCouleur(Color.BLACK);
         for(Terrain t : listeT) {
             joueur.ajouterPropriete(t);
@@ -84,7 +87,7 @@ public class TerrainTest {
 
     @Test
     public void testVendreMaison() throws CannotSellException, CannotBuildException, PasAssezArgentException {
-        JoueurS1 joueur = new JoueurS1("lol");
+        Joueur joueur = new JoueurS1("lol");
         List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
         for (Terrain t : listeT2) {
             joueur.ajouterPropriete(t);
@@ -109,7 +112,7 @@ public class TerrainTest {
    
     @Test
     public void testAcheterHotelAvecAssezArgentEtTousTerrainsDeMemeCouleur() {
-        JoueurS1 proprietaire = new JoueurS1("Propriétaire");
+        Joueur proprietaire = new JoueurS1("Propriétaire");
         Terrain terrain = new Terrain("Boulevard de BelleVille", 60, Color.BLACK, new int[] {2, 4, 10, 30, 90, 160}, 50);
         terrain.setProprietaire(proprietaire);
         proprietaire.ajouterArgent(terrain.getPrixMaison() * 4);
@@ -127,7 +130,7 @@ public class TerrainTest {
 
     @Test
     public void testAcheterHotelSansAssezArgent() {
-        JoueurS1 proprietaire = new JoueurS1("Propriétaire");
+        Joueur proprietaire = new JoueurS1("Propriétaire");
         Terrain terrain = new Terrain("Boulevard de BelleVille", 60, Color.BLACK, new int[] {2, 4, 10, 30, 90, 160}, 50);
         terrain.setProprietaire(proprietaire);
     
@@ -146,7 +149,7 @@ public class TerrainTest {
 
     @Test
     public void testAcheterHotel2() throws CannotBuildException, PasAssezArgentException {
-        JoueurS1 joueur = new JoueurS1("jojo");
+        Joueur joueur = new JoueurS1("jojo");
         List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
         
         for (Terrain t : listeT2) {
@@ -176,7 +179,7 @@ public class TerrainTest {
 
     @Test
     public void testCasserMaison() throws CannotSellException, CannotBuildException, PasAssezArgentException {
-        JoueurS1 joueur = new JoueurS1("lol");
+        Joueur joueur = new JoueurS1("lol");
         List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
         for (Terrain t : listeT2) {
             joueur.ajouterPropriete(t);
@@ -199,7 +202,7 @@ public class TerrainTest {
 
     @Test
     public void testVendreHotel() throws CannotSellException, CannotBuildException, PasAssezArgentException {
-        JoueurS1 joueur = new JoueurS1("jojo");
+        Joueur joueur = new JoueurS1("jojo");
         List<Terrain> listeT2 = plateau.getTerrainsMemeCouleur(Color.BLACK);
         
         for (Terrain t : listeT2) {
@@ -226,6 +229,22 @@ public class TerrainTest {
         // Vérifier que l'hôtel a été acheté correctement
         assertEquals(4, terrain.getNombreMaisons(), "Le nombre de maisons devrait être 0 après l'achat de l'hôtel");
         
+
+    }
+
+    @Test 
+    public void testFairePartirSquatteur() {
+        Joueur joueur = new JoueurS1("hgdfuh");
+        Terrain terrain = new Terrain("TerrainTest", 200, Color.GREEN, new int[]{10, 50, 150, 450, 625, 750, 875, 925, 975, 1025}, 100);
+        joueur.ajouterPropriete(terrain);
+
+        terrain.squatter();
+
+        assertTrue(terrain.estSquatte());
+
+        terrain.byeSquatteur();
+
+        assertFalse(terrain.estSquatte());
 
     }
 

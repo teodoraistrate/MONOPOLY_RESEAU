@@ -35,6 +35,6 @@ public class CartePrisonTest {
             fail("Exception not expected during the test");
         }
 
-        assertFalse(testPlayer.estEnPrison());
+        assertTrue(testPlayer.estEnPrison());
     }
 }

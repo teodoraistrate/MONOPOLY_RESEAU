@@ -19,7 +19,6 @@ public class CarteAvancerCaseNormale extends CarteAvancer {
         Plateau plateau = Plateau.getInstance();
         return plateau.getCaseParNom(nomCase); 
     } catch (NomPasValideException e) {
-        e.printStackTrace();
         return -1; 
     }
 }

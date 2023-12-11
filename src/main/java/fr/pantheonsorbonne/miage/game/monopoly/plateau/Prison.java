@@ -32,6 +32,7 @@ public class Prison extends Case {
 
     public void mettreJoueurEnPrison(Joueur joueur) {
         nombreToursPrison.put(joueur, 0);
+        joueur.mettreEnPrison();
     }
 
     public void augmenterNombreTours(Joueur joueur) {
@@ -43,6 +44,7 @@ public class Prison extends Case {
 
     public void sortirPrison(Joueur joueur) {
         this.nombreToursPrison.remove(joueur);
+        joueur.sortirDePrison();
     }
 
     public void sortirPrisonDoubleDe(Joueur joueur) {

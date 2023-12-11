@@ -29,7 +29,7 @@ class AllerEnPrisonTest {
         AllerEnPrison allerEnPrison = new AllerEnPrison("Aller en prison");
         Prison prison = Prison.getInstance("Prison");
         assertDoesNotThrow(() -> allerEnPrison.appliquerEffetCase(joueur));
-        assertFalse(joueur.estEnPrison());
+        assertTrue(joueur.estEnPrison());
 
     }
 

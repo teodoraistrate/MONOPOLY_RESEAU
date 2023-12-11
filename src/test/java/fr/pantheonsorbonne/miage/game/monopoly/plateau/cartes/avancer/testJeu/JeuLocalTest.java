@@ -19,6 +19,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public class JeuLocalTest {
@@ -113,7 +114,20 @@ public class JeuLocalTest {
         // Ajoutez d'autres assertions en fonction de la structure de votre sortie
     }
 
+    @Test
+    public void testSortirPrison() {
+        Prison prison = Prison.getInstance("Prison");
+        Joueur joueur = new JoueurS1("j1");
 
+        prison.mettreJoueurEnPrison(joueur);
+
+        assertTrue(joueur.estEnPrison());
+        assertEquals(0,prison.getListeNbTours().get(joueur));
+
+        prison.augmenterNombreTours(joueur);
+
+        assertEquals(1,prison.getListeNbTours().get(joueur));
+    }
 
 
 }
