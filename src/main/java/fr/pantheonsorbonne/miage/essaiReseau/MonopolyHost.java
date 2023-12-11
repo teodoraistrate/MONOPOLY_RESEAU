@@ -38,22 +38,7 @@ public final class MonopolyHost extends JeuMonopoly {
     public static MonopolyHost getInstance() {
         return instance;
     }
-/* 
-    private static void initialiserListeJoueurs(Set<String> setJoueurs) {
-        int joueurCount = 0;
-        for (String nomJoueur : setJoueurs) {
-            switch (joueurCount) {
-                case 0:
-                    listeJoueurs.add(new JoueurReseau(nomJoueur, playerFacade, game, "S1"));
-                    break;
-                case 1:
-                    listeJoueurs.add(new JoueurReseau(nomJoueur, playerFacade, game, "S2"));
-                    break;
-            }
-            joueurCount++;
-        }
-    }
-*/
+
     @Override
     public List<Joueur> getListeJoueurs() {
         return listeJoueurs;
@@ -72,7 +57,6 @@ public final class MonopolyHost extends JeuMonopoly {
 
         // Définition de la liste des Joueurs
         Set<String> setJoueurs = game.getPlayers();
-        //initialiserListeJoueurs(setJoueurs);
         
         for (String nomJoueur : setJoueurs) {
             listeJoueursR.add(new JoueurS1(nomJoueur));
