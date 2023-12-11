@@ -1,7 +1,5 @@
 package fr.pantheonsorbonne.miage.game.monopoly.jeu;
 
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.Prison;
-
 public class DeDouble {
     private int valeurDe;
     public static final int VALEUR_MAX = 12;
@@ -42,30 +40,6 @@ public class DeDouble {
         System.out.println("Valeur des dés : " + de1 + " et " + de2);
     }
 
-/* 
-// faut faire la méthode pour mettre le joueur en prison s'il a la même valeur 3 fois
-    public void memeValeurDes() {
-        int nbLancersDoublesConsecutifs = 0; // Compteur de dés doubles consécutifs
-        for (int i = 0; i < 3; i++) {
-            lancerDes();
-            // si les dés ont la même valeur
-            if (memeValeur()) {
-                nbLancersDoublesConsecutifs++;
-            } else {
-                nbLancersDoublesConsecutifs = 0; // Réinitialise le compteur s'il n'y a pas de doubles
-            }
-        }
-        // Si le joueur a obtenu des dés doubles pendant trois lancers consécutifs
-        if (nbLancersDoublesConsecutifs == 3 && memeValeur()) {
-            Prison.conditionPourAllerEnPrison(null, nbLancersDoublesConsecutifs, memeValeur, memeValeur, memeValeur); // Le joueur va en prison
-        }
-    }
-*/   
+
 }
 
-
-/*Dans dedouble faut faire : 
- *modeliser le resultat des deux de pour faire avancer le joueur
- *si les deux dé ont la meme valeur on fait rejouer le joueur
- *si meme dédoubles 3 fois, go en prison
- */

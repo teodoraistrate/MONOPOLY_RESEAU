@@ -19,8 +19,6 @@ public class CartePayerOuChance extends Carte {
         return montant;
     }
 
-    // faut changer la ligne "if (joueur.choixPayerOuChance(this))"
-    // pour que ça peut s'adapter au jeu en réseau
 
     @Override
     public void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException {

@@ -19,7 +19,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 
 public class JeuLocal {
 
-    public static final Plateau plateau = Plateau.getInstance(); //erreur aussi maybe
+    public static final Plateau plateau = Plateau.getInstance(); 
     static List<Joueur> listeJoueurs = new ArrayList<>();
     private static int nombrePrisonsAdditionnelles = 0;
 
@@ -117,7 +117,7 @@ public class JeuLocal {
                         // Un break pour qu'il puisse sortir de la boucle
                     }
                 }
-            // méthode pour ne pas avoir une infinité de tours
+            // méthode pour ne pas avoir une infinité de tours : chaque joueur va payer 100€ à debut de son tour à partir du tour 200
 
             if (joueur.estEnPrison()) {
                 prison.sortirPrisonDoubleDe(joueur);
@@ -207,8 +207,6 @@ public class JeuLocal {
                         choixPrisonAdd.transformerProprieteEnPrison();
                         augmenterNbPrisonsAdd();
                     }
-
-            // VERIFIER SI ON MET LE CASSEUR + SI LE JOUEUR REÇOIT L'ARGENT POUR LES PRISONS ADD APRÈS CHAQUE LANCEMENT DE DÉS 
 
                     // à la fin de son tour, le joueur va recevoir le loyer pour chacune de ses prisons additionnelles
                     for (Terrain prisonAdd : joueur.getPrisonsAdditionnelles()) {
@@ -300,7 +298,6 @@ public class JeuLocal {
             copieListeJoueurs = new ArrayList<>(listeJoueurs);
             // On a fait une copie de la liste parce que des fois il y avait une ConcurrentModificationException
 
-            // !!casseurs!! 
         }
         System.out.println("Victoire de: " + listeJoueurs.get(0).getName());
 
