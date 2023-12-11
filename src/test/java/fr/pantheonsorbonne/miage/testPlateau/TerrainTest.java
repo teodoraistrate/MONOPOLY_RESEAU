@@ -232,7 +232,7 @@ public class TerrainTest {
     }
 
     @Test 
-    public void testFairePartirSquatteur() {
+    public void testFairePartirSquatteurBye() {
         Joueur joueur = new JoueurS1("hgdfuh");
         Terrain terrain = new Terrain("TerrainTest", 200, Color.GREEN, new int[]{10, 50, 150, 450, 625, 750, 875, 925, 975, 1025}, 100);
         joueur.ajouterPropriete(terrain);
@@ -245,6 +245,42 @@ public class TerrainTest {
 
         assertFalse(terrain.estSquatte());
 
+    }
+
+    @Test
+    public void testFairePartirSquatteurAvecAssezArgent() {
+        Terrain terrain = new Terrain("NomTerrain", 100, Color.BLUE, new int[]{10, 20, 30, 40, 50, 60}, 50);
+        Joueur proprietaire = new JoueurS1("test"); 
+        proprietaire.ajouterArgent(300); // Montant suffisant pour faire partir le squatteur
+        terrain.setProprietaire(proprietaire);
+
+        terrain.squatter();
+
+        try {
+            terrain.fairePartirSquatteur();
+        } catch (PasAssezArgentException e) {
+            fail("Pas d'exception attendue : le propriétaire a suffisamment d'argent.");
+        }
+
+        // Vérification que le squatteur a bien été retiré et que le propriétaire a payé 200
+        assertFalse(terrain.estSquatte());
+        assertEquals(100, proprietaire.getPorteMonnaie());
+    }
+
+    @Test
+    public void testFairePartirSquatteurSansAssezArgent() {
+        Terrain terrain = new Terrain("NomTerrain", 100, Color.BLUE, new int[]{10, 20, 30, 40, 50, 60}, 50);
+        Joueur proprietaire = new JoueurS1("lola"); 
+        proprietaire.ajouterArgent(150); // Montant insuffisant pour faire partir le squatteur
+        terrain.setProprietaire(proprietaire);
+
+        terrain.squatter();
+
+        assertThrows(PasAssezArgentException.class, () -> terrain.fairePartirSquatteur());
+
+        // Vérification que le squatteur n'a pas été retiré et que le porte-monnaie n'a pas été modifié
+        assertTrue(terrain.estSquatte());
+        assertEquals(150, proprietaire.getPorteMonnaie());
     }
 
 
