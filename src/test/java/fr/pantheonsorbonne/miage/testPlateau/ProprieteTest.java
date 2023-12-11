@@ -53,11 +53,7 @@ public class ProprieteTest {
         assertEquals(joueur, propriete.getProprietaire());
     }
 
-    /*@Test
-    public void testGetLoyer() {
-        assertEquals(10, propriete.getLoyer()); 
-    }
-    */
+   
 
     @Test
     public void testHypothequer() throws CannotSellException {
@@ -65,7 +61,6 @@ public class ProprieteTest {
         propriete.hypothequer();
         assertTrue(propriete.estHypotheque());
         assertEquals(100, joueur.getPorteMonnaie());
-        //ajouter le porte monnaie du joueur 
     }
 
     @Test

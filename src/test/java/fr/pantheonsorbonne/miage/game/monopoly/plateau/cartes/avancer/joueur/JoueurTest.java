@@ -104,7 +104,6 @@ public class JoueurTest {
         
     }
 
-    //il y a un problème dans la méthode remove all
 
     @Test
     public void testRemoveAllProprietes() {
@@ -114,14 +113,12 @@ public class JoueurTest {
         joueur.ajouterPropriete(c1);
         joueur.ajouterPropriete(c2);
 
-        //List<Propriete> listeP = joueur.getProperties();
 
         joueur.removeAllProprietes();
 
         assertTrue(joueur.getProperties().isEmpty());
     }
 
-    //TODO : racheteProprieteHypo
 
     @Test
     public void testRacheterProprieteHypothequee () throws PasAssezArgentException, CannotSellException {

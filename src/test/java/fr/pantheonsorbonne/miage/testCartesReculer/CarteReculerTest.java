@@ -27,17 +27,7 @@ public class CarteReculerTest {
 
     @Test
     public void testAppliquerEffet() {
-        //Joueur joueurTest = new JoueurS1("Patrick");
         CarteReculer carteTest = new CarteReculerNombre("Reculez de quelques cases",3);
-            /*@Overrid
-            public int getNouvellePosition(Joueur joueur) {
-                // Supposez que la nouvelle position soit trois cases en arrière, même si la position actuelle est différente
-                return joueur.getPositionPlateau() ;
-            }
-            */
-        
-
-        // Position initiale différente de -3
 
         try {
             int taillePlateau = 40;

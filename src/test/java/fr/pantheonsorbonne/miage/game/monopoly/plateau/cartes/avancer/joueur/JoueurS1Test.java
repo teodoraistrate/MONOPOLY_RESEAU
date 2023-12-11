@@ -111,48 +111,7 @@ public class JoueurS1Test {
         assertTrue(listePH.isEmpty());
 
     }
-    /* 
-    @Test
-    public void testChoixNombreMaisonsAVendre() {
-        JoueurS1 joueur = new JoueurS1("patrick");
-        Terrain terrain1 = new Terrain("Rue de Vaugirard", 100, Color.CYAN, new int[] { 6, 12, 30, 90, 270, 400 }, 50) ;      
-        Terrain terrain2 = new Terrain("Rue de vavugi", 200, Color.CYAN, new int[] { 6, 12, 30, 90, 270, 400 }, 50) ;      
-        Terrain terrain3 = new Terrain("Rue de jsjs", 150, Color.CYAN, new int[] { 6, 12, 30, 90, 270, 400 }, 50) ;    
-        
-        joueur.ajouterPropriete(terrain1);
-        joueur.ajouterPropriete(terrain2);
-        joueur.ajouterPropriete(terrain3);
-        
 
-        //à continuer ou à supp après 
-
-        joueur.choixNombreMaisonsAVendre();
-    }
-
-    */
-
-/* 
-    @Test
-    public void testTransformerProprieteEnPrison () {
-        JoueurS1 joueur = new JoueurS1("fefe");
-        joueur.ajouterArgent(700);
-    
-        Terrain terrain = new Terrain("compagnie", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
-    
-        boolean estEnPrisonAvant = joueur.estEnPrison();
-        double argentAvant = joueur.getPorteMonnaie();
-    
-        boolean transformationReussie = joueur.choixTransformerProprieteEnPrison(terrain);
-    
-        boolean estEnPrisonApres = joueur.estEnPrison();
-        double argentApres = joueur.getPorteMonnaie();
-    
-        assertFalse(estEnPrisonAvant);     // ça verifie que le joueur n'était pas en prison avant l'appel de la méthode
-        //assertTrue(transformationReussie); // ça vrifie que la transformation de propriété en prison a réussi
-        //assertTrue(estEnPrisonApres);  jsp pourquoi ca marche pas ca me saoule
-
-    }
-*/
     //version1
 
     @Test
@@ -182,24 +141,17 @@ public class JoueurS1Test {
 
     }
 
-    //version 2
 
     @Test
     public void testRachatProprieteHypothequee() throws PasAssezArgentException, DejaAcheteException, CannotSellException {
-        // Given
         JoueurS1 joueur = new JoueurS1("patoch la totoche");
         Terrain terrain = new Terrain("Rue de la Paix", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
         
         joueur.ajouterPropriete(terrain);
         joueur.ajouterArgent(100);
         
-        // Hypothequer la propriété
         terrain.hypothequer();
-        
-        // When
         joueur.racheterProprieteHypothequee(terrain);
-        
-        // Then
         assertFalse(terrain.estHypotheque(), "La propriété ne devrait plus être hypothéquée");
         assertEquals(95, joueur.getPorteMonnaie(), 0.001, "Le porte-monnaie du joueur doit être mis à jour");
     }
@@ -207,19 +159,13 @@ public class JoueurS1Test {
 
     @Test
     public void testChoixProprietesARacheter_AucunePropriete() {
-        // Given
         JoueurS1 joueur = new JoueurS1("Joueur1");
-
-        // When
         List<Propriete> result = joueur.choixProprietesARacheter();
-
-        // Then
         assertTrue(result.isEmpty(), "Aucune propriété ne devrait être choisie pour l'achat");
     }
 
     @Test
     public void testChoixProprietesARacheter_ToutesProprietesNonHypothequees() {
-        // Given
         JoueurS1 joueur = new JoueurS1("Joueur1");
         Terrain terrain1 = new Terrain("Propriété1", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
         Terrain terrain2 = new Terrain("Propriété2", 150, Color.GREEN, new int[]{6, 12, 30, 90, 270, 400}, 60);
@@ -227,10 +173,8 @@ public class JoueurS1Test {
         joueur.ajouterPropriete(terrain1);
         joueur.ajouterPropriete(terrain2);
 
-        // When
         List<Propriete> result = joueur.choixProprietesARacheter();
 
-        // Then
         assertTrue(result.isEmpty(), "Aucune propriété ne devrait être choisie pour l'achat si aucune n'est hypothéquée");
     }
 

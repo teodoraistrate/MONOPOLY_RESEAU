@@ -104,7 +104,7 @@ public class TerrainTest {
         terrain.vendreMaison();
 
 
-        assertEquals(0, terrain.getNombreMaisons()); //jsp je pense c'est 1 mais ça fait une erreur 
+        assertEquals(0, terrain.getNombreMaisons()); 
         assertEquals(10000-(terrain.getPrixMaison())+ terrain.getPrixMaison()/2, joueur.getPorteMonnaie());
         
     }
@@ -123,7 +123,7 @@ public class TerrainTest {
             assertEquals(0, terrain.getNombreMaisons());
             assertEquals(0, proprietaire.getPorteMonnaie(), 0.0001);
         } catch (CannotBuildException | PasAssezArgentException e) {
-            e.printStackTrace(); // Ajoutez cette ligne pour imprimer la stack trace de l'exception
+            e.printStackTrace(); 
         }
     }
 
@@ -138,7 +138,6 @@ public class TerrainTest {
             terrain.acheterHotel();
             fail("PasAssezArgentException devrait être levée, mais aucune exception n'a été déclenchée.");
         } catch (PasAssezArgentException e) {
-            // La PasAssezArgentException est attendue ici, donc le test réussit
             assertEquals("Vous n'avez pas assez d'argent pour acheter une maison", e.getMessage());
         } catch (CannotBuildException e) {
             fail("Une autre exception inattendue a été levée : " + e.getMessage());
@@ -164,15 +163,15 @@ public class TerrainTest {
         assertEquals(0,listeT2.get(0).getNombreMaisons());
         assertEquals(0,listeT2.get(1).getNombreMaisons());
 
-        // Acheter toutes les maisons
+        // pour acheter toutes les maisons
         for (int i=0; i<listeT2.size()*4; i++) {
             terrain.acheterMaison();
         }
 
-        // Acheter un hôtel sur la première propriété du groupe de couleur
+        // on achete un hôtel sur la première propriété du groupe de couleur
         terrain.acheterHotel();
 
-        // Vérifier que l'hôtel a été acheté correctement
+        // verifie que l'hôtel a été acheté correctement
         assertEquals(0, terrain.getNombreMaisons(), "Le nombre de maisons devrait être 0 après l'achat de l'hôtel");
         
     }
@@ -195,7 +194,7 @@ public class TerrainTest {
         terrain.casserMaison();
 
 
-        assertEquals(0, terrain.getNombreMaisons()); //jsp je pense c'est 1 mais ça fait une erreur 
+        assertEquals(0, terrain.getNombreMaisons()); 
         assertEquals(10000-(terrain.getPrixMaison()), joueur.getPorteMonnaie());
         
     }
@@ -217,16 +216,16 @@ public class TerrainTest {
         assertEquals(0,listeT2.get(0).getNombreMaisons());
         assertEquals(0,listeT2.get(1).getNombreMaisons());
 
-        // Acheter toutes les maisons
+        // pour acheter toutes les maisons
         for (int i=0; i<listeT2.size()*4; i++) {
             terrain.acheterMaison();
         }
 
-        // Acheter un hôtel sur la première propriété du groupe de couleur
+        // on achete un hôtel sur la première propriété du groupe de couleur
         terrain.acheterHotel();
         terrain.vendreHotel();
 
-        // Vérifier que l'hôtel a été acheté correctement
+        // verifie que l'hôtel a été acheté correctement
         assertEquals(4, terrain.getNombreMaisons(), "Le nombre de maisons devrait être 0 après l'achat de l'hôtel");
         
 

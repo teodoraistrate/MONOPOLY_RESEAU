@@ -32,7 +32,6 @@ public class CarteTest {
         Carte carte = new Carte(description) {
             @Override
             public void appliquerEffet(Joueur joueur) throws PasAssezArgentException, NomPasValideException {
-                // Ne rien faire dans ce test, c'est juste une carte de test
             }
         };
 

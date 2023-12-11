@@ -31,7 +31,7 @@ public class CarteReculerNombreTest {
 
         Joueur joueur = new JoueurS1("paola");
         
-        // Déplacez manuellement le joueur à une position spécifique sur le plateau
+        // on deplace  le joueur à une position spécifique sur le plateau
         joueur.deplacerSurPlateau(20, true);
 
         int nouvellePosition = carte.getNouvellePosition(joueur);
@@ -46,11 +46,8 @@ public class CarteReculerNombreTest {
 
         Joueur joueur = new JoueurS1(null);
         joueur.getPositionPlateau();
-
-        // Exécution du test
         int nouvellePosition = carte.getNouvellePosition(joueur);
 
-        // Vérification du résultat (doit être 38 cases en arrière)
         assertEquals(33, nouvellePosition);
     }
 

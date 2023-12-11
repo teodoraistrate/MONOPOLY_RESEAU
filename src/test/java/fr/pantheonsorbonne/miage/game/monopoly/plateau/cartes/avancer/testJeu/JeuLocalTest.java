@@ -41,7 +41,6 @@ public class JeuLocalTest {
         jeu.getListeJoueurs().add(joueur1);
         joueur1.ajouterArgent(1000);
 
-        // Achat de la propriété
         try {
             joueur1.acheterPropriete(propriete);
         } catch (Exception e) {
@@ -49,7 +48,7 @@ public class JeuLocalTest {
         }
         assertEquals(joueur1, propriete.getProprietaire());
         assertTrue(joueur1.getProperties().contains(propriete));
-        assertEquals(940, joueur1.getPorteMonnaie(), 0.001); // Assurez-vous de mettre le montant correct après l'achat
+        assertEquals(940, joueur1.getPorteMonnaie(), 0.001); 
     }
 
 
@@ -96,22 +95,12 @@ public class JeuLocalTest {
     
     @Test
     public void testJeuLocalMain() {
-        // Rediriger la sortie standard vers un flux pour capturer les résultats de l'exécution
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
-        // Exécuter la méthode main
         JeuLocal.main(null);
-
-        // Récupérer la sortie
         String output = outContent.toString();
-
-        // Rétablir la sortie standard
         System.setOut(System.out);
-
-        // Ajoutez vos assertions ici en fonction des résultats attendus dans la sortie
         assertTrue(output.contains("Victoire de:"));
-        // Ajoutez d'autres assertions en fonction de la structure de votre sortie
     }
 
     @Test

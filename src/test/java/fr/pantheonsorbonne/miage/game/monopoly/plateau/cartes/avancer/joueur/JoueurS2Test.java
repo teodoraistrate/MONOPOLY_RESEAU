@@ -63,13 +63,10 @@ public class JoueurS2Test {
     
         assertTrue(terrain.estHypotheque());
 
-        // Ajout d'argent au joueur
         joueur.ajouterArgent(1000);
     
-        // Rachat de la propriété hypothéquée
         joueur.racheterProprieteHypothequee(terrain);
     
-        // Assertions
         assertFalse(terrain.estHypotheque(), "La propriété devrait ne plus être hypothéquée");
         assertEquals(1000 + terrain.getPrixRevente() - 1.1*terrain.getPrixRevente(), joueur.getPorteMonnaie(), "Le joueur devrait avoir dépensé le montant correct pour le rachat");
     }
@@ -130,7 +127,6 @@ public class JoueurS2Test {
 
     @Test
     public void testChoixProprietesARacheter_ToutesProprietesNonHypothequees() {
-        // Given
         JoueurS2 joueur = new JoueurS2("Joueur1");
         Terrain terrain1 = new Terrain("Propriété1", 100, Color.PINK, new int[]{6, 12, 30, 90, 270, 400}, 50);
         Terrain terrain2 = new Terrain("Propriété2", 150, Color.GREEN, new int[]{6, 12, 30, 90, 270, 400}, 60);
@@ -138,10 +134,8 @@ public class JoueurS2Test {
         joueur.ajouterPropriete(terrain1);
         joueur.ajouterPropriete(terrain2);
 
-        // When
         List<Propriete> result = joueur.choixProprietesARacheter();
 
-        // Then
         assertTrue(result.isEmpty(), "Aucune propriété ne devrait être choisie pour l'achat si aucune n'est hypothéquée");
     }
 

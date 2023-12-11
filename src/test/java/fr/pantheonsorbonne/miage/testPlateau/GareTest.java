@@ -35,7 +35,6 @@ public class GareTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //gare.compterNombreGaresProprietaire();
 
         int loyer = gare.getLoyer();
         assertEquals(0, loyer);
@@ -44,7 +43,6 @@ public class GareTest {
     @Test
     public void testGetLoyerWithMultipleGares() {
         Gare gare = new Gare("Gare de Test", 200);
-       // gare.compterNombreGaresProprietaire();
         int loyer = gare.getLoyer();
         assertEquals(0, loyer);
     }
@@ -67,12 +65,5 @@ public class GareTest {
 
     }
 
-     /*public void compterNombreGaresProprietaire() {
-        Joueur proprietaire = this.getProprietaire();
-        for (Propriete propriete : proprietaire.getProperties()) {
-            if (propriete instanceof Gare) {
-                nombreGaresJoueur++;
-            }
-        }
-    }*/
+    
 }

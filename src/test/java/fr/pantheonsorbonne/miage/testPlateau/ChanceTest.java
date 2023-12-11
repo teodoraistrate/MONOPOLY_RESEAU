@@ -34,7 +34,6 @@ public class ChanceTest {
     public void testAppliquerEffetCarteAvancerCaseNormale() {
         Joueur joueur = new JoueurS1("coco");
         CarteAvancerCaseNormale carte = new CarteAvancerCaseNormale("Test", "Case Test");
-        //assertDoesNotThrow(() -> carte.appliquerEffet(joueur));
     }
 
 }

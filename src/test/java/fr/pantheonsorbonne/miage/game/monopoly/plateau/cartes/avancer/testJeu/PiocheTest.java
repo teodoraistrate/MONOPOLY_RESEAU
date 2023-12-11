@@ -20,19 +20,15 @@ public class PiocheTest {
 
     @BeforeEach
     public void setUp() {
-        // Initialisation de la pioche avant chaque test
         pioche = new Pioche();
     }
 
     @Test
     public void testAjouterCarte() {
-        // Création d'une carte de test
         Carte carte = new CartePayerFixe("Description de la carte de test", 25);
 
-        // Ajout de la carte à la pioche
         pioche.ajouterCarte(carte);
 
-        // Vérification que la carte a été ajoutée avec succès
         assertTrue(pioche.getPioche().contains(carte));
     }
 
@@ -51,20 +47,16 @@ public class PiocheTest {
 
     @Test
     public void testMelangerPioche() {
-        // Création de cartes de test
         Carte carte1 = new CarteRecevoirFixe("Description de la carte 1", 75);
         Carte carte2 = new CarteRecevoirFixe("Description de la carte 2", 25);
 
-        // Ajout des cartes à la pioche
         pioche.ajouterCarte(carte1);
         pioche.ajouterCarte(carte2);
 
         List<Carte> piocheAvantMelange = new ArrayList<>(pioche.getPioche());
 
-        // Mélange de la pioche
         pioche.melangerPioche();
 
-        // Vérification que la taille de la pioche n'a pas changé après le mélange
         assertEquals(piocheAvantMelange.size(), pioche.getPioche().size());
 
         
