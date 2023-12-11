@@ -90,7 +90,7 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 public class MonopolyHostLocal extends JeuMonopoly {
 
     private static MonopolyHostLocal instance;
-    List<Joueur> listeJoueurs = new ArrayList<>();
+    List<Joueur> listeJoueurs;
 
     public MonopolyHostLocal() {
         JoueurS1 joueur1 = new JoueurS1("Joueur 1");
@@ -116,7 +116,7 @@ public class MonopolyHostLocal extends JeuMonopoly {
 
     public static void main(String[] args) {
         MonopolyHostLocal jeu = new MonopolyHostLocal();
-        jeu.jouerMonopoly();
+        jeu.jouerMonopoly(jeu.listeJoueurs);
     }
 
     @Override

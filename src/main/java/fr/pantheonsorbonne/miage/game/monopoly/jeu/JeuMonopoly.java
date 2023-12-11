@@ -55,7 +55,7 @@ public abstract class JeuMonopoly {
     public abstract List<Joueur> getListeJoueurs();
 
     // ça va retourner le nom du gagnant
-    public void jouerMonopoly() {
+    public void jouerMonopoly(List<Joueur> listeJoueurs) {
 
         //MonopolyHostLocal hostLocal = MonopolyHostLocal.getInstance();
         //MonopolyHost hostReseau = MonopolyHost.getInstance();
@@ -66,7 +66,7 @@ public abstract class JeuMonopoly {
         // jeu = hostLocal pour jouer en local
         //JeuMonopoly jeu = hostLocal;
 
-        listeJoueurs = this.getListeJoueurs();
+        //listeJoueurs = this.getListeJoueurs();
 
         for (Joueur j : listeJoueurs) {
             j.ajouterArgent(1500);

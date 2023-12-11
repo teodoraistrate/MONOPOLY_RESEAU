@@ -65,7 +65,7 @@ public final class MonopolyHost extends JeuMonopoly {
         HostFacade hostFacade = Facade.getFacade();
         hostFacade.waitReady();
         // Définir le nom de l'hote
-        hostFacade.createNewPlayer("Nicolas Herbaut le meilleur prof de POO - host");
+        hostFacade.createNewPlayer("Host");
 
         // Création du jeu
         Game game = hostFacade.createNewGame("Monopoly");
@@ -74,23 +74,15 @@ public final class MonopolyHost extends JeuMonopoly {
         // Définition de la liste des Joueurs
         Set<String> setJoueurs = game.getPlayers();
         //initialiserListeJoueurs(setJoueurs);
-        int joueurCount = 0;
+        
         for (String nomJoueur : setJoueurs) {
-            switch (joueurCount) {
-                case 0:
-                    listeJoueurs.add(new JoueurReseau(nomJoueur, "S1"));
-                    break;
-                case 1:
-                    listeJoueurs.add(new JoueurReseau(nomJoueur, "S2"));
-                    break;
-            }
-            joueurCount++;
+            listeJoueurs.add(new JoueurS1(nomJoueur));
         }
 
         MonopolyHost jeu = new MonopolyHost(hostFacade, game);
         instance = jeu;
 
-        jeu.jouerMonopoly();
+        jeu.jouerMonopoly(listeJoueurs);
 
     }
 
@@ -102,7 +94,7 @@ public final class MonopolyHost extends JeuMonopoly {
 
         GameCommand reponse = hostFacade.receiveGameCommand(game);
 
-        return reponse.name().equals("yesOut");
+        return reponse.name().equals("YesOut");
     }
 
     @Override
@@ -112,7 +104,7 @@ public final class MonopolyHost extends JeuMonopoly {
 
         GameCommand reponse = hostFacade.receiveGameCommand(game);
 
-        return reponse.name().equals("yesBuy");
+        return reponse.name().equals("YesBuy");
     }
 
     @Override
@@ -122,7 +114,7 @@ public final class MonopolyHost extends JeuMonopoly {
 
         GameCommand reponse = hostFacade.receiveGameCommand(game);
 
-        return reponse.name().equals("yesGetRid");
+        return reponse.name().equals("YesGetRid");
     }
 
     @Override

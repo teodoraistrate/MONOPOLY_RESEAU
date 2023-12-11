@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MonopolyHost",
+            "request": "launch",
+            "mainClass": "fr.pantheonsorbonne.miage.game.monopoly.jeu.MonopolyHost",
+            "projectName": "tictactoe"
+        },
+        {
+            "type": "java",
+            "name": "JoueurReseau",
+            "request": "launch",
+            "mainClass": "fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurReseau",
+            "projectName": "tictactoe"
+        },
+        {
+            "type": "java",
             "name": "MonopolyHostLocal",
             "request": "launch",
             "mainClass": "fr.pantheonsorbonne.miage.game.monopoly.jeu.MonopolyHostLocal",
