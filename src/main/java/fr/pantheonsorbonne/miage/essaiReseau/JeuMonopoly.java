@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.miage.game.monopoly.jeu;
+package fr.pantheonsorbonne.miage.essaiReseau;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import fr.pantheonsorbonne.miage.game.monopoly.jeu.DeDouble;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.PasAssezArgentException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;

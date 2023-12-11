@@ -74,7 +74,7 @@ public class MonopolyHostLocal extends JeuMonopoly {
 }
 */
 
-package fr.pantheonsorbonne.miage.game.monopoly.jeu;
+package fr.pantheonsorbonne.miage.essaiReseau;
 
 import java.util.ArrayList;
 import java.util.List;

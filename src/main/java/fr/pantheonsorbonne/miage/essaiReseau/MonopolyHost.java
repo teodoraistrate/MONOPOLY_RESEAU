@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.miage.game.monopoly.jeu;
+package fr.pantheonsorbonne.miage.essaiReseau;
 
 import fr.pantheonsorbonne.miage.Facade;
 import fr.pantheonsorbonne.miage.HostFacade;
@@ -10,7 +10,6 @@ import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Terrain;
 import fr.pantheonsorbonne.miage.model.Game;
 import fr.pantheonsorbonne.miage.model.GameCommand;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
-import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurReseau;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
 import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
 
@@ -26,7 +25,7 @@ public final class MonopolyHost extends JeuMonopoly {
 
     private static MonopolyHost instance;
     Prison prison = Prison.getInstance("Prison");
-    private static List<Joueur> listeJoueurs = new ArrayList<>();
+    private static List<Joueur> listeJoueursR = new ArrayList<>();
 
     private final HostFacade hostFacade;
     private final Game game;
@@ -76,13 +75,13 @@ public final class MonopolyHost extends JeuMonopoly {
         //initialiserListeJoueurs(setJoueurs);
         
         for (String nomJoueur : setJoueurs) {
-            listeJoueurs.add(new JoueurS1(nomJoueur));
+            listeJoueursR.add(new JoueurS1(nomJoueur));
         }
 
         MonopolyHost jeu = new MonopolyHost(hostFacade, game);
         instance = jeu;
 
-        jeu.jouerMonopoly(listeJoueurs);
+        jeu.jouerMonopoly(listeJoueursR);
 
     }
 

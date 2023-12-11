@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.miage.game.monopoly.joueur;
+package fr.pantheonsorbonne.miage.essaiReseau;
 
 import fr.pantheonsorbonne.miage.model.Game;
 import fr.pantheonsorbonne.miage.model.GameCommand;
@@ -9,9 +9,11 @@ import java.util.Random;
 
 import fr.pantheonsorbonne.miage.Facade;
 import fr.pantheonsorbonne.miage.PlayerFacade;
-import fr.pantheonsorbonne.miage.game.monopoly.jeu.MonopolyHost;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.Joueur;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS1;
+import fr.pantheonsorbonne.miage.game.monopoly.joueur.JoueurS2;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Case;
-import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideExceüption;
+import fr.pantheonsorbonne.miage.game.monopoly.plateau.NomPasValideException;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.Plateau;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.cartes.CartePayerOuChance;
 import fr.pantheonsorbonne.miage.game.monopoly.plateau.proprietes.Propriete;
@@ -44,10 +46,8 @@ public class JoueurReseau extends Joueur {
 
         final String nomJoueur = "Joueur" + new Random().nextInt(); 
         playerFacade.createNewPlayer(nomJoueur);
-
-        game = playerFacade.autoJoinGame("Monopoly");
-
         JoueurReseau joueurReseau = new JoueurReseau(nomJoueur, "S1");
+        game = playerFacade.autoJoinGame("Monopoly");
 
 
         // boucle infinie pour que le joueur reçoive les commandes tout au long de la partie
